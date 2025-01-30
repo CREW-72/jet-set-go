@@ -44,7 +44,7 @@ class reducedmobility extends StatelessWidget {
                     ),
                     SizedBox(
                         width:
-                        6), // Add some spacing between the text and the dropdown arrow
+                        6),
                     IconButton(
                       icon: Icon(Icons.arrow_drop_down, color: Colors.white),
                       onPressed: () {
@@ -77,7 +77,7 @@ class reducedmobility extends StatelessWidget {
                     ),
                     SizedBox(
                         width:
-                        6), // Add some spacing between the text and the dropdown arrow
+                        6),
                     IconButton(
                       icon: Icon(Icons.arrow_drop_down, color: Colors.white),
                       onPressed: () {
@@ -111,7 +111,7 @@ class reducedmobility extends StatelessWidget {
                     ),
                     SizedBox(
                         width:
-                        6), // Add some spacing between the text and the dropdown arrow
+                        6),
                     IconButton(
                       icon: Icon(Icons.arrow_drop_down, color: Colors.white),
                       onPressed: () {
