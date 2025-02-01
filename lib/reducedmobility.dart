@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/medicalnformation.dart';
-
+import 'package:jet_set_go/medical_clearance_info.dart';
 class ReducedMobility extends StatelessWidget {
   const ReducedMobility({super.key});
   @override
@@ -23,7 +22,11 @@ class ReducedMobility extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Container(
+            GestureDetector(
+              onTap: (){
+                _showWhatShouldKnow(context);
+              },
+            child:Container(
               height: 100,
               width: 350,
               decoration: BoxDecoration(
@@ -43,20 +46,17 @@ class ReducedMobility extends StatelessWidget {
                       "What I Should Know",
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
-                    SizedBox(
-                        width:
-                        6),
-                    IconButton(
-                      icon: Icon(Icons.arrow_drop_down, color: Colors.white),
-                      onPressed: () {
-                        _showWhatShouldKnow(context);
-                      },
-                    ),
                   ],
                 ),
               ),
             ),
-            Container(
+            ),
+            GestureDetector(
+              onTap: (){
+                _showinfoRequstForm(context);
+              },
+
+            child: Container(
               height: 100,
               width: 350,
               decoration: BoxDecoration(
@@ -76,21 +76,17 @@ class ReducedMobility extends StatelessWidget {
                       " Access Disability Assistance \n Request Form",
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
-                    SizedBox(
-                        width:
-                        6),
-                    IconButton(
-                      icon: Icon(Icons.arrow_drop_down, color: Colors.white),
-                      onPressed: () {
-                        _showinfoRequstForm(
-                            context); // Call function to show dialog
-                      },
-                    ),
+
                   ],
                 ),
               ),
             ),
-            Container(
+            ),
+            GestureDetector(
+              onTap: (){
+                _showinfoCalling(context);
+              },
+            child:Container(
               height: 100,
               width: 350,
               decoration: BoxDecoration(
@@ -110,21 +106,17 @@ class ReducedMobility extends StatelessWidget {
                       "Call BIA Passenger Service Unit",
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
-                    SizedBox(
-                        width:
-                        6),
-                    IconButton(
-                      icon: Icon(Icons.arrow_drop_down, color: Colors.white),
-                      onPressed: () {
-                        _showinfoCalling(
-                            context); // Call function to show dialog
-                      },
-                    ),
                   ],
                 ),
               ),
             ),
-            Container(
+            ),
+            GestureDetector(
+              onTap: (){
+                _showinfoVisitCounter(context);
+              },
+
+            child: Container(
               height: 100,
               width: 350,
               decoration: BoxDecoration(
@@ -144,21 +136,13 @@ class ReducedMobility extends StatelessWidget {
                       "Visit Passenger Service Counter",
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
-                    SizedBox(
-                        width:
-                        6), // Add some spacing between the text and the dropdown arrow
-                    IconButton(
-                      icon: Icon(Icons.arrow_drop_down, color: Colors.white),
-                      onPressed: () {
-                        _showinfoVisitCounter(
-                            context); // Call function to show dialog
-                      },
-                    ),
                   ],
                 ),
               ),
             ),
+            ),
           ],
+
         ),
       ),
     );
