@@ -6,7 +6,8 @@ class SpecialAssistance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(
+    return Scaffold(
+      appBar: AppBar(
       title: Text(
         "Special Assistance",
         style: TextStyle(
@@ -57,7 +58,11 @@ class SpecialAssistance extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
+            GestureDetector(
+              onTap: (){
+                _inProgressMessage(context);
+              },
+            child:Container(
               height: 100,
               width: 350,
               decoration: BoxDecoration(
@@ -83,7 +88,12 @@ class SpecialAssistance extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
+            ),
+            GestureDetector(
+              onTap: (){
+                _inProgressMessage(context);
+              },
+            child: Container(
               height: 100,
               width: 350,
               decoration: BoxDecoration(
@@ -109,7 +119,13 @@ class SpecialAssistance extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
+            ),
+            GestureDetector(
+              onTap: (){
+                _inProgressMessage(context);
+              },
+
+           child:  Container(
               height: 100,
               width: 350,
               decoration: BoxDecoration(
@@ -135,10 +151,48 @@ class SpecialAssistance extends StatelessWidget {
                 ),
               ),
             ),
+            ),
           ],
         ),
       ),
 
     );
   }
+}
+void  _inProgressMessage(BuildContext context){
+  showDialog(context: context, builder:  (BuildContext context){
+    return AlertDialog(
+      title: Row(
+        children: [Icon(
+          Icons.construction_outlined,
+          color: Colors.amber,
+        ),
+          SizedBox(width: 8),
+          Text(
+            "Warning",
+            style: TextStyle(
+              color: Colors.amber,
+              fontFamily: "Arial",
+            ),
+          ),
+        ],
+      ),
+      content: Text("We are busy making this better for you. \nWe will have it ready soon !",style: TextStyle(fontFamily: "Arial", fontSize: 18),
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: Text(
+            'Close',
+            style: TextStyle(
+                color: Colors.blue, fontFamily: "Arial", fontSize: 16),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+
+  },
+  );
 }
