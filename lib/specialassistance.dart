@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/reducedmobility.dart';
 
 class SpecialAssistance extends StatelessWidget {
   const SpecialAssistance({super.key});
@@ -22,28 +23,36 @@ class SpecialAssistance extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Container(
-              height: 100,
-              width: 350,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Center(
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>ReducedMobility()),
+                );
+              },
+              child: Container(
+                height: 100,
+                width: 350,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(18),
+                ),
                 child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.wheelchair_pickup,
-                        color: Colors.white,
-                      ),
-                      SizedBox(width: 6),
-                      Text(
-                        "Reduced Mobility Passengers",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
-                    ],
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.wheelchair_pickup,
+                          color: Colors.white,
+                        ),
+                        SizedBox(width: 6),
+                        Text(
+                          "Reduced Mobility Passengers",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -118,7 +127,7 @@ class SpecialAssistance extends StatelessWidget {
                       ),
                       SizedBox(width: 6),
                       Text(
-                        "Unaccompanied Minors and Young \n  Passengers",
+                        "Unaccompanied Minors and Young\n  Passengers",
                         style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ],

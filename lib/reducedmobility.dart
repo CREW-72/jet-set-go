@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/medicalnformation.dart';
 
-class reducedmobility extends StatelessWidget {
-  const reducedmobility({super.key});
+class ReducedMobility extends StatelessWidget {
+  const ReducedMobility({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -183,7 +184,10 @@ void _showWhatShouldKnow(BuildContext context) {
                   color: Colors.blue, fontFamily: "Arial", fontSize: 16),
             ),
             onPressed: () {
-              //Navigator.of(context).push();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MedicalClearanceInfo()),
+              );
             },
           ),
           TextButton(
