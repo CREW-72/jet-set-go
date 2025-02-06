@@ -1,7 +1,8 @@
 // lib/packing_tips.dart
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/travel_choice.dart';
 
-class PackingTips extends StatelessWidget {
+class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +41,12 @@ class PackingTips extends StatelessWidget {
               SizedBox(height: 20), // Add some space between the icon and the button
               ElevatedButton.icon(
                 onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => TravelChoice(),
+                    ),
+                  );
                   // Add your onPressed code here!
                 },
                 icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
