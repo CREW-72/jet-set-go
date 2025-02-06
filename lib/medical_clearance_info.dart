@@ -87,7 +87,6 @@ class MedicalClearanceInfo extends StatelessWidget {
         style: TextStyle(
           fontSize: 16,
         ),
-        textAlign: TextAlign.justify,
       ),
     );
   }

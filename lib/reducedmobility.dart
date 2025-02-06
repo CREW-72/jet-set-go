@@ -157,7 +157,7 @@ void _showWhatShouldKnow(BuildContext context) {
         title: Text('What I should know ? ',
             style: TextStyle(color: Colors.blue, fontFamily: "Arial")),
         content: Text(
-          ' 1. Reduced Mobility Passengers require \n     medical clearance from the \n     Group Medical Officer (CMBIMUL).\n\n 2. Wheel Chair Assistance is provided at the \n     BIA for senior citizens of age 75-85 years \n     upon request.',
+          '1. Reduced Mobility Passengers require medical clearance from the Group Medical Officer (CMBIMUL).\n\n2. Wheel Chair Assistance is provided at the BIA for senior citizens of age 75-85 years upon request.',
           style: TextStyle(fontFamily: "Arial", fontSize: 18),
         ),
         actions: <Widget>[
