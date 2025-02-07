@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/medical_clearance_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 class ReducedMobility extends StatelessWidget {
   const ReducedMobility({super.key});
   @override
@@ -198,7 +199,7 @@ void _showinfoRequstForm(BuildContext context) {
         title: Text('Disability Assistance Request Form',
             style: TextStyle(color: Colors.blue, fontFamily: "Arial")),
         content: Text(
-          'This form is provided by Sri Lankan Airlines to request assistance. Please note, it’s not available for flights departing in the next 72 hours.',
+          'This form is provided by Sri Lankan Airlines to request assistance.\nPlease note that ,this is not available for flights departing in the next 72 hours.',
           style: TextStyle(fontFamily: "Arial", fontSize: 18),
         ),
         actions: <Widget>[
@@ -209,7 +210,7 @@ void _showinfoRequstForm(BuildContext context) {
                   color: Colors.blue, fontFamily: "Arial", fontSize: 16),
             ),
             onPressed: () {
-              //Navigator.of(context).push();
+              _launchFormURL();
             },
           ),
           TextButton(
@@ -302,6 +303,15 @@ void _showinfoVisitCounter(BuildContext context) {
       );
     },
   );
+}
+void _launchFormURL() async{
+  const formUrl = 'https://www.srilankan.com/en_uk/flying-with-us/disability-assistance-request';
+  final uriForm =Uri.parse(formUrl);
+  if(await canLaunchUrl(uriForm)) {
+    await launchUrl(uriForm);
+  }else{
+    throw 'Could not launch url' ;
+  }
 }
 
 
