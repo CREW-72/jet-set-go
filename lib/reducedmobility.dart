@@ -54,7 +54,7 @@ class ReducedMobility extends StatelessWidget {
             ),
             GestureDetector(
               onTap: (){
-                _showinfoRequstForm(context);
+                _showinfoRequestForm(context);
               },
 
             child: Container(
@@ -191,7 +191,7 @@ void _showWhatShouldKnow(BuildContext context) {
   );
 }
 
-void _showinfoRequstForm(BuildContext context) {
+void _showinfoRequestForm(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
