@@ -1,5 +1,6 @@
 // lib/travel_details_screen.dart
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/security_based_tips.dart';
 import 'packing_selection_screen.dart';
 
 class TravelDetails extends StatelessWidget {
@@ -44,7 +45,12 @@ class TravelDetails extends StatelessWidget {
             SizedBox(height: 10),
             ElevatedButton(
               onPressed: () {
-                // Do nothing for No
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SecurityBasedTips(),
+                  ),
+                );
               },
               child: Text("No"),
             ),

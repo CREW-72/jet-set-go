@@ -1,5 +1,7 @@
 // lib/tips_display_screen.dart
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/security_based_tips.dart';
+
 
 class TipsDisplayScreen extends StatelessWidget {
   final List<String> selectedCategories;
@@ -29,7 +31,6 @@ class TipsDisplayScreen extends StatelessWidget {
       {"title": "Spill-Proof Strategy", "icon": "🧳", "desc": "Pack an extra outfit and ziplock bags for spills or motion sickness."},
       {"title": "Kid-Friendly Packing", "icon": "📦", "desc": "Use packing cubes to help them organize clothes easily."},
       {"title": "Encourage Independence", "icon": "🌟", "desc": "Let kids help pack and plan to make them feel involved and excited!"}
-
     ],
     "Teenagers (11+ years)": [
       {"title": "Pack Your Own Carry-On", "icon": "🎒", "desc": "Teens should be in charge of their backpack with essentials like a charger, headphones, and snacks."},
@@ -57,22 +58,40 @@ class TipsDisplayScreen extends StatelessWidget {
             tabs: selectedCategories.map((category) => Tab(text: category)).toList(),
           ),
         ),
-        body: TabBarView(
-          children: selectedCategories.map((category) {
-            return ListView(
-              padding: EdgeInsets.all(10),
-              children: tips[category]!.map((tip) {
-                return Card(
-                  margin: EdgeInsets.symmetric(vertical: 8),
-                  child: ListTile(
-                    leading: Text(tip["icon"]!, style: TextStyle(fontSize: 24)),
-                    title: Text(tip["title"]!, style: TextStyle(fontWeight: FontWeight.bold)),
-                    subtitle: Text(tip["desc"]!),
+        body: Column(
+          children: [
+            Expanded(
+              child: TabBarView(
+                children: selectedCategories.map((category) {
+                  return ListView(
+                    padding: EdgeInsets.all(10),
+                    children: tips[category]!.map((tip) {
+                      return Card(
+                        margin: EdgeInsets.symmetric(vertical: 8),
+                        child: ListTile(
+                          leading: Text(tip["icon"]!, style: TextStyle(fontSize: 24)),
+                          title: Text(tip["title"]!, style: TextStyle(fontWeight: FontWeight.bold)),
+                          subtitle: Text(tip["desc"]!),
+                        ),
+                      );
+                    }).toList(),
+                  );
+                }).toList(),
+              ),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SecurityBasedTips(),
                   ),
                 );
-              }).toList(),
-            );
-          }).toList(),
+              },
+              icon: Icon(Icons.arrow_forward),
+              label: Text("Next"),
+            ),
+          ],
         ),
       ),
     );

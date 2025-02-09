@@ -1,5 +1,6 @@
 // lib/travel_choice_screen.dart
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/security_based_tips.dart';
 import 'package:jet_set_go/travel_details.dart';
 
 
@@ -19,7 +20,12 @@ class TravelChoice extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Do nothing for Solo
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SecurityBasedTips(),
+                  ),
+                );
               },
               child: Text("Solo"),
             ),

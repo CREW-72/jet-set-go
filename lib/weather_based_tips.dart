@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/general_tips.dart';
 
-class WeatherBasedTips extends StatelessWidget{
+class WeatherBasedTips extends StatelessWidget {
   final List<Map<String, String>> tips = [
     {"title": "Check Destination Weather", "icon": "🌍", "desc": "Pack accordingly—warm layers for cold climates, light clothing for tropical destinations."},
     {"title": "Rain or Snow Preparedness", "icon": "☔", "desc": "Carry a compact umbrella or waterproof jacket to stay dry."},
@@ -10,22 +11,39 @@ class WeatherBasedTips extends StatelessWidget{
   ];
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Weather Tips"),
-      ),
-      body: ListView(
-        padding: EdgeInsets.all(10),
-        children: tips.map((tip){
-          return Card(
-            margin: EdgeInsets.symmetric(vertical: 8),
-            child: ListTile(
-              leading: Text(tip["icon"]!, style: TextStyle(fontSize: 24)),
-              title: Text(tip["title"]!, style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Text(tip["desc"]!),
+      appBar: AppBar(title: Text("Weather Tips")),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.all(10),
+              children: tips.map((tip) {
+                return Card(
+                  margin: EdgeInsets.symmetric(vertical: 8),
+                  child: ListTile(
+                    leading: Text(tip["icon"]!, style: TextStyle(fontSize: 24)),
+                    title: Text(tip["title"]!, style: TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text(tip["desc"]!),
+                  ),
+                );
+              }).toList(),
             ),
-          );
-        }).toList(),
+          ),
+          ElevatedButton.icon(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => GeneralTips(),
+                ),
+              );
+            },
+            icon: Icon(Icons.arrow_forward),
+            label: Text("Next"),
+          ),
+        ],
       ),
     );
   }
