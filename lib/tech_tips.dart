@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/efficient_packing_tips.dart';
 
 class TechTips extends StatelessWidget{
   final List<Map<String, String>> tips = [
@@ -13,20 +14,37 @@ class TechTips extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      appBar: AppBar(title: Text("Tech Tips"),
-      ),
-      body: ListView(
-        padding: EdgeInsets.all(10),
-        children: tips.map((tip){
-          return Card(
-            margin: EdgeInsets.symmetric(vertical: 8),
-            child: ListTile(
-              leading: Text(tip["icon"]!, style: TextStyle(fontSize: 24)),
-              title: Text(tip["title"]!, style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Text(tip["desc"]!),
+      appBar: AppBar(title: Text("Tech Tips"),),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.all(10),
+              children: tips.map((tip){
+                return Card(
+                  margin: EdgeInsets.symmetric(vertical: 8),
+                  child: ListTile(
+                    leading: Text(tip["icon"]!, style: TextStyle(fontSize: 24)),
+                    title: Text(tip["title"]!, style: TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text(tip["desc"]!),
+                  ),
+                );
+              }).toList(),
             ),
-          );
-        }).toList(),
+          ),
+          ElevatedButton.icon(
+            onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EfficientPackingTips(),
+                ),
+              );
+            },
+            icon: Icon(Icons.arrow_back),
+            label: Text("Back"),
+          ),
+        ],
       ),
     );
   }

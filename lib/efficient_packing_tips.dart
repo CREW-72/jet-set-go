@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/landing_page.dart';
 
 class EfficientPackingTips extends StatelessWidget{
   final List<Map<String, String>> tips = [
@@ -15,18 +16,36 @@ class EfficientPackingTips extends StatelessWidget{
     return Scaffold(
       appBar: AppBar(title: Text("Efficient Packing Tips"),
       ),
-      body: ListView(
-        padding: EdgeInsets.all(10),
-        children: tips.map((tip){
-          return Card(
-            margin: EdgeInsets.symmetric(vertical: 8),
-            child: ListTile(
-              leading: Text(tip["icon"]!, style: TextStyle(fontSize: 24)),
-              title: Text(tip["title"]!, style: TextStyle(fontWeight: FontWeight.bold)),
-              subtitle: Text(tip["desc"]!),
+      body: Column(
+        children: [
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.all(10),
+              children: tips.map((tip){
+                return Card(
+                  margin: EdgeInsets.symmetric(vertical: 8),
+                  child: ListTile(
+                    leading: Text(tip["icon"]!, style: TextStyle(fontSize: 24)),
+                    title: Text(tip["title"]!, style: TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text(tip["desc"]!),
+                  ),
+                );
+              }).toList(),
             ),
-          );
-        }).toList(),
+          ),
+          ElevatedButton.icon(
+            onPressed: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LandingPage()
+                ),
+              );
+            },
+            icon: Icon(Icons.arrow_back),
+            label: Text("Back"),
+          ),
+        ],
       ),
     );
   }

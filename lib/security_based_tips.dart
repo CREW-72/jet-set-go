@@ -1,5 +1,5 @@
-// lib/multi_tips_screen.dart
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/weather_based_tips.dart';
 
 class SecurityBasedTips extends StatelessWidget {
   final Map<String, List<Map<String, String>>> tips = {
@@ -48,28 +48,46 @@ class SecurityBasedTips extends StatelessWidget {
       length: tips.keys.length,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Multi Tips"),
+          title: Text("Security Tips"),
           bottom: TabBar(
             isScrollable: true,
             tabs: tips.keys.map((category) => Tab(text: category)).toList(),
           ),
         ),
-        body: TabBarView(
-          children: tips.keys.map((category) {
-            return ListView(
-              padding: EdgeInsets.all(10),
-              children: tips[category]!.map((tip) {
-                return Card(
-                  margin: EdgeInsets.symmetric(vertical: 8),
-                  child: ListTile(
-                    leading: Text(tip["icon"]!, style: TextStyle(fontSize: 24)),
-                    title: Text(tip["title"]!, style: TextStyle(fontWeight: FontWeight.bold)),
-                    subtitle: Text(tip["desc"]!),
+        body: Column(
+          children: [
+            Expanded(
+              child: TabBarView(
+                children: tips.keys.map((category) {
+                  return ListView(
+                    padding: EdgeInsets.all(10),
+                    children: tips[category]!.map((tip) {
+                      return Card(
+                        margin: EdgeInsets.symmetric(vertical: 8),
+                        child: ListTile(
+                          leading: Text(tip["icon"]!, style: TextStyle(fontSize: 24)),
+                          title: Text(tip["title"]!, style: TextStyle(fontWeight: FontWeight.bold)),
+                          subtitle: Text(tip["desc"]!),
+                        ),
+                      );
+                    }).toList(),
+                  );
+                }).toList(),
+              ),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WeatherBasedTips(),
                   ),
                 );
-              }).toList(),
-            );
-          }).toList(),
+              },
+              icon: Icon(Icons.arrow_forward),
+              label: Text("Next"),
+            ),
+          ],
         ),
       ),
     );
