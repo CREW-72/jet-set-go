@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/calling_option.dart';
-import 'package:jet_set_go/reducedMobility_info.dart';
+import 'package:jet_set_go/reduced_mobility_info.dart';
 import 'package:jet_set_go/visit_counter.dart';
 import 'disability_form.dart';
 class ReducedMobility extends StatelessWidget {
@@ -37,7 +37,7 @@ class ReducedMobility extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => reducedMobility_info()),
+                  MaterialPageRoute(builder: (context) =>  ReducedMobilityInfo()),
                 );
               },
             ),
@@ -48,7 +48,7 @@ class ReducedMobility extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => disability_form()),
+                  MaterialPageRoute(builder: (context) => DisabilityForm()),
                 );
               },
             ),
@@ -57,7 +57,7 @@ class ReducedMobility extends StatelessWidget {
               icon: Icons.phone,
               text: "Call BIA Passenger Service Unit",
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder:(context) => calling_option()),
+                Navigator.push(context, MaterialPageRoute(builder:(context) => CallingOption()),
                 );// Call the function from calling_option.dart
               },
             ),
@@ -66,7 +66,7 @@ class ReducedMobility extends StatelessWidget {
               icon: Icons.info,
               text: "Visit Passenger Service Counter",
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder:(context) => visit_counter()),
+                Navigator.push(context, MaterialPageRoute(builder:(context) => VisitCounter()),
                 );// Call the function from visit_counter.dart
               },
             ),

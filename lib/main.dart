@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const special_assistance_landing_page(),
+      home: const SpecialAssistanceLandingPage(),
     );
   }
 }

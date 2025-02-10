@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class disability_form extends StatelessWidget {
-  const disability_form({super.key});
+class DisabilityForm extends StatelessWidget {
+  const DisabilityForm({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -3,8 +3,8 @@ import 'package:jet_set_go/visit_counter.dart';
 
 import 'calling_option.dart';
 
-class travelling_with_babies extends StatelessWidget {
-  const travelling_with_babies({super.key});
+class TravellingWithBabies extends StatelessWidget {
+  const TravellingWithBabies({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class travelling_with_babies extends StatelessWidget {
               icon: Icons.phone,
               text: "Call BIA Passenger Service Unit",
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder:(context) => calling_option()),
+                Navigator.push(context, MaterialPageRoute(builder:(context) => CallingOption()),
                 );// Call the function from calling_option.dart
               },
             ),
@@ -57,7 +57,7 @@ class travelling_with_babies extends StatelessWidget {
               icon: Icons.info,
               text: "Visit Passenger Service Counter",
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder:(context) => visit_counter()),
+                Navigator.push(context, MaterialPageRoute(builder:(context) => VisitCounter()),
                 );// Call the function from visit_counter.dart
               },
             ),

@@ -43,26 +43,24 @@ class SpecialAssistance extends StatelessWidget {
               },
             ),
             SizedBox(height: 50),
-
             SpecialAssistanceCategory(
               icon: Icons.pregnant_woman_rounded,
               title: "Travelling during Pregnancy",
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => travelling_during_pregnancy()),
+                  MaterialPageRoute(builder: (context) => TravellingDuringPregnancy()),
                 );
               },
             ),
             SizedBox(height: 50),
-
             SpecialAssistanceCategory(
               icon: Icons.child_friendly,
               title: "Travelling with  infants",
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => travelling_with_babies()),
+                  MaterialPageRoute(builder: (context) => TravellingWithBabies()),
                 );
               },
             ),
@@ -74,7 +72,7 @@ class SpecialAssistance extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => unaccompanied_minors()),
+                  MaterialPageRoute(builder: (context) => UnaccompaniedMinors()),
                 );
               },
             ),

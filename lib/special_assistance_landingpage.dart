@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/specialassistance.dart';
 
-class special_assistance_landing_page extends StatelessWidget {
-  const special_assistance_landing_page({super.key});
+class SpecialAssistanceLandingPage extends StatelessWidget {
+  const SpecialAssistanceLandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {

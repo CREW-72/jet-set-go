@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class visit_counter extends StatelessWidget {
-  const visit_counter({super.key});
+class VisitCounter extends StatelessWidget {
+  const VisitCounter({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:logger/logger.dart';
 
+final logger = Logger();
 
-class calling_option extends StatelessWidget {
-  const calling_option ({super.key});
+class CallingOption extends StatelessWidget {
+  const CallingOption ({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -78,26 +80,31 @@ class calling_option extends StatelessWidget {
   );
   }
 }
-Future<void> _launchDialer(BuildContext context, String phoneNumber) async {
+Future<void> _launchDialer(BuildContext dialerContext, String phoneNumber) async {
   final PermissionStatus permissionStatus = await Permission.phone.request();
   if (permissionStatus.isGranted) {
     final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
     if (await canLaunchUrl(phoneUri)) {
       await launchUrl(phoneUri);
     } else {
-      print('Could not launch $phoneUri');
-      _showErrorDialog(context, 'Could not launch dialer. No app available to handle the call.');
+      logger.e('Could not launch $phoneUri');
+      if (dialerContext.mounted) {
+        _showErrorDialog(dialerContext,
+            'Could not launch dialer. No app available to handle the call.');
+      }
     }
   } else {
-    print('Phone permission not granted');
-    _showErrorDialog(context, 'Phone permission not granted.');
+    logger.w('Phone permission not granted');
+    if (dialerContext.mounted) {
+      _showErrorDialog(dialerContext, 'Phone permission not granted.');
+    }
   }
 }
 
 void _showErrorDialog(BuildContext context, String message) {
   showDialog(
     context: context,
-    builder: (BuildContext context) {
+    builder: (BuildContext dialogContext) {
       return AlertDialog(
         title: Text('Error',style: TextStyle(color: Colors.red),),
         content: Text(message),
@@ -105,7 +112,7 @@ void _showErrorDialog(BuildContext context, String message) {
           TextButton(
             child: Text('Close',style: TextStyle(color: Colors.blue),),
             onPressed: () {
-              Navigator.of(context).pop();
+              Navigator.of(dialogContext).pop();
             },
           ),
         ],

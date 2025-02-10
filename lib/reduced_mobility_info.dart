@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'medical_clearance_info.dart';
 
 
-class reducedMobility_info extends StatelessWidget {
-  const reducedMobility_info({super.key});
+class ReducedMobilityInfo extends StatelessWidget {
+  const  ReducedMobilityInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
