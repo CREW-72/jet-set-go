@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/special_assistance_landingpage.dart';
-import 'package:jet_set_go/specialassistance.dart';
 
 void main() {
   runApp(const MyApp());

@@ -5,7 +5,6 @@ import 'package:url_launcher/url_launcher.dart';
 class ReducedMobility extends StatelessWidget {
   const ReducedMobility({super.key});
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -60,6 +59,44 @@ class ReducedMobility extends StatelessWidget {
   }
 }
 
+
+class AssistanceOption extends StatelessWidget {
+  final IconData icon;
+  final String text;
+  final VoidCallback onTap;
+
+  const AssistanceOption({
+    required this.icon,
+    required this.text,
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 100,
+        width: 350,
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: Colors.white),
+              SizedBox(width: 6),
+              Text(text, style: TextStyle(color: Colors.white, fontSize: 18)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 void _showWhatShouldKnow(BuildContext context) {
   showDialog(
     context: context,
@@ -99,43 +136,6 @@ void _showWhatShouldKnow(BuildContext context) {
       );
     },
   );
-}
-class AssistanceOption extends StatelessWidget {
-  final IconData icon;
-  final String text;
-  final VoidCallback onTap;
-
-  const AssistanceOption({
-    required this.icon,
-    required this.text,
-    required this.onTap,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 100,
-        width: 350,
-        decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.circular(18),
-        ),
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, color: Colors.white),
-              SizedBox(width: 6),
-              Text(text, style: TextStyle(color: Colors.white, fontSize: 18)),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }
 
 void _showinfoRequestForm(BuildContext context) {
