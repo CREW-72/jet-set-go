@@ -8,154 +8,89 @@ class SpecialAssistance extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      title: Text(
-        "Special Assistance",
-        style: TextStyle(
-          color: Colors.white,
+        title: Text(
+          "Special Assistance",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+        leading: Icon(Icons.menu, color: Colors.white),
       ),
-      backgroundColor: Colors.blue,
-      leading: Icon(
-        Icons.menu,
-        color: Colors.white,
-      ),
-    ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            GestureDetector(
+            SpecialAssistanceCategory(
+              icon: Icons.assist_walker,
+              title: "Reduced Mobility Passengers",
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>ReducedMobility()),
+                  MaterialPageRoute(builder: (context) => ReducedMobility()),
                 );
               },
-              child: Container(
-                height: 100,
-                width: 350,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(18),
-                ),
-                child: Center(
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.wheelchair_pickup,
-                          color: Colors.white,
-                        ),
-                        SizedBox(width: 6),
-                        Text(
-                          "Reduced Mobility Passengers",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
             ),
-            GestureDetector(
-              onTap: (){
+            SpecialAssistanceCategory(
+              icon: Icons.pregnant_woman_rounded,
+              title: "Travelling during Pregnancy",
+              onTap: () {
                 _inProgressMessage(context);
               },
-            child:Container(
-              height: 100,
-              width: 350,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Center(
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.pregnant_woman_rounded,
-                        color: Colors.white,
-                      ),
-                      SizedBox(width: 6),
-                      Text(
-                        "Travelling during Pregnancy",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
             ),
-            ),
-            GestureDetector(
-              onTap: (){
+            SpecialAssistanceCategory(
+              icon: Icons.child_care_rounded,
+              title: "Travelling with premature babies,\n infants and children",
+              onTap: () {
                 _inProgressMessage(context);
               },
-            child: Container(
-              height: 100,
-              width: 350,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Center(
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.child_care_rounded,
-                        color: Colors.white,
-                      ),
-                      SizedBox(width: 6),
-                      Text(
-                        "Travelling with premature babies,\n infants and children",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
             ),
-            ),
-            GestureDetector(
-              onTap: (){
+            SpecialAssistanceCategory(
+              icon: Icons.boy,
+              title: "Unaccompanied Minors and Young\n  Passengers",
+              onTap: () {
                 _inProgressMessage(context);
               },
-
-           child:  Container(
-              height: 100,
-              width: 350,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Center(
-                child: Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.boy,
-                        color: Colors.white,
-                      ),
-                      SizedBox(width: 6),
-                      Text(
-                        "Unaccompanied Minors and Young\n  Passengers",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
             ),
           ],
         ),
       ),
+    );
+  }
+}
+class SpecialAssistanceCategory extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final VoidCallback onTap;
 
+  const SpecialAssistanceCategory({
+    required this.icon,
+    required this.title,
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 100,
+        width: 350,
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: Colors.white),
+              SizedBox(width: 6),
+              Text(title, style: TextStyle(color: Colors.white, fontSize: 18)),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -192,7 +127,6 @@ void  _inProgressMessage(BuildContext context){
         ),
       ],
     );
-
   },
   );
 }

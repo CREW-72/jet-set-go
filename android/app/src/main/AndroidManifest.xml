@@ -1,8 +1,9 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.jet_set_go">
     <application
         android:label="jet_set_go"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:enableOnBackInvokedCallback="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -51,4 +52,6 @@
             <data android:scheme="https"/>
         </intent>
     </queries>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+
 </manifest>

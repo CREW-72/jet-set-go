@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/medical_clearance_info.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 class ReducedMobility extends StatelessWidget {
   const ReducedMobility({super.key});
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,127 +25,35 @@ class ReducedMobility extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            GestureDetector(
-              onTap: (){
+            AssistanceOption(
+              icon: Icons.question_mark_rounded,
+              text: "What I Should Know",
+              onTap: () {
                 _showWhatShouldKnow(context);
               },
-            child:Container(
-              height: 100,
-              width: 350,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.question_mark_rounded,
-                      color: Colors.white,
-                    ),
-                    SizedBox(width: 6),
-                    Text(
-                      "What I Should Know",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
             ),
-            ),
-            GestureDetector(
-              onTap: (){
+            AssistanceOption(
+              icon: Icons.file_copy,
+              text: "Access Disability Assistance \n Request Form",
+              onTap: () {
                 _showinfoRequestForm(context);
               },
-
-            child: Container(
-              height: 100,
-              width: 350,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.file_copy,
-                      color: Colors.white,
-                    ),
-                    SizedBox(width: 6),
-                    Text(
-                      " Access Disability Assistance \n Request Form",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-
-                  ],
-                ),
-              ),
             ),
-            ),
-            GestureDetector(
-              onTap: (){
-                _showinfoCalling(context);
+            AssistanceOption(
+              icon: Icons.phone,
+              text: "Call BIA Passenger Service Unit",
+              onTap: () {
+                _showInfoCalling(context); // Call the function from calling_option.dart
               },
-            child:Container(
-              height: 100,
-              width: 350,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.phone,
-                      color: Colors.white,
-                    ),
-                    SizedBox(width: 6),
-                    Text(
-                      "Call BIA Passenger Service Unit",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
             ),
-            ),
-            GestureDetector(
-              onTap: (){
+            AssistanceOption(
+              icon: Icons.info,
+              text: "Visit Passenger Service Counter",
+              onTap: () {
                 _showinfoVisitCounter(context);
               },
-
-            child: Container(
-              height: 100,
-              width: 350,
-              decoration: BoxDecoration(
-                color: Colors.blue,
-                borderRadius: BorderRadius.circular(18),
-              ),
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.info,
-                      color: Colors.white,
-                    ),
-                    SizedBox(width: 6),
-                    Text(
-                      "Visit Passenger Service Counter",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ],
-                ),
-              ),
-            ),
             ),
           ],
-
         ),
       ),
     );
@@ -190,6 +100,43 @@ void _showWhatShouldKnow(BuildContext context) {
     },
   );
 }
+class AssistanceOption extends StatelessWidget {
+  final IconData icon;
+  final String text;
+  final VoidCallback onTap;
+
+  const AssistanceOption({
+    required this.icon,
+    required this.text,
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 100,
+        width: 350,
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Center(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: Colors.white),
+              SizedBox(width: 6),
+              Text(text, style: TextStyle(color: Colors.white, fontSize: 18)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 void _showinfoRequestForm(BuildContext context) {
   showDialog(
@@ -229,7 +176,7 @@ void _showinfoRequestForm(BuildContext context) {
   );
 }
 
-void _showinfoCalling(BuildContext context) {
+void _showInfoCalling(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -248,7 +195,7 @@ void _showinfoCalling(BuildContext context) {
                   color: Colors.blue, fontFamily: "Arial", fontSize: 16),
             ),
             onPressed: () {
-              //Navigator.of(context).push();
+            _launchDialer(context, '+94197332382'); // Call BIA Passenger Service Unit  number
             },
           ),
           TextButton(
@@ -313,5 +260,43 @@ void _launchFormURL() async{
     throw 'Could not launch url' ;
   }
 }
+Future<void> _launchDialer(BuildContext context, String phoneNumber) async {
+  final PermissionStatus permissionStatus = await Permission.phone.request();
+  if (permissionStatus.isGranted) {
+    final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
+    if (await canLaunchUrl(phoneUri)) {
+      await launchUrl(phoneUri);
+    } else {
+      print('Could not launch $phoneUri');
+      _showErrorDialog(context, 'Could not launch dialer. No app available to handle the call.');
+    }
+  } else {
+    print('Phone permission not granted');
+    _showErrorDialog(context, 'Phone permission not granted.');
+  }
+}
+
+void _showErrorDialog(BuildContext context, String message) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Error',style: TextStyle(color: Colors.red),),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            child: Text('Close',style: TextStyle(color: Colors.blue),),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+
+
 
 
