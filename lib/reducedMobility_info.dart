@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/specialassistance.dart';
+import 'medical_clearance_info.dart';
 
-class special_assistance_landing_page extends StatelessWidget {
-  const special_assistance_landing_page({super.key});
+
+class reducedMobility_info extends StatelessWidget {
+  const reducedMobility_info({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:  Colors.white,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Special Assistance",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+        title: Text("Special Assistance",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
         centerTitle: true,
         backgroundColor: Colors.blue,
-        leading: Icon(
-          Icons.menu,
-          color: Colors.white,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: Center(
@@ -28,11 +35,11 @@ class special_assistance_landing_page extends StatelessWidget {
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
+            children: <Widget>[
               Align(
                 alignment: Alignment.topCenter,
                 child: Text(
-                  "Receive Guidance \nWith\n Special Assistance",
+                  "What should I know ?",
                   style: TextStyle(
                     fontSize: 24,
                     color: Colors.white,
@@ -42,17 +49,23 @@ class special_assistance_landing_page extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              Icon(Icons.wheelchair_pickup_sharp, color: Colors.white, size: 250),
-              SizedBox(height: 20),
+              Icon(Icons.question_mark_rounded, color: Colors.white, size: 150),
+              SizedBox(height: 12),
+              Text(
+                '1. Reduced Mobility Passengers require medical clearance from the Group Medical Officer (CMBIMUL).\n\n2. Wheel Chair Assistance is provided at the BIA for senior citizens of age 75-85 years upon request.',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.justify,
+              ),
               ElevatedButton.icon(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SpecialAssistance()),
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => MedicalClearanceInfo()),
                   );
                 },
                 icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.blue),
-                label: Text("Continue", style: TextStyle(fontSize: 20)),
+                label: Text("Learn More", style: TextStyle(fontSize: 20)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.blue,
@@ -66,3 +79,4 @@ class special_assistance_landing_page extends StatelessWidget {
     );
   }
 }
+

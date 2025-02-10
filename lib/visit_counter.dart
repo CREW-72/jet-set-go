@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/specialassistance.dart';
 
-class special_assistance_landing_page extends StatelessWidget {
-  const special_assistance_landing_page({super.key});
+class visit_counter extends StatelessWidget {
+  const visit_counter({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:  Colors.white,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text("Special Assistance",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+        title: Text("Special Assistance",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
         centerTitle: true,
         backgroundColor: Colors.blue,
-        leading: Icon(
-          Icons.menu,
-          color: Colors.white,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: Center(
@@ -28,11 +33,11 @@ class special_assistance_landing_page extends StatelessWidget {
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
+            children: <Widget>[
               Align(
                 alignment: Alignment.topCenter,
                 child: Text(
-                  "Receive Guidance \nWith\n Special Assistance",
+                  "Visit Passenger Service Counter",
                   style: TextStyle(
                     fontSize: 24,
                     color: Colors.white,
@@ -42,14 +47,20 @@ class special_assistance_landing_page extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              Icon(Icons.wheelchair_pickup_sharp, color: Colors.white, size: 250),
-              SizedBox(height: 20),
+              Icon(Icons.info_outline_rounded, color: Colors.white, size: 150),
+              SizedBox(height: 12),
+              Text(
+                'For any special assistance needed ,Visit the Passenger Service Unit located at the BIA premises .\nClick "Continue" and we’ll direct you to the counter.',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.justify,
+              ),
               ElevatedButton.icon(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SpecialAssistance()),
-                  );
+                /*  Navigator.push(context, MaterialPageRoute(builder: (context) => MedicalClearanceInfo()),
+                  );*/
                 },
                 icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.blue),
                 label: Text("Continue", style: TextStyle(fontSize: 20)),
@@ -66,3 +77,4 @@ class special_assistance_landing_page extends StatelessWidget {
     );
   }
 }
+
