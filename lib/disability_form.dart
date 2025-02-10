@@ -46,7 +46,6 @@ class disability_form extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 20),
               Icon(Icons.file_open_outlined, color: Colors.white, size: 150),
               SizedBox(height: 12),
               Text(

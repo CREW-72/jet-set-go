@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/calling_option.dart';
-import 'package:jet_set_go/reducedMobility_info.dart';
 import 'package:jet_set_go/visit_counter.dart';
-import 'disability_form.dart';
-class ReducedMobility extends StatelessWidget {
-  const ReducedMobility({super.key});
+
+import 'calling_option.dart';
+
+class travelling_during_pregnancy extends StatelessWidget {
+  const travelling_during_pregnancy({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Reduced Mobility Passengers",
+          "Travelling during Pregnancy",
           style: TextStyle(
-            color: Colors.white, fontWeight: FontWeight.bold
+              color: Colors.white, fontWeight: FontWeight.bold
           ),
         ),
+        centerTitle: true,
         backgroundColor: Colors.blue,
         leading: IconButton(
           icon: Icon(
@@ -35,21 +37,10 @@ class ReducedMobility extends StatelessWidget {
               icon: Icons.question_mark_rounded,
               text: "What I Should Know About",
               onTap: () {
-                Navigator.push(
+                /*Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => reducedMobility_info()),
-                );
-              },
-            ),
-            SizedBox(height: 50),
-            AssistanceOption(
-              icon: Icons.file_copy,
-              text: "Access Disability Assistance \n Request Form",
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => disability_form()),
-                );
+                );*/
               },
             ),
             SizedBox(height: 50),
@@ -73,10 +64,10 @@ class ReducedMobility extends StatelessWidget {
           ],
         ),
       ),
+
     );
   }
 }
-
 class AssistanceOption extends StatelessWidget {
   final IconData icon;
   final String text;

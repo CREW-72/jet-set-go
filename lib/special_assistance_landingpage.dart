@@ -32,7 +32,7 @@ class special_assistance_landing_page extends StatelessWidget {
               Align(
                 alignment: Alignment.topCenter,
                 child: Text(
-                  "Receive Guidance \nWith\n Special Assistance",
+                  "Receive Guidance \nOn\n Special Assistance",
                   style: TextStyle(
                     fontSize: 24,
                     color: Colors.white,

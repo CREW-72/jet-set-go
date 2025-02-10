@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/reducedmobility.dart';
+import 'package:jet_set_go/travelling_during_pregnancy.dart';
+import 'package:jet_set_go/travelling_with_babies.dart';
+import 'package:jet_set_go/unaccompanied_minors.dart';
 
 class SpecialAssistance extends StatelessWidget {
   const SpecialAssistance({super.key});
@@ -26,8 +29,9 @@ class SpecialAssistance extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            SizedBox(height: 50),
             SpecialAssistanceCategory(
               icon: Icons.assist_walker,
               title: "Reduced Mobility Passengers",
@@ -38,25 +42,40 @@ class SpecialAssistance extends StatelessWidget {
                 );
               },
             ),
+            SizedBox(height: 50),
+
             SpecialAssistanceCategory(
               icon: Icons.pregnant_woman_rounded,
               title: "Travelling during Pregnancy",
               onTap: () {
-                _inProgressMessage(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => travelling_during_pregnancy()),
+                );
               },
             ),
+            SizedBox(height: 50),
+
             SpecialAssistanceCategory(
-              icon: Icons.child_care_rounded,
-              title: "Travelling with premature babies,\n infants and children",
+              icon: Icons.child_friendly,
+              title: "Travelling with  infants",
               onTap: () {
-                _inProgressMessage(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => travelling_with_babies()),
+                );
               },
             ),
+            SizedBox(height: 50),
+
             SpecialAssistanceCategory(
               icon: Icons.boy,
-              title: "Unaccompanied Minors and Young\n  Passengers",
+              title: "Unaccompanied Minors",
               onTap: () {
-                _inProgressMessage(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => unaccompanied_minors()),
+                );
               },
             ),
           ],
@@ -92,49 +111,13 @@ class SpecialAssistanceCategory extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(icon, color: Colors.white),
+              Icon(icon, color: Colors.white, size: 40),
               SizedBox(width: 6),
-              Text(title, style: TextStyle(color: Colors.white, fontSize: 18)),
+              Text(title, style: TextStyle(color: Colors.white, fontSize: 20)),
             ],
           ),
         ),
       ),
     );
   }
-}
-void  _inProgressMessage(BuildContext context){
-  showDialog(context: context, builder:  (BuildContext context){
-    return AlertDialog(
-      title: Row(
-        children: [Icon(
-          Icons.construction_outlined,
-          color: Colors.amber,
-        ),
-          SizedBox(width: 8),
-          Text(
-            "Warning",
-            style: TextStyle(
-              color: Colors.amber,
-              fontFamily: "Arial",
-            ),
-          ),
-        ],
-      ),
-      content: Text("We are busy making this better for you. \nWe will have it ready soon !",style: TextStyle(fontFamily: "Arial", fontSize: 18),
-      ),
-      actions: <Widget>[
-        TextButton(
-          child: Text(
-            'Close',
-            style: TextStyle(
-                color: Colors.blue, fontFamily: "Arial", fontSize: 16),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
-    );
-  },
-  );
 }

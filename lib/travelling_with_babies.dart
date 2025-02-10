@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/calling_option.dart';
-import 'package:jet_set_go/reducedMobility_info.dart';
 import 'package:jet_set_go/visit_counter.dart';
-import 'disability_form.dart';
-class ReducedMobility extends StatelessWidget {
-  const ReducedMobility({super.key});
+
+import 'calling_option.dart';
+
+class travelling_with_babies extends StatelessWidget {
+  const travelling_with_babies({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Reduced Mobility Passengers",
+          "Travelling with infants" ,
           style: TextStyle(
-            color: Colors.white, fontWeight: FontWeight.bold
+              color: Colors.white, fontWeight: FontWeight.bold
           ),
         ),
+        centerTitle: true,
         backgroundColor: Colors.blue,
         leading: IconButton(
           icon: Icon(
@@ -35,21 +37,10 @@ class ReducedMobility extends StatelessWidget {
               icon: Icons.question_mark_rounded,
               text: "What I Should Know About",
               onTap: () {
-                Navigator.push(
+                /*Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => reducedMobility_info()),
-                );
-              },
-            ),
-            SizedBox(height: 50),
-            AssistanceOption(
-              icon: Icons.file_copy,
-              text: "Access Disability Assistance \n Request Form",
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => disability_form()),
-                );
+                );*/
               },
             ),
             SizedBox(height: 50),
@@ -70,13 +61,13 @@ class ReducedMobility extends StatelessWidget {
                 );// Call the function from visit_counter.dart
               },
             ),
+            SizedBox(height: 50),
           ],
         ),
       ),
     );
   }
 }
-
 class AssistanceOption extends StatelessWidget {
   final IconData icon;
   final String text;
@@ -98,23 +89,20 @@ class AssistanceOption extends StatelessWidget {
         width: 350,
         decoration: BoxDecoration(
           color: Colors.blue,
-          borderRadius: BorderRadius.circular(18),
-        ),
+          borderRadius: BorderRadius.circular(18),),
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(icon, color: Colors.white),
               SizedBox(width: 6),
-              Text(text, style: TextStyle(color: Colors.white, fontSize: 20)),
-            ],
+              Text(text, style: TextStyle(color: Colors.white, fontSize: 20)),],
           ),
         ),
       ),
     );
   }
 }
-
 
 
 
