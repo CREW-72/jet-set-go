@@ -32,11 +32,14 @@ class MedicalClearanceInfo extends StatelessWidget {
           children: [
             Container(
               width: 350,
-              height: 1800,
+              height: 2000,
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(color: Colors.blue,borderRadius: BorderRadius.circular(16)),
               child: Column(
                 children: [
+                  buildSectionHeading("Important"),
+                  Text("Travel regulations may vary by airline and destination. Please check with your airline and local authorities for the latest requirements.\n",style: TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold),
+                  ),
                   Text("To ensure the comfort, safety, and well-being of all passengers on board, passengers with the following conditions or reduced mobility must obtain medical clearance from the Group Medical Officer (CMBIMUL) prior to booking or flying.\n\nThe airline requires medical clearance for any unusual medical conditions disclosed at booking and may consult with the Group Medical Officer before confirming the flight.",
                     style: TextStyle(fontSize: 20,color: Colors.white),
                   ),

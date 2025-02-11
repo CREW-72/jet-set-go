@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/unaccompanied_minors_info.dart';
 import 'package:jet_set_go/visit_counter.dart';
 
 import 'calling_option.dart';
@@ -37,10 +38,10 @@ class UnaccompaniedMinors extends StatelessWidget {
               icon: Icons.question_mark_rounded,
               text: "What I Should Know About",
               onTap: () {
-                /*Navigator.push(
+                Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => reducedMobility_info()),
-                );*/
+                  MaterialPageRoute(builder: (context) => UnaccompaniedMinorsInfo()),
+                );
               },
             ),
             SizedBox(height: 50),
