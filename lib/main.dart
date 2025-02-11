@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter/document_selection_page.dart';
+import 'package:jet_set_go/document_selection_page.dart';
 
 void main() {
   runApp(MaterialApp(

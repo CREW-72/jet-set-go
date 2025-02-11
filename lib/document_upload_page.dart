@@ -1,0 +1,126 @@
+import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:open_file/open_file.dart';
+
+class DocumentUploadPage extends StatefulWidget {
+  final String documentType;
+
+  const DocumentUploadPage({super.key,required this.documentType});
+
+  @override
+  _DocumentUploadPageState createState() => _DocumentUploadPageState();
+}
+
+class _DocumentUploadPageState extends State<DocumentUploadPage> {
+  File? _selectedFile;
+  final List<File> _capturedImages = [];
+  final Map<String,File?> _documentStorage = {};
+
+  @override
+  void initState(){
+    super.initState();
+    _loadSavedFile();///loads existing file if available
+  }
+
+  /// Load saved file for this document type (if exists)
+  Future<void> _loadSavedFile() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final filePath = "${directory.path}/${widget.documentType}.pdf";
+    final file = File(filePath);
+
+    if (file.existsSync()) {
+      setState(() {
+        _selectedFile = file;
+      });
+    }
+  }
+
+
+  /// Select a PDF from device storage
+  Future<void> _pickPDF() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
+    if (result != null) {
+      final file = File(result.files.single.path!);
+      _saveFile(file);
+    }
+  }
+
+  /// Capture an image using the device camera
+  Future<void> _captureImage() async {
+    final XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
+    if (image != null) {
+      setState(() {
+        _capturedImages.add(File(image.path));
+      });
+    }
+  }
+
+  /// Convert multiple captured images into a single PDF file
+  Future<void> _convertToPDF() async {
+    if (_capturedImages.isEmpty) return;
+
+    final pdf = pw.Document();
+    for (var imgFile in _capturedImages) {
+      final image = pw.MemoryImage(imgFile.readAsBytesSync());
+      pdf.addPage(pw.Page(build: (pw.Context context) => pw.Center(child: pw.Image(image))));
+    }
+
+    final directory = await getApplicationDocumentsDirectory();
+    final filePath = "${directory.path}/${widget.documentType}.pdf";
+    final file = File(filePath);
+    await file.writeAsBytes(await pdf.save());
+
+    _saveFile(file);
+  }
+
+  /// Save file and update state
+  void _saveFile(File file) {
+    setState(() {
+      _selectedFile = file;
+      _capturedImages.clear();
+      _documentStorage[widget.documentType] = file; // Store document separately
+    });
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${widget.documentType} saved!')));
+  }
+
+  /// Open the saved document
+  void _openFile() {
+    if (_selectedFile != null) {
+      OpenFile.open(_selectedFile!.path);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Upload ${widget.documentType}")),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (_selectedFile != null) Text("Selected: ${_selectedFile!.path.split('/').last}"),
+          if (_selectedFile != null) ElevatedButton(onPressed: _openFile, child: Text("View Document")),
+          ElevatedButton.icon(
+            onPressed: _pickPDF,
+            icon: Icon(Icons.upload_file),
+            label: Text("Upload PDF"),
+          ),
+          ElevatedButton.icon(
+            onPressed: _captureImage,
+            icon: Icon(Icons.camera_alt),
+            label: Text("Take Picture"),
+          ),
+          if (_capturedImages.isNotEmpty)
+            ElevatedButton.icon(
+              onPressed: _convertToPDF,
+              icon: Icon(Icons.picture_as_pdf),
+              label: Text("Save as PDF"),
+            ),
+        ],
+      ),
+    );
+  }
+}
