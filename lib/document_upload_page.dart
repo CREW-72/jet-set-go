@@ -66,7 +66,9 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
     final pdf = pw.Document();
     for (var imgFile in _capturedImages) {
       final image = pw.MemoryImage(imgFile.readAsBytesSync());
-      pdf.addPage(pw.Page(build: (pw.Context context) => pw.Center(child: pw.Image(image))));
+      pdf.addPage(
+          pw.Page(
+              build: (pw.Context context) => pw.Center(child: pw.Image(image))));
     }
 
     final directory = await getApplicationDocumentsDirectory();
@@ -75,6 +77,13 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
     await file.writeAsBytes(await pdf.save());
 
     _saveFile(file);
+  }
+
+  /// Remove an image from the captured list
+  void _removeImage(int index) {
+    setState(() {
+      _capturedImages.removeAt(index);
+    });
   }
 
   /// Save file and update state
@@ -93,6 +102,25 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
       OpenFile.open(_selectedFile!.path);
     }
   }
+  /// Delete the uploaded document
+  void _deleteFile() {
+    if (_selectedFile != null) {
+      try {
+        _selectedFile!.deleteSync();
+        setState(() {
+          _selectedFile = null;
+          _documentStorage.remove(widget.documentType);
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('${widget.documentType} deleted!')));
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error deleting file!')));
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +130,18 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (_selectedFile != null) Text("Selected: ${_selectedFile!.path.split('/').last}"),
-          if (_selectedFile != null) ElevatedButton(onPressed: _openFile, child: Text("View Document")),
+          if (_selectedFile != null)
+            ElevatedButton(
+                onPressed: _openFile,
+                child: Text("View Document")
+            ),
+          if (_selectedFile != null)
+            ElevatedButton.icon(
+              onPressed: _deleteFile,
+              icon: Icon(Icons.delete, color: Colors.white),
+              label: Text("Delete Document"),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+            ),
           ElevatedButton.icon(
             onPressed: _pickPDF,
             icon: Icon(Icons.upload_file),
@@ -113,11 +152,52 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
             icon: Icon(Icons.camera_alt),
             label: Text("Take Picture"),
           ),
+
           if (_capturedImages.isNotEmpty)
             ElevatedButton.icon(
               onPressed: _convertToPDF,
               icon: Icon(Icons.picture_as_pdf),
               label: Text("Save as PDF"),
+            ),
+          /// Display captured images in a horizontal list
+          if (_capturedImages.isNotEmpty)
+            Container(
+              height: 100,
+              padding: EdgeInsets.symmetric(vertical: 10),
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: _capturedImages.length,
+                itemBuilder: (context, index) {
+                  return Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Image.file(
+                          _capturedImages[index],
+                          width: 80,
+                          height: 80,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: GestureDetector(
+                          onTap: () => _removeImage(index),
+                          child: Container(
+                            padding: EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(Icons.close, size: 18, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
             ),
         ],
       ),
