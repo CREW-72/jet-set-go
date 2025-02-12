@@ -19,6 +19,9 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
   List<File> _uploadedFiles = [];
   final List<File> _capturedImages = [];
 
+  ///variable to track the text in the take picture button
+  String _cameraButtonText = "Take Picture";
+
   @override
   void initState() {
     super.initState();
@@ -46,7 +49,7 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
     await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ['pdf']);
     if (result != null) {
       final file = File(result.files.single.path!);
-      _saveFile(file);
+      _showNameInputDialog(file);
     }
   }
 
@@ -56,10 +59,14 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
     if (image != null) {
       setState(() {
         _capturedImages.add(File(image.path));
+
+        /// Change button text to "Add Images" after taking the first picture
+        if (_capturedImages.length == 1) {
+          _cameraButtonText = "Add Images";
+        }
       });
     }
   }
-
   /// Convert multiple captured images into a separate PDF file
   Future<void> _convertToPDF() async {
     if (_capturedImages.isEmpty) return;
@@ -80,14 +87,65 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
     final file = File(filePath);
     await file.writeAsBytes(await pdf.save());
 
-    _saveFile(file);
+    _showNameInputDialog(null, pdf);
   }
+
+  ///  Show input dialog for custom document name
+  void _showNameInputDialog(File? file, [pw.Document? pdf]) {
+    TextEditingController nameController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Enter Document Name"),
+          content: TextField(
+            controller: nameController,
+            decoration: InputDecoration(hintText: "Enter name"),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () async {
+                String customName = nameController.text.trim();
+                if (customName.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Document name cannot be empty!")),
+                  );
+                  return;
+                }
+
+                final directory = await getApplicationDocumentsDirectory();
+                final filePath = "${directory.path}/${customName}.pdf";
+                final savedFile = File(filePath);
+
+                if (file != null) {
+                  await file.copy(savedFile.path); // Rename uploaded PDF
+                } else if (pdf != null) {
+                  await savedFile.writeAsBytes(await pdf.save()); // Save captured images as PDF
+                }
+
+                _saveFile(savedFile);
+                Navigator.of(context).pop();
+              },
+              child: Text("Save"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   /// Save file and update the list instead of replacing
   void _saveFile(File file) {
     setState(() {
       _uploadedFiles.add(file);
       _capturedImages.clear();
+      _cameraButtonText="Take picture";
     });
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('${widget.documentType} saved!')));
   }
@@ -118,17 +176,51 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
         padding: EdgeInsets.all(16),
         child: Column(
           children: [
+            /// List of Uploaded/Generated PDFs
+            if (_uploadedFiles.isNotEmpty) ...[
+              SizedBox(height: 20),
+              Text("Uploaded Documents:", style: TextStyle(fontWeight: FontWeight.bold)),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: _uploadedFiles.length,
+                itemBuilder: (context, index) {
+                  File file = _uploadedFiles[index];
+                  return Card(
+                    margin: EdgeInsets.symmetric(vertical: 8),
+                    child: ListTile(
+                      title: Text(file.path.split('/').last),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.visibility, color: Colors.blue),
+                            onPressed: () => _openFile(file),
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.delete, color: Colors.red),
+                            onPressed: () => _deleteFile(file),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
             /// Buttons for uploading documents
             ElevatedButton.icon(
               onPressed: _pickPDF,
               icon: Icon(Icons.upload_file),
               label: Text("Upload PDF"),
             ),
-            ElevatedButton.icon(
-              onPressed: _captureImage,
-              icon: Icon(Icons.camera_alt),
-              label: Text("Take Picture"),
-            ),
+
+            if(_capturedImages.isEmpty)
+              ElevatedButton.icon(
+                onPressed: _captureImage,
+                icon: Icon(Icons.camera_alt),
+                label: Text(_cameraButtonText),
+              ),
 
             /// Display captured images before converting to PDF
             if (_capturedImages.isNotEmpty)
@@ -175,6 +267,11 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
                     ),
                   ),
                   ElevatedButton.icon(
+                    onPressed: _captureImage,
+                    icon: Icon(Icons.camera_alt),
+                    label: Text(_cameraButtonText),
+                  ),
+                  ElevatedButton.icon(
                     onPressed: _convertToPDF,
                     icon: Icon(Icons.picture_as_pdf),
                     label: Text("Save as PDF"),
@@ -182,38 +279,7 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
                 ],
               ),
 
-            /// List of Uploaded/Generated PDFs
-            if (_uploadedFiles.isNotEmpty) ...[
-              SizedBox(height: 20),
-              Text("Uploaded Documents:", style: TextStyle(fontWeight: FontWeight.bold)),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: _uploadedFiles.length,
-                itemBuilder: (context, index) {
-                  File file = _uploadedFiles[index];
-                  return Card(
-                    margin: EdgeInsets.symmetric(vertical: 8),
-                    child: ListTile(
-                      title: Text(file.path.split('/').last),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            icon: Icon(Icons.visibility, color: Colors.blue),
-                            onPressed: () => _openFile(file),
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.delete, color: Colors.red),
-                            onPressed: () => _deleteFile(file),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
+
           ],
         ),
       ),
