@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,6 +10,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        textTheme: GoogleFonts.poppinsTextTheme(
+          Theme.of(context).textTheme, // This will apply Poppins globally
+        ),
+      ),
       home: HomePage(),
     );
   }
@@ -31,85 +37,118 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Welcome, User!'),
-      ),
-      body: Column(
+      body: Stack(
         children: [
-          // Search Bar
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search...',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-          ),
-
-          // Notifications Section
-          Container(
-            padding: EdgeInsets.all(10),
-            color: Colors.yellow[100],
-            child: Row(
+          Positioned(
+            bottom: 100,
+            left: 10,
+            right: 10,
+            child: Column(
               children: [
-                Icon(Icons.warning, color: Colors.orange),
-                SizedBox(width: 10),
-                Expanded(
-                  child: Text('Upcoming trip reminder: Flight at 8 AM!'),
+                // Main content area
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start, // Ensures left alignment
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft, // Aligns text to the left
+                        child: Text(
+                          'WELCOME, USER!',
+                          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(
+                  width: double.infinity,
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 4,
+                    child: InkWell(
+                      onTap: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            SizedBox(height: 170),
+                            Text(
+                              'Set-up your Trip',
+                              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 3),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 4,
+                        child: InkWell(
+                          onTap: () {},
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              children: [
+                                SizedBox(height: 100),
+                                Text(
+                                  'FAQ',
+                                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 3),
+                    Expanded(
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        elevation: 4,
+                        child: InkWell(
+                          onTap: () {},
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              children: [
+                                SizedBox(height: 100),
+                                Text(
+                                  'App Guide',
+                                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           ),
-
-          // Feature Tiles
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 2,
-              padding: EdgeInsets.all(10),
-              children: [
-                'Set Up Your Trip',
-                'FAQ',
-                'App Guide'
-              ]
-                  .map((feature) => Card(
-                elevation: 3,
-                child: InkWell(
-                  onTap: () {
-                    // Handle feature tap
-                  },
-                  child: Center(
-                    child: Text(feature,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16)),
-                  ),
-                ),
-              ))
-                  .toList(),
-            ),
-          ),
         ],
       ),
-
-      // Floating Action Button for Quick Actions
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Handle quick action
-        },
-        child: Icon(Icons.help),
-        tooltip: 'Request Assistance',
-      ),
-
-      // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onNavItemTapped,
-        backgroundColor: Colors.black,  // Background color of the navbar
-        selectedItemColor: Colors.green, // Color of selected item
-        unselectedItemColor: Colors.blue, // Color of unselected items
+        backgroundColor: Colors.transparent,
+        selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.blue,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
