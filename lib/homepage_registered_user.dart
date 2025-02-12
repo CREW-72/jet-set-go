@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         children: [
           Positioned(
-            bottom: 100,
+            bottom: 20,
             left: 10,
             right: 10,
             child: Column(
@@ -76,6 +76,14 @@ class _HomePageState extends State<HomePage> {
                         child: Column(
                           children: [
                             SizedBox(height: 170),
+                            Transform.translate(
+                              offset: Offset(-70, -160), // Move 30 pixels right, 10 pixels down
+                              child: Text(
+                                'Current Trip',
+                                style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+
                           ],
                         ),
                       ),
@@ -98,6 +106,10 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               children: [
                                 SizedBox(height: 100),
+                                Text(
+                                  'Documents',
+                                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                                ),
                               ],
                             ),
                           ),
@@ -117,7 +129,12 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.all(10.0),
                             child: Column(
                               children: [
-                                SizedBox(height: 100),
+                                SizedBox(height: 70),
+                                Text(
+                                  'Special Assistance',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                                ),
                               ],
                             ),
                           ),
@@ -142,6 +159,10 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               children: [
                                 SizedBox(height: 100),
+                                Text(
+                                  'Transport',
+                                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                                ),
                               ],
                             ),
                           ),
@@ -162,6 +183,10 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               children: [
                                 SizedBox(height: 100),
+                                Text(
+                                  'Luggage',
+                                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                                ),
                               ],
                             ),
                           ),
@@ -184,7 +209,7 @@ class _HomePageState extends State<HomePage> {
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'Notifications'),
+          BottomNavigationBarItem(icon: Icon(Icons.lightbulb), label: 'Tips'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
