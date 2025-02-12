@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/loadingpage.dart';
+import 'package:jet_set_go/landingPage.dart';
 
 
 void main() {
@@ -7,7 +7,7 @@ void main() {
     debugShowCheckedModeBanner: false,
     initialRoute: '/',
     routes: {
-      '/': (context) => LoadingPage(),
+      '/': (context) => Landingpage(),
     },
   ));
 }
