@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_image/flutter_image.dart';
 
 class Landingpage extends StatelessWidget {
   @override
