@@ -12,7 +12,7 @@ class TravellingWithBabies extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Travelling with infants" ,
+          "Travelling with Children" ,
           style: TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold
           ),

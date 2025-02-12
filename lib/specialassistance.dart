@@ -56,7 +56,7 @@ class SpecialAssistance extends StatelessWidget {
             SizedBox(height: 50),
             SpecialAssistanceCategory(
               icon: Icons.child_friendly,
-              title: "Travelling with  infants",
+              title: "Travelling with Children",
               onTap: () {
                 Navigator.push(
                   context,
