@@ -63,7 +63,7 @@ class CallingOption extends StatelessWidget {
   ),
   ElevatedButton.icon(
   onPressed: () {
-  _launchDialer(context, '+94197332382');
+  _launchDialer(context, '0197332382');
   },
   icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.blue),
   label: Text("Continue", style: TextStyle(fontSize: 20)),
@@ -80,7 +80,7 @@ class CallingOption extends StatelessWidget {
   );
   }
 }
-Future<void> _launchDialer(BuildContext dialerContext, String phoneNumber) async {
+/*Future<void> _launchDialer(BuildContext dialerContext, String phoneNumber) async {
   final PermissionStatus permissionStatus = await Permission.phone.request();
   if (permissionStatus.isGranted) {
     final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
@@ -98,6 +98,18 @@ Future<void> _launchDialer(BuildContext dialerContext, String phoneNumber) async
     if (dialerContext.mounted) {
       _showErrorDialog(dialerContext, 'Phone permission not granted.');
     }
+  }
+}*/
+Future<void> _launchDialer(BuildContext context, String phoneNumber) async {
+  final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
+
+  if (await canLaunchUrl(phoneUri)) {
+    await launchUrl(phoneUri);
+  } else {
+    logger.e('Could not launch $phoneUri');
+    if (context.mounted) {
+      _showErrorDialog(context, 'Could not launch dialer. No app available to handle the call.');
+  }
   }
 }
 
