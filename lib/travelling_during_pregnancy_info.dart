@@ -46,7 +46,7 @@ class TravellingDuringPregnancyInfo extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    "1.Expectant mothers are advised to consult a doctor regarding their fitness to fly before booking a ticket.\n\n2.Pregnant passengers beyond 28 weeks must present a Medical Certificate, issued within seven days of travel, confirming an uncomplicated pregnancy and fitness to fly.\n\n3.Travel is permitted based on flight duration:\n\n  • Up to 4 hours: Single pregnancy up to 36 weeks, multiple/complicated pregnancy up to 32 weeks.\n\n  • Over 4 hours: Single pregnancy up to 35 weeks, multiple/complicated pregnancy up to 28 weeks.\n\n5.Failure to present a valid Medical Certificate may result in denied boarding.\n\n6.Air travel is not recommended within seven days post-delivery.",
+                    "1. Expectant mothers are advised to consult a doctor regarding their fitness to fly before booking a ticket.\n\n2. Pregnant passengers beyond 28 weeks must present a Medical Certificate, issued within seven days of travel, confirming an uncomplicated pregnancy and fitness to fly.\n\n3. Travel is permitted based on flight duration:\n\n  • Up to 4 hours: Single pregnancy up\n    to 36 weeks, multiple/complicated\n    pregnancy up to 32 weeks.\n\n  • Over 4 hours: Single pregnancy up\n    to 35 weeks, multiple/complicated\n    pregnancy up to 28 weeks.\n\n4. Failure to present a valid Medical Certificate may result in denied boarding.\n\n5. Air travel is not recommended within seven days post-delivery.",
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
 
