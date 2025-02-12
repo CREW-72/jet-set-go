@@ -37,6 +37,35 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Stack(
+        children: [
+          Positioned(
+            bottom: 100,
+            left: 10,
+            right: 10,
+            child: Column(
+              children: [
+                // Main content area
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start, // Ensures left alignment
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft, // Aligns text to the left
+                        child: Text(
+                          'WELCOME BACK, USER!',
+                          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onNavItemTapped,
