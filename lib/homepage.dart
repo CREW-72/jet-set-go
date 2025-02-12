@@ -147,8 +147,8 @@ class _HomePageState extends State<HomePage> {
         currentIndex: _selectedIndex,
         onTap: _onNavItemTapped,
         backgroundColor: Colors.transparent,
-        selectedItemColor: Colors.green,
-        unselectedItemColor: Colors.blue,
+        selectedItemColor: Color(0xFFACE6FC), // HEX ACE6FC for selected items
+        unselectedItemColor: Color(0xFFACE6FC), // HEX ACE6FC for unselected items
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
