@@ -37,22 +37,36 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      //BACKGROUND PICTURE
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/background.jpg"), // Background image
-            fit: BoxFit.cover, // Adjust image to fit the screen
+            image: AssetImage("assets/images/background.jpg"),
+            fit: BoxFit.cover,
           ),
         ),
 
         child: Stack(
           children: [
+            //IMAGE AT TOP
             Positioned(
-              bottom: 10,
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Image.asset(
+                "assets/images/planeimage.png",
+                height: 335,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Positioned(
+              bottom: 20,
               left: 10,
               right: 10,
               child: Column(
                 children: [
+                  //WELCOME MESSAGE AND COLOUR GRADIENT
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
@@ -60,15 +74,28 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text(
-                            'WELCOME, USER!',
-                            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white),
+                          child: ShaderMask(
+                            shaderCallback: (bounds) {
+                              return LinearGradient(
+                                colors: [Colors.cyanAccent, Colors.amberAccent, Colors.green],
+                                tileMode: TileMode.mirror,
+                              ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height));
+                            },
+                            child: Text(
+                              'WELCOME, USER!',
+                              style: TextStyle(
+                                fontSize: 35,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
 
+                  //SET UP TRIP BUTTON
                   SizedBox(
                     width: double.infinity,
                     child: Card(
@@ -84,8 +111,8 @@ class _HomePageState extends State<HomePage> {
                           decoration: BoxDecoration(
                             image: DecorationImage(
                               image: AssetImage(
-                                  "assets/images/button1.png"), // Background image
-                              fit: BoxFit.cover, // Covers the button fully
+                                  "assets/images/button1.png"),
+                              fit: BoxFit.cover,
                             ),
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -94,17 +121,17 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               children: [
                                 Image.asset(
-                                  "assets/images/setup.png", // Image inside the button
-                                  height: 200, // Adjust size
-                                  width: 400,
+                                  "assets/images/setup.png",
+                                  height: 200,
+                                  width: 300,
                                 ),
-                                SizedBox(height: 15), // Space between image and text
+                                SizedBox(height: 15),
                                 Text(
                                   'Set-up your Trip',
                                   style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.indigo // Fully opaque version, // Ensure contrast against the background
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.indigo
                                   ),
                                 ),
                               ],
@@ -114,10 +141,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-
                   SizedBox(height: 3),
+
                   Row(
                     children: [
+
+                      //FAQ BUTTON
                       Expanded(
                         child: Card(
                           shape: RoundedRectangleBorder(
@@ -129,8 +158,8 @@ class _HomePageState extends State<HomePage> {
                             child: Ink(
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: AssetImage("assets/images/button1.png"), // Background image
-                                  fit: BoxFit.cover, // Ensures the image covers the entire button
+                                  image: AssetImage("assets/images/button1.png"),
+                                  fit: BoxFit.cover,
                                 ),
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -139,11 +168,11 @@ class _HomePageState extends State<HomePage> {
                                 child: Column(
                                   children: [
                                     Image.asset(
-                                      "assets/images/FAQ.png", // Image inside the button
-                                      height: 100, // Adjust size
-                                      width: 100,
+                                      "assets/images/FAQ.png",
+                                      height: 100,
+                                      width: 200,
                                     ),
-                                    SizedBox(height: 05),
+                                    SizedBox(height: 30),
                                     Text(
                                       'FAQ',
                                       style: TextStyle(
@@ -158,8 +187,9 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 3),
+                      SizedBox(width: 5),
 
+                      //APP GUIDE BUTTON
                       Expanded(
                         child: Card(
                           shape: RoundedRectangleBorder(
@@ -171,8 +201,8 @@ class _HomePageState extends State<HomePage> {
                             child: Ink(
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: AssetImage("assets/images/button1.png"), // Background image
-                                  fit: BoxFit.cover, // Ensures the image covers the entire button
+                                  image: AssetImage("assets/images/button1.png"),
+                                  fit: BoxFit.cover,
                                 ),
                                 borderRadius: BorderRadius.circular(12),
                               ),
@@ -181,17 +211,18 @@ class _HomePageState extends State<HomePage> {
                                 child: Column(
                                   children: [
                                     Image.asset(
-                                      "assets/images/guide.png", // Image inside the button
-                                      height: 100, // Adjust size
-                                      width: 100,
+                                      "assets/images/guide.png",
+                                      height: 100,
+                                      width:100,
                                     ),
-                                    SizedBox(height: 05),
+                                    SizedBox(height: 30),
                                     Text(
                                       'App Guide',
                                       style: TextStyle(
                                           fontSize: 25,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.indigo),
+                                          color: Colors.indigo
+                                      ),
                                     ),
                                   ],
                                 ),
