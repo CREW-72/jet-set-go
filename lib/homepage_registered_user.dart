@@ -46,26 +46,44 @@ class _HomePageState extends State<HomePage> {
         ),
         child: Stack(
           children: [
+            //IMAGE AT TOP
             Positioned(
-              bottom: 10,
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Image.asset(
+                "assets/images/planeimage.png",
+                height: 260,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Positioned(
+              bottom: 05,
               left: 10,
               right: 10,
               child: Column(
                 children: [
-                  // Main content area
+                  //WELCOME MESSAGE AND COLOUR GRADIENT
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start, // Ensures left alignment
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft, // Aligns text to the left
-                          child: Text(
-                            'WELCOME BACK, USER!',
-                            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    padding: const EdgeInsets.only(left: 10.0, bottom: 0.0), // Reduced bottom padding
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: ShaderMask(
+                        shaderCallback: (bounds) {
+                          return LinearGradient(
+                            colors: [Colors.white, Colors.cyanAccent, Colors.white],
+                            tileMode: TileMode.mirror,
+                          ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height));
+                        },
+                        child: Text(
+                          'WELCOME BACK, USER!',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
                         ),
-                      ],
+                      ),
                     ),
                   ),
 
