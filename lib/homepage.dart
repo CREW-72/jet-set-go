@@ -146,14 +146,41 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onNavItemTapped,
-        backgroundColor: Colors.transparent,
-        selectedItemColor: Color(0xFFACE6FC), // HEX ACE6FC for selected items
-        unselectedItemColor: Color(0xFFACE6FC), // HEX ACE6FC for unselected items
+        backgroundColor: Colors.blue[900],
+        selectedItemColor: Color(0xFFACE6FC), // Selected item color
+        unselectedItemColor: Color(0xFFACE6FC), // Unselected item color
+        type: BottomNavigationBarType.fixed, // Keeps the bar size fixed
+        showSelectedLabels: false, // Hides text labels
+        showUnselectedLabels: false, // Hides text labels
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), label: 'Settings'),
-          BottomNavigationBarItem(icon: Icon(Icons.lightbulb), label: 'Tips'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(top: 10), // Moves icon lower
+              child: Icon(Icons.home),
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Icon(Icons.settings),
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Icon(Icons.lightbulb),
+            ),
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Icon(Icons.person),
+            ),
+            label: '',
+          ),
         ],
       ),
     );
