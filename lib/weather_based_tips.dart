@@ -31,7 +31,12 @@ class WeatherBasedTips extends StatelessWidget {
               }).toList(),
             ),
           ),
-          ElevatedButton.icon(
+          Padding(
+            padding: const EdgeInsets.only(bottom: 40.0),
+            child: SizedBox(
+              width: 300,
+              height: 45,
+              child:ElevatedButton.icon(
             onPressed: () {
               Navigator.push(
                 context,
@@ -42,6 +47,15 @@ class WeatherBasedTips extends StatelessWidget {
             },
             icon: Icon(Icons.arrow_forward),
             label: Text("Next"),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.blue,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(32.0),
+              ),
+          ),
+            ),
+          ),
           ),
         ],
       ),
