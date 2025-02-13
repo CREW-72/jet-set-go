@@ -21,7 +21,7 @@ class WelcomeScreen extends StatelessWidget {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/pattern.png"), // Your background pattern
+            image: AssetImage("assets/images/pattern.png"), // Your background pattern
             fit: BoxFit.cover,
           ),
         ),
@@ -29,7 +29,7 @@ class WelcomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Spacer(),
-            Image.asset("assets/welcome.png", width: 200), // Your main image
+            Image.asset("assets/images/welcome.png", width: 200), // Your main image
             SizedBox(height: 20),
             RichText(
               text: TextSpan(
