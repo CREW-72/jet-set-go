@@ -41,7 +41,7 @@ class LandingPage extends StatelessWidget {
 
                   // Image of Luggage
                   Image.asset(
-                    'assets/luggage.png', // Replace with an appropriate image
+                    'assets/luggage.jpg', // Replace with an appropriate image
                     height: 180,
                   ),
                   SizedBox(height: 20),
