@@ -42,7 +42,12 @@ class _PackingSelectionScreenState extends State<PackingSelectionScreen> {
               }).toList(),
             ),
           ),
-          ElevatedButton(
+          Padding(
+            padding: const EdgeInsets.only(bottom:  50.0),
+            child: SizedBox(
+              width: 300,
+              height: 45,
+              child:ElevatedButton(
             onPressed: () {
               if (selectedCategories.isNotEmpty) {
                 Navigator.push(
@@ -54,6 +59,11 @@ class _PackingSelectionScreenState extends State<PackingSelectionScreen> {
               }
             },
             child: Text("View Tips"),
+                style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.blue,
+          ),
+          ),
+          ),
           ),
         ],
       ),
