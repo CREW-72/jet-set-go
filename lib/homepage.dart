@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                           child: ShaderMask(
                             shaderCallback: (bounds) {
                               return LinearGradient(
-                                colors: [Colors.cyanAccent, Colors.amberAccent, Colors.green],
+                                colors: [Colors.blue, Colors.cyanAccent, Colors.red, Colors.orange],
                                 tileMode: TileMode.mirror,
                               ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height));
                             },
