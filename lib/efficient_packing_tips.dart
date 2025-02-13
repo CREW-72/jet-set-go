@@ -33,7 +33,12 @@ class EfficientPackingTips extends StatelessWidget{
               }).toList(),
             ),
           ),
-          ElevatedButton.icon(
+          Padding(
+          padding: const EdgeInsets.only(bottom: 40.0),
+          child: SizedBox(
+            width: 300,
+            height: 45,
+            child:ElevatedButton.icon(
             onPressed: (){
               Navigator.push(
                 context,
@@ -42,8 +47,17 @@ class EfficientPackingTips extends StatelessWidget{
                 ),
               );
             },
-            icon: Icon(Icons.arrow_back),
-            label: Text("Back"),
+            icon: Icon(Icons.arrow_forward, color: Colors.blue,),
+            label: Text("Finish"),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white,
+                foregroundColor: Colors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(32.0),
+                ),
+          ),
+          ),
+          ),
           ),
         ],
       ),

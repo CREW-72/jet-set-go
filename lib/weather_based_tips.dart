@@ -45,7 +45,7 @@ class WeatherBasedTips extends StatelessWidget {
                 ),
               );
             },
-            icon: Icon(Icons.arrow_forward),
+            icon: Icon(Icons.arrow_forward, color: Colors.blue,),
             label: Text("Next"),
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
