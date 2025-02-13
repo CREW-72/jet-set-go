@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
         child: Stack(
           children: [
             Positioned(
-              bottom: 20,
+              bottom: 10,
               left: 10,
               right: 10,
               child: Column(
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                                 offset: Offset(-70, -160), // Move 30 pixels right, 10 pixels down
                                 child: Text(
                                   'Current Trip',
-                                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.indigo),
                                 ),
                               ),
 
@@ -98,8 +98,10 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SizedBox(height: 3),
+
                   Row(
                     children: [
+                      // DOCUMENT BUTTON
                       Expanded(
                         child: Card(
                           shape: RoundedRectangleBorder(
@@ -108,22 +110,40 @@ class _HomePageState extends State<HomePage> {
                           elevation: 4,
                           child: InkWell(
                             onTap: () {},
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 100),
-                                  Text(
-                                    'Documents',
-                                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                                  ),
-                                ],
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage("assets/images/planebg.png"),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/document.png",
+                                      height: 120,
+                                      width: 200,
+                                    ),
+                                    SizedBox(height: 7),
+                                    Text(
+                                      'Document',
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.indigo),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(width: 3),
+
+                      // SPECIAL ASSISTANCE BUTTON
                       Expanded(
                         child: Card(
                           shape: RoundedRectangleBorder(
@@ -132,17 +152,37 @@ class _HomePageState extends State<HomePage> {
                           elevation: 4,
                           child: InkWell(
                             onTap: () {},
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 70),
-                                  Text(
-                                    'Special Assistance',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                                  ),
-                                ],
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage("assets/images/planebg.png"),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center, // Vertically center the children
+                                  crossAxisAlignment: CrossAxisAlignment.center, // Horizontally center the children
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/wheelchair.png",
+                                      height: 100,
+                                      width: 200,
+                                    ),
+                                    SizedBox(height: 0),
+                                    Text(
+                                      'Special Assistance',
+                                      textAlign: TextAlign.center, // Ensure the text is centered
+                                      style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.indigo,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -151,8 +191,10 @@ class _HomePageState extends State<HomePage> {
                     ],
                   ),
 
+
                   Row(
                     children: [
+                      //TRANSPORT BUTTON
                       Expanded(
                         child: Card(
                           shape: RoundedRectangleBorder(
@@ -161,22 +203,42 @@ class _HomePageState extends State<HomePage> {
                           elevation: 4,
                           child: InkWell(
                             onTap: () {},
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 100),
-                                  Text(
-                                    'Transport',
-                                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                                  ),
-                                ],
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage("assets/images/planebg.png"),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/taxi.png",
+                                      height: 100,
+                                      width: 200,
+                                    ),
+                                    SizedBox(height: 7),
+                                    Text(
+                                      'Transport',
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.indigo),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(width: 3),
+                      SizedBox(width: 0),
+                      SizedBox(height: 0),
+
+                      //DOCUMENT BUTTON
                       Expanded(
                         child: Card(
                           shape: RoundedRectangleBorder(
@@ -185,16 +247,33 @@ class _HomePageState extends State<HomePage> {
                           elevation: 4,
                           child: InkWell(
                             onTap: () {},
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 100),
-                                  Text(
-                                    'Luggage',
-                                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                                  ),
-                                ],
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage("assets/images/planebg.png"),
+                                  fit: BoxFit.cover,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/luggage.png",
+                                      height: 100,
+                                      width: 200,
+                                    ),
+                                    SizedBox(height: 7),
+                                    Text(
+                                      'Luggage',
+                                      style: TextStyle(
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.indigo),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
