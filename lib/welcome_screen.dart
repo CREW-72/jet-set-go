@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: WelcomeScreen(),
-    );
-  }
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: WelcomeScreen(),
+  ));
 }
 
 class WelcomeScreen extends StatelessWidget {
@@ -19,34 +12,36 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        width: double.infinity, // Ensures full width
+        height: double.infinity, // Ensures full height
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/pattern.png"), // Your background pattern
+            image: AssetImage("assets/images/background.png"), // Background pattern
             fit: BoxFit.cover,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Spacer(),
-            Image.asset("assets/images/welcome.png", width: 200), // Your main image
-            SizedBox(height: 20),
-            RichText(
-              text: TextSpan(
-                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                children: [
-                  TextSpan(text: "JET.", style: TextStyle(color: Colors.blue)),
-                  TextSpan(text: "SET.", style: TextStyle(color: Colors.red)),
-                  TextSpan(text: "GO", style: TextStyle(color: Colors.yellow)),
-                ],
+        child: Center( // Centers all content
+          child: Column(
+            mainAxisSize: MainAxisSize.min, // Avoids unnecessary space
+            children: [
+              Image.asset("assets/images/welcome.png", width: 200), // Main image
+              SizedBox(height: 20),
+              RichText(
+                text: TextSpan(
+                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                  children: [
+                    TextSpan(text: "JET.", style: TextStyle(color: Colors.blue)),
+                    TextSpan(text: "SET.", style: TextStyle(color: Colors.red)),
+                    TextSpan(text: "GO", style: TextStyle(color: Colors.yellow)),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: 40),
-            CustomButton(text: "Login", onTap: () {}),
-            SizedBox(height: 15),
-            CustomButton(text: "Sign up", onTap: () {}),
-            Spacer(),
-          ],
+              SizedBox(height: 40),
+              CustomButton(text: "Login", onTap: () {}),
+              SizedBox(height: 15),
+              CustomButton(text: "Sign up", onTap: () {}),
+            ],
+          ),
         ),
       ),
     );
