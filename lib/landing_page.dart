@@ -37,8 +37,7 @@ class LandingPage extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 20) ,
-
+                  SizedBox(height: 580),
 
                   // Container with rounded corners and transparency
                   Container(
@@ -49,16 +48,6 @@ class LandingPage extends StatelessWidget {
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
                       children: [
-                        // Image of Luggage with rounded corners
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20), // Rounded corners
-                          child: Image.asset(
-                            'assets/luggage.jpg', // Replace with an appropriate image
-                            height: 300,
-                          ),
-                        ),
-                        SizedBox(height: 250, width: 300,),
-
                         // Get Started Button
                         ElevatedButton.icon(
                           onPressed: () {
