@@ -36,7 +36,7 @@ class TravelDetails extends StatelessWidget {
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.green,
-                    minimumSize: Size(100, 50),
+                    minimumSize: Size(160, 50),
                   ),
                 ),
                 SizedBox(width: 40),
@@ -56,7 +56,7 @@ class TravelDetails extends StatelessWidget {
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.lightBlue,
-                    minimumSize: Size(100, 50),
+                    minimumSize: Size(160, 50),
                   ),
                 ),
               ],
