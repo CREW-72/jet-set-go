@@ -1,4 +1,3 @@
-// lib/travel_details_screen.dart
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/security_based_tips.dart';
 import 'packing_selection_screen.dart';
@@ -14,45 +13,53 @@ class TravelDetails extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "How many Seats have you booked?",
-              style: TextStyle(fontSize: 18),
-            ),
-            SizedBox(height: 20),
-            TextField(
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: "Number of Seats",
-              ),
-            ),
-            SizedBox(height: 40),
-            Text(
               "Is there any Children travelling with you?",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PackingSelectionScreen(),
+            SizedBox(height: 450),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => PackingSelectionScreen(),
+                      ),
+                    );
+                  },
+                  icon: Icon(Icons.check, color: Colors.white),
+                  label: Text(
+                    "Yes",
+                    style: TextStyle(color: Colors.white), // Change text color here
                   ),
-                );
-              },
-              child: Text("Yes"),
-            ),
-            SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SecurityBasedTips(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green,
+                    minimumSize: Size(100, 50),
                   ),
-                );
-              },
-              child: Text("No"),
+                ),
+                SizedBox(width: 40),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SecurityBasedTips(),
+                      ),
+                    );
+                  },
+                  icon: Icon(Icons.close, color: Colors.white),
+                  label: Text(
+                    "No",
+                    style: TextStyle(color: Colors.white), // Change text color here
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.lightBlue,
+                    minimumSize: Size(100, 50),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
