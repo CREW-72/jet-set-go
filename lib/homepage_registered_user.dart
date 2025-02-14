@@ -40,8 +40,8 @@ class _HomePageState extends State<HomePage> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/background.jpg'), // Replace with your image path
-            fit: BoxFit.cover, // Ensures the image covers the entire screen
+            image: AssetImage('assets/images/background.jpg'),
+            fit: BoxFit.cover,
           ),
         ),
         child: Stack(
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
               left: 0,
               right: 0,
               child: Image.asset(
-                "assets/images/planeimage.png",
+                "assets/images/planeimage1.png",
                 height: 260,
                 fit: BoxFit.cover,
               ),
@@ -65,13 +65,13 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   //WELCOME MESSAGE AND COLOUR GRADIENT
                   Padding(
-                    padding: const EdgeInsets.only(left: 10.0, bottom: 0.0), // Reduced bottom padding
+                    padding: const EdgeInsets.only(left: 10.0, bottom: 0.0),
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: ShaderMask(
                         shaderCallback: (bounds) {
                           return LinearGradient(
-                            colors: [Colors.white, Colors.cyanAccent, Colors.white],
+                            colors: [Colors.white, Colors.white, Colors.white],
                             tileMode: TileMode.mirror,
                           ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height));
                         },
@@ -102,10 +102,10 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               SizedBox(height: 170),
                               Transform.translate(
-                                offset: Offset(-70, -160), // Move 30 pixels right, 10 pixels down
+                                offset: Offset(-100, -170),
                                 child: Text(
                                   'Current Trip',
-                                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.indigo),
+                                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.indigo),
                                 ),
                               ),
 
@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          elevation: 4,
+                           elevation: 4,
                           child: InkWell(
                             onTap: () {},
                             child: Ink(
@@ -181,8 +181,8 @@ class _HomePageState extends State<HomePage> {
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center, // Vertically center the children
-                                  crossAxisAlignment: CrossAxisAlignment.center, // Horizontally center the children
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Image.asset(
                                       "assets/images/wheelchair.png",
@@ -192,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                                     SizedBox(height: 0),
                                     Text(
                                       'Special Assistance',
-                                      textAlign: TextAlign.center, // Ensure the text is centered
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontSize: 22,
                                         fontWeight: FontWeight.bold,
