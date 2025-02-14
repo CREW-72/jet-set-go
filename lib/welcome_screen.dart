@@ -16,7 +16,7 @@ class WelcomeScreen extends StatelessWidget {
         height: double.infinity, // Ensures full height
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/background.png"), // Background pattern
+            image: AssetImage("assets/images/background.jpg"), // Background pattern
             fit: BoxFit.cover,
           ),
         ),
@@ -24,11 +24,11 @@ class WelcomeScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min, // Avoids unnecessary space
             children: [
-              Image.asset("assets/images/welcome.png", width: 200), // Main image
-              SizedBox(height: 20),
+              Image.asset("assets/images/welcome.png", width: 400), // Main image
+              SizedBox(height: 40),
               RichText(
                 text: TextSpan(
-                  style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
                   children: [
                     TextSpan(text: "JET.", style: TextStyle(color: Colors.blue)),
                     TextSpan(text: "SET.", style: TextStyle(color: Colors.red)),
@@ -58,17 +58,21 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 40),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
+      child: SizedBox(
+        width: 200, // Button takes full width within padding
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            ),
+            padding: EdgeInsets.symmetric(vertical: 15),
+            minimumSize: Size(100, 50), // Ensures a minimum button width
           ),
-          padding: EdgeInsets.symmetric(vertical: 15),
+          onPressed: onTap,
+          child: Text(text, style: TextStyle(fontSize: 18)),
         ),
-        onPressed: onTap,
-        child: Text(text, style: TextStyle(fontSize: 18)),
       ),
     );
   }
