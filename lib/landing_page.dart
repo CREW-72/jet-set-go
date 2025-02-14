@@ -37,48 +37,53 @@ class LandingPage extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 20) ,
 
-                  // Image of Luggage
-                  Image.asset(
-                    'assets/luggage.jpg', // Replace with an appropriate image
-                    height: 180,
-                  ),
-                  SizedBox(height: 20),
 
-                  // Subtitle
-                  Text(
-                    "Plan smart, pack light, and travel stress-free!",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.white70,
+                  // Container with rounded corners and transparency
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.1), // Transparent color
+                      borderRadius: BorderRadius.circular(20), // Rounded corners
                     ),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 40),
-
-                  // Get Started Button
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TravelChoice(),
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        // Image of Luggage with rounded corners
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(20), // Rounded corners
+                          child: Image.asset(
+                            'assets/luggage.jpg', // Replace with an appropriate image
+                            height: 300,
+                          ),
                         ),
-                      );
-                    },
-                    icon: Icon(Icons.flight_takeoff_rounded, color: Colors.white),
-                    label: Text(
-                      "Get Started",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueAccent.shade700,
-                      foregroundColor: Colors.white,
-                      minimumSize: Size(220, 55),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
+                        SizedBox(height: 250, width: 300,),
+
+                        // Get Started Button
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TravelChoice(),
+                              ),
+                            );
+                          },
+                          icon: Icon(Icons.flight_takeoff_rounded, color: Colors.white),
+                          label: Text(
+                            "Get Started",
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blueAccent.shade700,
+                            foregroundColor: Colors.white,
+                            minimumSize: Size(220, 55),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
