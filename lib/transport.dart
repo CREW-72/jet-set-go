@@ -48,6 +48,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
 
+      //NOTIFICATION BAR
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onNavItemTapped,
