@@ -8,14 +8,13 @@ class TravellingWithInfantsInfo extends StatelessWidget {
     return  Scaffold(
       appBar: AppBar(
         title: Text(
-          "Traveling With Children",
+          "Travelling With Children",
           style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold
+              color: Colors.white, fontWeight: FontWeight.bold
           ),
         ),
-        backgroundColor: Colors.blue,
+        centerTitle: true,
+        backgroundColor: Colors.blue[900],
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
@@ -34,7 +33,7 @@ class TravellingWithInfantsInfo extends StatelessWidget {
               width: 350,
               height: 2300,
               padding: EdgeInsets.all(16),
-              decoration: BoxDecoration(color: Colors.blue,borderRadius: BorderRadius.circular(16)),
+              decoration: BoxDecoration(color: Colors.blue[900],borderRadius: BorderRadius.circular(16)),
               child: Column(
                 children: [
                   buildSectionHeading("Important"),

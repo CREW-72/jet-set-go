@@ -8,14 +8,13 @@ class TravellingDuringPregnancyInfo extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Traveling During Pregnancy",
+          "Travelling during Pregnancy",
           style: TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold
+              color: Colors.white, fontWeight: FontWeight.bold
           ),
         ),
-        backgroundColor: Colors.blue,
+        centerTitle: true,
+        backgroundColor: Colors.blue[900],
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
@@ -35,7 +34,7 @@ class TravellingDuringPregnancyInfo extends StatelessWidget {
               height: 1100,
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                  color: Colors.blue, borderRadius: BorderRadius.circular(16)),
+                  color: Colors.blue[900], borderRadius: BorderRadius.circular(16)),
               child: Column(
                 children: [
                   buildSectionHeading("Important"),
