@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/calling_option.dart';
-import 'package:jet_set_go/reduced_mobility_info.dart';
 import 'package:jet_set_go/visit_counter.dart';
 import 'disability_form.dart';
 import 'medical_clearance_info.dart';
