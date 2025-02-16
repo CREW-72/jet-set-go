@@ -22,7 +22,7 @@ class SpecialAssistanceLandingPage extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    Colors.black.withOpacity(0.7),
+                    Color.fromRGBO(255, 255, 255, 0.7),
                     Colors.transparent,
                   ],
                   begin: Alignment.topCenter,
@@ -41,7 +41,7 @@ class SpecialAssistanceLandingPage extends StatelessWidget {
                 height: 300,
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.7), // More opacity for better readability
+                  color: Color.fromRGBO(255, 255, 255, 0.7),
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(

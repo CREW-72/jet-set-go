@@ -46,7 +46,7 @@ class UnaccompaniedMinorsInfo extends StatelessWidget {
                         width: 350,
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20), // Added padding
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.85),
+                          color: Color.fromRGBO(255, 255, 255, 0.85),
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Column(

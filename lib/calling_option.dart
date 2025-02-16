@@ -47,7 +47,7 @@ class CallingOption extends StatelessWidget {
                         height: 600,
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.85),
+                          color: Color.fromRGBO(255, 255, 255, 0.85),
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Column(

@@ -129,7 +129,7 @@ class SpecialAssistanceCategory extends StatelessWidget {
           height: 90,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.9),
+            color: Color.fromRGBO(255, 255, 255, 0.9),
             borderRadius: BorderRadius.circular(18),
             boxShadow: [
               BoxShadow(
