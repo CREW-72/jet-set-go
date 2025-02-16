@@ -53,6 +53,7 @@ class TravellingWithInfantsInfo extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             buildSectionHeading("Important"),
+                            Center(child: Text("️🧑🏻‍🍼️",style: TextStyle(fontSize: 96))),
                             Text("Travel regulations may vary by airline and destination. Please check with your airline and local authorities for the latest requirements.\n",style: TextStyle(fontSize: 18,color: Colors.blue[900],fontWeight: FontWeight.bold),
                             ),
                             Text(

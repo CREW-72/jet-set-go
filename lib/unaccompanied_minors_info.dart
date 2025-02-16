@@ -53,6 +53,7 @@ class UnaccompaniedMinorsInfo extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             buildSectionHeading("Important"),
+                            Center(child: Text("️ℹ️",style: TextStyle(fontSize: 96))),
                             buildText("Travel regulations may vary by airline and destination. Please check with your airline and local authorities for the latest requirements.", isBold: true),
                             const SizedBox(height: 10),
                             buildText(
