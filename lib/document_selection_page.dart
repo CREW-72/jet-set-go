@@ -22,7 +22,7 @@ class DocumentSelectionPage extends StatelessWidget {
         height: height, // Dynamically adjustable height
         width: width,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.cyan,
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
@@ -36,12 +36,12 @@ class DocumentSelectionPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(assetPath, width: 70, height: 80), // Icon image
             SizedBox(height: 10),
             Text(
               documentType,
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
+            Image.asset(assetPath, width: 70, height: 80), // Icon image
           ],
         ),
       ),
