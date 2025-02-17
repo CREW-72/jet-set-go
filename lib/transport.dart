@@ -39,11 +39,11 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background Image
+          // Background Color
           Container(
             decoration: BoxDecoration(
               color: Colors.white, // Set background color to white
-              ),
+            ),
           ),
 
           // Header Image
@@ -58,17 +58,17 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          //HEADER
+          // HEADER TEXT
           Positioned(
-            top: 50, // Moves text 50 pixels from the top
+            top: 50,
             left: 20,
             child: Text(
               'TRANSPORT',
               style: TextStyle(
-                  fontSize: 45,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  letterSpacing: 3.0,
+                fontSize: 45,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                letterSpacing: 3.0,
               ),
             ),
           ),
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-          // Line Image
+          // Plane Image
           Positioned(
             top: 100,
             right: 70,
@@ -108,8 +108,9 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
+          // Back Button
           Positioned(
-            top: 50, // Adjust as needed
+            top: 50,
             right: 20,
             child: Container(
               width: 40,
@@ -117,27 +118,27 @@ class _HomePageState extends State<HomePage> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: Colors.white, // Border color
-                  width: 4, // Thick border
+                  color: Colors.white,
+                  width: 4,
                 ),
               ),
               child: IconButton(
                 icon: Icon(
                   Icons.arrow_back,
                   color: Colors.white,
-                  size: 28, // Arrow size
+                  size: 28,
                 ),
-                padding: EdgeInsets.zero, // Remove extra padding
-                onPressed: () {
-                },
+                padding: EdgeInsets.zero,
+                onPressed: () {},
               ),
             ),
           ),
 
+          // Draggable Scrollable Sheet
           DraggableScrollableSheet(
-            initialChildSize: 0.1, // Shows small part at bottom
-            minChildSize: 0.1, // Minimum visible size
-            maxChildSize: 0.6, // Maximum size when dragged
+            initialChildSize: 0.2,
+            minChildSize: 0.2,
+            maxChildSize: 0.7,
             builder: (context, scrollController) {
               return Container(
                 decoration: BoxDecoration(
@@ -178,10 +179,53 @@ class _HomePageState extends State<HomePage> {
                           ),
 
                           SizedBox(height: 10),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: Text("Button 1"),
+                          Expanded(
+                            child: Card(
+                              child: InkWell(
+                                onTap: () {}, // Button action
+                                child: Ink(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage("assets/images/whitebg.png"), // Background image
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 08), // Adjust height
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Transportation Tips', // Button text
+                                          style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFF0A4C80),
+                                            letterSpacing: 1.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
+
+                          SizedBox(height: 30),
+                          Center(
+                            child: Text(
+                              '- Popular Travel Options -',
+                              style: TextStyle(
+                                fontSize: 25,
+                                color: Colors.white,
+                                letterSpacing: 2.0,
+                              ),
+                            ),
+                          ),
+
+                          // Buttons
                           SizedBox(height: 10),
                           ElevatedButton(
                             onPressed: () {},
@@ -202,12 +246,6 @@ class _HomePageState extends State<HomePage> {
                             onPressed: () {},
                             child: Text("Button 5"),
                           ),
-
-                          SizedBox(height: 10),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: Text("Button 5"),
-                          ),
                         ],
                       ),
                     ),
@@ -217,7 +255,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
         ],
-      ), 
+      ),
 
       // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
