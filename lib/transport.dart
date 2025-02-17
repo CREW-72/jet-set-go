@@ -165,19 +165,14 @@ class _HomePageState extends State<HomePage> {
                         controller: scrollController,
                         padding: EdgeInsets.all(20),
                         children: [
-                          Positioned(
-                            top: 113,
-                            left: 0, // Align to the left boundary
-                            right: 0, // Align to the right boundary
-                            child: Center( // Centers the text horizontally
-                              child: Text(
-                                'TRAVEL OPTIONS',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
-                                  color: Colors.white,
-                                  letterSpacing: 2.0,
-                                ),
+                          Center(
+                            child: Text(
+                              'TRAVEL OPTIONS',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25,
+                                color: Colors.white,
+                                letterSpacing: 2.0,
                               ),
                             ),
                           ),
