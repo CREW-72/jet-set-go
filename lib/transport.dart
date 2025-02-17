@@ -42,11 +42,8 @@ class _HomePageState extends State<HomePage> {
           // Background Image
           Container(
             decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/background.png"),
-                fit: BoxFit.cover,
+              color: Colors.white, // Set background color to white
               ),
-            ),
           ),
 
           // Header Image
@@ -136,8 +133,39 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+
+          DraggableScrollableSheet(
+            initialChildSize: 0.1, // Shows small part at bottom
+            minChildSize: 0.1, // Minimum visible size
+            maxChildSize: 0.6, // Maximum size when dragged
+            builder: (context, scrollController) {
+              return Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/background.png"),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                ),
+                child: Column(
+                  children: [
+                    // Drag Handle
+                    Container(
+                      margin: EdgeInsets.only(top: 30),
+                      width: 100,
+                      height: 6,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ],
-      ),
+      ), 
 
       // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
