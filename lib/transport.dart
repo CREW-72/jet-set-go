@@ -159,6 +159,63 @@ class _HomePageState extends State<HomePage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
+
+                    Expanded(
+                      child: ListView(
+                        controller: scrollController,
+                        padding: EdgeInsets.all(20),
+                        children: [
+                          Positioned(
+                            top: 113,
+                            left: 0, // Align to the left boundary
+                            right: 0, // Align to the right boundary
+                            child: Center( // Centers the text horizontally
+                              child: Text(
+                                'TRAVEL OPTIONS',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 25,
+                                  color: Colors.white,
+                                  letterSpacing: 2.0,
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text("Button 1"),
+                          ),
+                          SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text("Button 2"),
+                          ),
+                          SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text("Button 3"),
+                          ),
+                          SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text("Button 4"),
+                          ),
+                          SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text("Button 5"),
+                          ),
+
+                          SizedBox(height: 10),
+                          ElevatedButton(
+                            onPressed: () {},
+                            child: Text("Button 5"),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               );
