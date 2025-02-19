@@ -78,7 +78,7 @@ class VisitCounter extends StatelessWidget {
                             ),
                             ElevatedButton.icon(
                               onPressed: () {
-                                /* insert page */
+                                _inProgressMessage(context);
                               },
                               icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
                               label: Text("Continue", style: TextStyle(fontSize: 20)),
@@ -101,4 +101,38 @@ class VisitCounter extends StatelessWidget {
       ),
     );
   }
+}
+void  _inProgressMessage(BuildContext context){
+  showDialog(context: context, builder:  (BuildContext context){
+    return AlertDialog(
+      title: Row(
+        children: [
+          Text(
+            "⚠️ Warning",
+            style: TextStyle(
+              color: Colors.blue[900],
+              fontFamily: "Arial",
+            ),
+          ),
+        ],
+      ),
+      content: Text("We are busy making this better for you. \nWe will have it ready soon !",style: TextStyle(fontSize: 18,
+        color: Colors.blue[900],
+      ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: Text(
+            'Close',
+            style: TextStyle(
+                color: Colors.blue[900], fontFamily: "Arial", fontSize: 16),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  },
+  );
 }
