@@ -136,11 +136,17 @@ class _HomePageState extends State<HomePage> {
                       Card(
                         child: InkWell(
                           onTap: () {},
-                          child: Padding(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/images/whitebg.png"),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Center(
                               child: Text(
-                                'Transportation Tips',
+                                'Transportation Tips  ->',
                                 style: TextStyle(
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
@@ -152,6 +158,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
+
                       SizedBox(height: 30),
                       Text(
                         '- Popular Travel Options -',
@@ -168,6 +175,7 @@ class _HomePageState extends State<HomePage> {
                           _buildRideButton("assets/images/pickme.png", "com.pickme.passenger", "https://play.google.com/store/apps/details?id=com.pickme.passenger"),
                           _buildRideButton("assets/images/kangaroo.png", "com.kangaroocabs", "https://play.google.com/store/apps/details?id=com.kangaroocabs"),
                           _buildRideButton("assets/images/yogo.png", "com.yogo.passenger", "https://play.google.com/store/apps/details?id=com.yogo.passenger"),
+                          _buildRideButton("assets/images/yangoo.png", "com.yangoo.app", "https://play.google.com/store/apps/details?id=com.yangoo.app"),
                         ],
                       ),
                     ],
