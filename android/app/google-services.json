@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "839317677387",
+    "project_id": "jetsetgo-ee55b",
+    "storage_bucket": "jetsetgo-ee55b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839317677387:android:8a6b3c91f121739beef4ce",
+        "android_client_info": {
+          "package_name": "com.example.jet_set_go"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBB-e97Ku-DvOgu9abGZ63aSukIPPokdJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
