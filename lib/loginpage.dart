@@ -24,6 +24,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+    // Get screen size to help position elements
+    final Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -35,53 +38,170 @@ class _SignUpPageState extends State<SignUpPage> {
             ),
           ),
 
-          // Content
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  // Title
-                  Text(
-                    "Your journey starts here! ✈️",
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
+          Positioned(
+            top: 21,
+            left: 50.0,
+            right: 50.0,
+            child: Opacity(
+              opacity: 0.9,
+              child: SizedBox(
+                width: 350.0,
+                height: 350.0,
+                child: Image.asset(
+                  'assets/images/airhostess.png',
+                  fit: BoxFit.contain, // Ensure proper scaling
+                ),
+              ),
+            ),
+          ),
+
+          // Positioned Title Text Separately
+          Positioned(
+            top: size.height * 0.25,
+            left: 20,
+            right: 20,
+            child: Text(
+              "Welcome Back!",
+              style: TextStyle(
+                fontSize: 41,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins',
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+
+          // Positioned Input Fields and Login Button
+          Positioned(
+            top: size.height * 0.36,
+            left: 20,
+            right: 20,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _buildTextField("Email"),
+                SizedBox(height: 16), // Space between text fields
+                _buildTextField("Password", obscureText: true),
+
+                // Checkbox for "Remember Me"
+                Row(
+                  children: [
+                    Checkbox(
+                      value: _rememberMe,
+                      onChanged: (value) {
+                        // Air Hostess Image (Behind Main Text)
+                        setState(() {
+                          _rememberMe = value!;
+                        });
+                      },
+                      activeColor: Colors.deepPurpleAccent,
                     ),
-                    textAlign: TextAlign.center,
+                    Text(
+                      "Remember Me",
+                      style: TextStyle(color: Colors.white, fontFamily: 'Poppins'),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 10),
+
+                // Login Button
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurpleAccent,
+                      padding: EdgeInsets.symmetric(vertical: 14, horizontal: 50),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    child: Text(
+                      "Login",
+                      style: TextStyle(fontSize: 18, color: Colors.white, fontFamily: 'Poppins'),
+                    ),
                   ),
-                  SizedBox(height: 20),
+                ),
+              ],
+            ),
+          ),
 
-                  // Form Fields
-                  _buildTextField("Email"),
-                  _buildTextField("Password", obscureText: true),
+          // Positioned Bottom Buttons
+          Positioned(
+            left: 20,
+            right: 20,
+            bottom: 110,  // Adjust this as necessary
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Row to place line and plane image next to each other
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center, // Center the row content
+                  children: [
+                    // Line
+                    Container(
+                      height: 2.0,  // Line thickness
+                      width: 330.0, // Line length, adjust as needed
+                      color: Colors.white,  // Line color
+                    ),
 
-                  // Checkbox for "Remember Me"
-                  Row(
+                    // Plane Image
+                    Image.asset(
+                      'assets/images/plane.png',  // Your plane image path
+                      width: 50.0,  // Adjust the size as necessary
+                      height: 50.0, // Adjust the size as necessary
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16), // Space between the row and the buttons
+
+                // Create New Account Button
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF87A8EE).withOpacity(0.6),
+                    padding: EdgeInsets.symmetric(vertical: 14, horizontal: 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      Checkbox(
-                        value: _rememberMe,
-                        onChanged: (value) {
-                          setState(() {
-                            _rememberMe = value!;
-                          });
-                        },
-                        activeColor: Colors.deepPurpleAccent,
-                      ),
-                      Text(
-                        "Remember Me",
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      Image.asset('assets/images/newAccount.png', height: 27),
+                      SizedBox(width: 10),
+                      Text("Create New Account",
+                          style: TextStyle(color: Colors.white, fontSize: 16, fontFamily: 'Poppins')),
                     ],
                   ),
+                ),
+                SizedBox(height: 15),
 
-                  SizedBox(height: 10),
+                // "or" Text
+                Text("or", style: TextStyle(color: Colors.white, fontSize: 16, fontFamily: 'Poppins')),
+                SizedBox(height: 10),
 
-
-                ],
-              ),
+                // Continue with Google Button
+                ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFF87A8EE).withOpacity(0.6),
+                    padding: EdgeInsets.symmetric(vertical: 14, horizontal: 40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Image.asset('assets/images/google.png', height: 27),
+                      SizedBox(width: 10),
+                      Text("Continue with Google",
+                          style: TextStyle(color: Colors.white, fontSize: 16, fontFamily: 'Poppins')),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -95,13 +215,15 @@ class _SignUpPageState extends State<SignUpPage> {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextField(
         obscureText: obscureText,
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Colors.white, fontFamily: 'Poppins'), // Use Poppins font
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: TextStyle(color: Colors.white70),
+          hintStyle: TextStyle(color: Colors.white70, fontFamily: 'Poppins'),
           filled: true,
           fillColor: Colors.white.withOpacity(0.2),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide.none),
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+              borderSide: BorderSide.none),
           contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
         ),
       ),
