@@ -1,20 +1,36 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(SignUpApp());
 }
 
-class MyApp extends StatelessWidget {
+class SignUpApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Login Page',
-      home: LoginPage(),
+      debugShowCheckedModeBanner: false,
+      home: SignUpPage(),
     );
   }
 }
 
-class LoginPage extends StatefulWidget {
+class SignUpPage extends StatelessWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        children: [
+          // Background Image
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/background.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+
+
+        ],
+      ),
+    );
+  }
 }
