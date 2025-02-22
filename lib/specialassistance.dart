@@ -127,8 +127,8 @@ class SpecialAssistanceCategory extends StatelessWidget {
                 Expanded(
                   child: Text(
                     text,
-                    style: const TextStyle(
-                      color: Colors.blue,
+                    style:  TextStyle(
+                      color: Colors.blue[900],
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),

@@ -1,47 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/specialAssistance.dart';
+import 'package:jet_set_go/special_assistance_styling.dart';
 
 class SpecialAssistanceLandingPage extends StatelessWidget {
   const SpecialAssistanceLandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return UI(
       body: Stack(
         children: [
           // Background Image
           Positioned.fill(
+            top: 130,
             child: Image.asset(
-              "assets/assistance.png", // Path to the image
+              "assets/AssistanceLandingPage.png", // Path to the image
               fit: BoxFit.cover, // Ensures full-screen coverage
             ),
           ),
           // Gradient Overlay (Improved)
-          Positioned.fill(
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromRGBO(255, 255, 255, 0.7),
-                    Colors.transparent,
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-            ),
-          ),
           // Foreground Content
           Padding(
-            padding: const EdgeInsets.only(bottom: 50), // Moves container up
+            padding: const EdgeInsets.only(bottom: 20), // Moves container up
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Container(
                 width: 350,
-                height: 300,
+                height: 250,
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(255, 255, 255, 0.7),
+                  color: Color.fromRGBO(255, 255, 255, 0.9),
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
@@ -66,11 +54,11 @@ class SpecialAssistanceLandingPage extends StatelessWidget {
                         children: [
                           TextSpan(
                             text: "On\n",
-                            style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500),
+                            style: TextStyle(fontSize: 28, color: Colors.blue[800],fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
                             text: "Special Assistance",
-                            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 28,color: Colors.blue[800], fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
