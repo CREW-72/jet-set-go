@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/special_assistance_styling.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DisabilityForm extends StatelessWidget {
@@ -6,39 +7,15 @@ class DisabilityForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text(
-          "Special Assistance",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue[900],
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+    return UI(
       body: Column(
         children: [
-          const Divider(color: Colors.white, height: 3),
           Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF0D47A1), Color(0xFF1976D2)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
               child: Center(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 110),
                       Container(
                         width: 350,
                         height: 600,
@@ -56,13 +33,13 @@ class DisabilityForm extends StatelessWidget {
                                 "Disability Assistance Request Form",
                                 style: TextStyle(
                                   fontSize: 24,
-                                  color: Colors.blue[900],
+                                  color: Colors.blue[800],
                                   fontWeight: FontWeight.bold,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            Icon(Icons.file_open_outlined, color: Colors.blue[900], size: 150),
+                            Icon(Icons.file_open_outlined, color: Colors.blue[800], size: 150),
                             const SizedBox(height: 12),
                             Center(
                               child: Padding(
@@ -70,8 +47,9 @@ class DisabilityForm extends StatelessWidget {
                                 child: Text(
                                   "This form is provided by Sri Lankan Airlines to request assistance.\nPlease note that, this is not available for flights departing in the next 72 hours.",
                                   style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.blue[900],
+                                    fontSize: 20,
+                                    color: Colors.blue[800],
+                                    fontWeight: FontWeight.w600
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -84,7 +62,7 @@ class DisabilityForm extends StatelessWidget {
                               icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
                               label: Text("Continue", style: TextStyle(fontSize: 20)),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue[900],
+                                backgroundColor: Colors.blue[800],
                                 foregroundColor: Colors.white,
                                 minimumSize: Size(200, 50),
                               ),
@@ -97,7 +75,6 @@ class DisabilityForm extends StatelessWidget {
                 ),
               ),
             ),
-          ),
         ],
       ),
     );

@@ -1,43 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/special_assistance_styling.dart';
 
 class VisitCounter extends StatelessWidget {
   const VisitCounter({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text(
-          "Special Assistance",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue[900],
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+    return UI(
       body: Column(
         children: [
-          const Divider(color: Colors.white, height: 3),
           Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF0D47A1), Color(0xFF1976D2)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
               child: Center(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 110),
                       Container(
                         width: 350,
                         height: 600,
@@ -55,13 +32,13 @@ class VisitCounter extends StatelessWidget {
                                 "Visit Passenger Service Counter",
                                 style: TextStyle(
                                   fontSize: 24,
-                                  color: Colors.blue[900],
+                                  color: Colors.blue[800],
                                   fontWeight: FontWeight.bold,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            Icon(Icons.info_outline_rounded, color: Colors.blue[900], size: 150),
+                            Icon(Icons.info_outline_rounded, color: Colors.blue[800], size: 150),
                             const SizedBox(height: 12),
                             Center(
                               child: Padding(
@@ -69,8 +46,9 @@ class VisitCounter extends StatelessWidget {
                                 child: Text(
                                   "For any special assistance needed, Visit the Passenger Service Unit located at the BIA premises .\nClick 'Continue' and we’ll direct you to the counter.",
                                   style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.blue[900],
+                                    fontSize: 20,
+                                    color: Colors.blue[800],
+                                    fontWeight: FontWeight.w600
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
@@ -83,7 +61,7 @@ class VisitCounter extends StatelessWidget {
                               icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
                               label: Text("Continue", style: TextStyle(fontSize: 20)),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue[900],
+                                backgroundColor: Colors.blue[800],
                                 foregroundColor: Colors.white,
                                 minimumSize: Size(200, 50),
                               ),
@@ -96,7 +74,6 @@ class VisitCounter extends StatelessWidget {
                 ),
               ),
             ),
-          ),
         ],
       ),
     );
@@ -107,17 +84,17 @@ void  _inProgressMessage(BuildContext context){
     return AlertDialog(
       title: Row(
         children: [
+
           Text(
             "⚠️ Warning",
-            style: TextStyle(
-              color: Colors.blue[900],
-              fontFamily: "Arial",
+            style: TextStyle(color: Colors.blue[800], fontFamily: "Arial", fontWeight: FontWeight.w600
             ),
           ),
         ],
       ),
       content: Text("We are busy making this better for you. \nWe will have it ready soon !",style: TextStyle(fontSize: 18,
-        color: Colors.blue[900],
+        color: Colors.blue[800],
+        fontWeight: FontWeight.w600
       ),
       ),
       actions: <Widget>[
@@ -125,7 +102,7 @@ void  _inProgressMessage(BuildContext context){
           child: Text(
             'Close',
             style: TextStyle(
-                color: Colors.blue[900], fontFamily: "Arial", fontSize: 16),
+                color: Colors.blue[800], fontFamily: "Arial", fontSize: 20),
           ),
           onPressed: () {
             Navigator.of(context).pop();
