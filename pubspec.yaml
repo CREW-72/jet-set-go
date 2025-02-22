@@ -71,6 +71,10 @@ flutter:
      - assets/plane pattern.png
      - assets/takeoff-the-plane 2.png
      - assets/Line 1.png
+     - assets/reduced mobility passenger.jpg
+     - assets/pregnant passenger.jpg
+     - assets/travelling with children.webp
+     - assets/unaccompanied minor.webp
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

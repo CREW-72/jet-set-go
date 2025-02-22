@@ -1,47 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/special_assistance_styling.dart';
 
 class UnaccompaniedMinorsInfo extends StatelessWidget {
   const UnaccompaniedMinorsInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Unaccompanied Minors",
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue[900],
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+    return UI(
       body: Column(
         children: [
-          const Divider(color: Colors.white, height: 3), // Add a line after the AppBar
           Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF0D47A1), Color(0xFF1976D2)], // Dark to light blue gradient
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
               child: Center(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 150),
                       Container(
                         width: 350,
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20), // Added padding
@@ -52,15 +25,29 @@ class UnaccompaniedMinorsInfo extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            buildSectionHeading("Important"),
-                            Center(child: Text("️ℹ️",style: TextStyle(fontSize: 96))),
-                            buildText("Travel regulations may vary by airline and destination. Please check with your airline and local authorities for the latest requirements.", isBold: true),
+                            buildSectionHeading("Unaccompanied Minors"),
+                            Positioned(
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12), // Adjust the radius as needed
+                                child: Image.asset(
+                                  "assets/unaccompanied minor.webp",
+                                  height: 300, // Adjust the size as needed
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 15),
+                            Text("Travel regulations may vary by airline and destination. Please check with your airline and local authorities for the latest requirements.", style: TextStyle(fontSize: 18,color: Colors.blue[800],fontWeight: FontWeight.bold),
+                            ),
                             const SizedBox(height: 10),
                             buildText(
                               "1. Children aged 5 to 11 years (up to their 12th birthday) traveling alone are classified as unaccompanied minors.\n\n"
                                   "2. Travel conditions:\n\n"
-                                  "   • Aged 5 and above – Allowed on single-sector flights.\n\n"
-                                  "   • Aged 6 to 11 – Allowed on multi-sector flights, including interline travel.\n\n"
+                                  "   • Aged 5 and above – Allowed on\n    single-sector flights.\n\n"
+                                  "   • Aged 6 to 11 – Allowed on\n    multi-sector flights, including\n    interline travel.\n\n"
                                   "3. Standard adult fare applies for unaccompanied minors.\n\n"
                                   "4. Unaccompanied minor tickets cannot be purchased online.\n\n"
                                   "5. Young passengers aged 12 to 15 years (up to their 16th birthday) may receive the same assistance upon request by a parent/guardian.\n\n"
@@ -80,7 +67,6 @@ class UnaccompaniedMinorsInfo extends StatelessWidget {
                 ),
               ),
             ),
-          )
         ],
       ),
     );
@@ -95,7 +81,7 @@ Widget buildSectionHeading(String title) {
         title,
         style: TextStyle(
           fontSize: 24,
-          color: Colors.blue[900],
+          color: Colors.blue[800],
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -110,8 +96,8 @@ Widget buildText(String text, {bool isBold = false}) {
       text,
       style: TextStyle(
         fontSize: 18,
-        color: Colors.blue[900],
-        fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+        color: Colors.blue[800],
+          fontWeight: FontWeight.w500
       ),
     ),
   );

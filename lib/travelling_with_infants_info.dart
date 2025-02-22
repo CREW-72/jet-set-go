@@ -1,47 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/special_assistance_styling.dart';
 
 class TravellingWithInfantsInfo extends StatelessWidget {
   const TravellingWithInfantsInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Travelling With Children",
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue[900],
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+    return  UI(
       body: Column(
         children: [
-          const Divider(color: Colors.white, height: 3), // Add a line after the AppBar
           Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF0D47A1), Color(0xFF1976D2)], // Dark to light blue gradient
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
               child: Center(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 150),
                       Container(
                         width: 350,
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20), // Added padding
@@ -52,9 +25,22 @@ class TravellingWithInfantsInfo extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            buildSectionHeading("Important"),
-                            Center(child: Text("️🧑🏻‍🍼️",style: TextStyle(fontSize: 96))),
-                            Text("Travel regulations may vary by airline and destination. Please check with your airline and local authorities for the latest requirements.\n",style: TextStyle(fontSize: 18,color: Colors.blue[900],fontWeight: FontWeight.bold),
+                            buildSectionHeading("Travelling With Children"),
+                            Positioned(
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(12), // Adjust the radius as needed
+                                child: Image.asset(
+                                  "assets/travelling with children.webp",
+                                  height: 300, // Adjust the size as needed
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 15,),
+                            Text("Travel regulations may vary by airline and destination. Please check with your airline and local authorities for the latest requirements.\n",style: TextStyle(fontSize: 18,color: Colors.blue[800],fontWeight: FontWeight.bold),
                             ),
                             Text(
                               "1. Children (Ages 2-11 years) cannot travel alone and must be accompanied by an adult.\n\n"
@@ -71,12 +57,13 @@ class TravellingWithInfantsInfo extends StatelessWidget {
                                   "  • Infant must be secured using\n    bassinet restraints.\n\n"
                                   "9. If an infant is born premature or has medical complications, a Medical Form must be submitted.\n\n"
                                   "10. Infants under 7 days old may only travel for medical emergencies (in incubators) or compassionate reasons."
-                              ,style: TextStyle(fontSize: 18,color: Colors.blue[900]),),
+                              ,style: TextStyle(fontSize: 18,color: Colors.blue[800],fontWeight: FontWeight.w500),),
+                            SizedBox(height: 24),
                             buildSectionHeading("Escort requirements for medical cases:"),
                             Text("  • Normal healthy babies\n    (7 days - 2 years): No medical\n    clearance required, must be\n    accompanied by mother or escort.\n\n"
                                 "  • Newborns under 7 days old:\n    Medical clearance required, must\n    be accompanied by mother or\n    suitable escort (e.g., nurse).\n\n"
                                 "  • Premature babies or those with\n    complications: Medical clearance\n    required, must be accompanied by\n    a qualified doctor, medical nurse,\n    or attendant.\n\n"
-                                ,style: TextStyle(fontSize: 18,color: Colors.blue[900]),),
+                                ,style: TextStyle(fontSize: 18,color: Colors.blue[800],fontWeight: FontWeight.w500),),
 
 
 
@@ -89,7 +76,6 @@ class TravellingWithInfantsInfo extends StatelessWidget {
                 ),
               ),
             ),
-          )
         ],
       ),
     );
@@ -105,7 +91,7 @@ Widget buildSectionHeading(String title) {
         title,
         style: TextStyle(
           fontSize: 24,
-          color: Colors.blue[900],
+          color: Colors.blue[800],
           fontWeight: FontWeight.bold,
         ),
       ),
