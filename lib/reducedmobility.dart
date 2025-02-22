@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/calling_option.dart';
+import 'package:jet_set_go/special_assistance_styling.dart';
 import 'package:jet_set_go/visit_counter.dart';
 import 'disability_form.dart';
 import 'medical_clearance_info.dart';
@@ -9,40 +10,17 @@ class ReducedMobility extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Reduced Mobility Passengers",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue[900],
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+    return UI(
       body: Column(
         children: [
-          const Divider(color: Colors.white, height: 3),
           Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF0D47A1), Color(0xFF1976D2)],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
               child: Center(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 120),
                       const Text(
-                        "Select Type Of Assistance",
+                        "What Type of Special Assistance\n Do You Need?",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
@@ -97,7 +75,6 @@ class ReducedMobility extends StatelessWidget {
                 ),
               ),
             ),
-          ),
         ],
       ),
     );
