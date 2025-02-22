@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/reducedmobility.dart';
+import 'package:jet_set_go/special_assistance_styling.dart';
 import 'package:jet_set_go/travelling_during_pregnancy.dart';
 import 'package:jet_set_go/travelling_with_babies.dart';
 import 'package:jet_set_go/unaccompanied_minors.dart';
@@ -9,38 +10,15 @@ class SpecialAssistance extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Special Assistance",
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.blue[900],
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+    return UI(
       body: Column(
         children: [
-          const Divider(color: Colors.white,height: 3,), // Add a line after the AppBar
           Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xFF0D47A1), Color(0xFF1976D2)], // Dark to light blue gradient
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
               child: Center(
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 120),
                       const Text(
                         "What Type of Special Assistance\n Do You Need?",
                         textAlign: TextAlign.center,
@@ -97,7 +75,7 @@ class SpecialAssistance extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
+
           ),
         ],
       ),
