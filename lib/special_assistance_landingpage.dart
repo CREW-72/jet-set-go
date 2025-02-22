@@ -12,9 +12,9 @@ class SpecialAssistanceLandingPage extends StatelessWidget {
         children: [
           // Background Image
           Positioned.fill(
-            top: 130,
+            top:130,
             child: Image.asset(
-              "assets/AssistanceLandingPage.png", // Path to the image
+              "assets/elder Passenger.jpg", // Path to the image
               fit: BoxFit.cover, // Ensures full-screen coverage
             ),
           ),
@@ -48,17 +48,17 @@ class SpecialAssistanceLandingPage extends StatelessWidget {
                         text: "Receive Guidance\n",
                         style: TextStyle(
                           fontSize: 28,
-                          color: Colors.blue[800],
+                          color: Colors.blue[900],
                           fontWeight: FontWeight.bold,
                         ),
                         children: [
                           TextSpan(
                             text: "On\n",
-                            style: TextStyle(fontSize: 28, color: Colors.blue[800],fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 28, color: Colors.blue[900],fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
                             text: "Special Assistance",
-                            style: TextStyle(fontSize: 28,color: Colors.blue[800], fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 28,color: Colors.blue[900], fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
