@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/reducedmobility.dart';
+import 'package:jet_set_go/contact_options/calling_option.dart';
 import 'package:jet_set_go/special_assistance_styling.dart';
-import 'package:jet_set_go/travelling_during_pregnancy.dart';
-import 'package:jet_set_go/travelling_with_babies.dart';
-import 'package:jet_set_go/unaccompanied_minors.dart';
+import 'package:jet_set_go/contact_options/visit_counter.dart';
+import '../contact_options/disability_form.dart';
+import '../information_pages/medical_clearance_info.dart';
 
-class SpecialAssistance extends StatelessWidget {
-  const SpecialAssistance({super.key});
+class ReducedMobility extends StatelessWidget {
+  const ReducedMobility({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,47 +26,46 @@ class SpecialAssistance extends StatelessWidget {
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-
                         ),
                       ),
                       const SizedBox(height: 20),
-                      SpecialAssistanceCategory(
-                        icon: Icons.accessible,
-                        text: "Reduced Mobility Passengers",
+                      AssistanceOption(
+                        icon: Icons.question_mark_rounded,
+                        text: "What I Should Know About",
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => ReducedMobility()),
+                            MaterialPageRoute(builder: (context) => MedicalClearanceInfo()),
                           );
                         },
                       ),
-                      SpecialAssistanceCategory(
-                        icon: Icons.pregnant_woman_rounded,
-                        text: "Travelling During Pregnancy",
+                      AssistanceOption(
+                        icon: Icons.file_copy,
+                        text: "Access Disability Assistance \n Request Form",
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => TravellingDuringPregnancy()),
+                            MaterialPageRoute(builder: (context) => DisabilityForm()),
                           );
                         },
                       ),
-                      SpecialAssistanceCategory(
-                        icon: Icons.child_friendly,
-                        text: "Travelling with Children",
+                      AssistanceOption(
+                        icon: Icons.phone,
+                        text: "Call BIA Passenger Service Unit",
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => TravellingWithBabies()),
+                            MaterialPageRoute(builder: (context) => CallingOption()),
                           );
                         },
                       ),
-                      SpecialAssistanceCategory(
-                        icon: Icons.person,
-                        text: "Unaccompanied Minors",
+                      AssistanceOption(
+                        icon: Icons.info,
+                        text: "Visit Passenger Service Counter",
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => UnaccompaniedMinors()),
+                            MaterialPageRoute(builder: (context) => VisitCounter()),
                           );
                         },
                       ),
@@ -75,20 +74,19 @@ class SpecialAssistance extends StatelessWidget {
                   ),
                 ),
               ),
-
-          ),
+            ),
         ],
       ),
     );
   }
 }
 
-class SpecialAssistanceCategory extends StatelessWidget {
+class AssistanceOption extends StatelessWidget {
   final IconData icon;
   final String text;
   final VoidCallback onTap;
 
-  const SpecialAssistanceCategory({
+  const AssistanceOption({
     required this.icon,
     required this.text,
     required this.onTap,
@@ -107,7 +105,7 @@ class SpecialAssistanceCategory extends StatelessWidget {
           height: 90,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Color.fromRGBO(255, 255, 255, 0.9),
+            color: Color.fromRGBO(255, 255, 255, 0.85),
             borderRadius: BorderRadius.circular(18),
             boxShadow: [
               BoxShadow(
@@ -120,10 +118,10 @@ class SpecialAssistanceCategory extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center, // Aligns icons and text properly
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Icon(icon, color: Colors.blue[900], size: 40),
-                const SizedBox(width: 20), // Equal spacing
+                const SizedBox(width: 20),
                 Expanded(
                   child: Text(
                     text,

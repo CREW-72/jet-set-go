@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/special_assistance_styling.dart';
-import 'package:jet_set_go/travelling_during_pregnancy_info.dart';
-import 'package:jet_set_go/visit_counter.dart';
+import 'package:jet_set_go/information_pages/travelling_during_pregnancy_info.dart';
+import 'package:jet_set_go/contact_options/visit_counter.dart';
 
-import 'calling_option.dart';
+import 'package:jet_set_go/contact_options/calling_option.dart';
 
 class TravellingDuringPregnancy extends StatelessWidget {
   const TravellingDuringPregnancy({super.key});
