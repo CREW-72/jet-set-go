@@ -26,11 +26,7 @@ class MedicalClearanceInfo extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             buildSectionHeading("Reduced Mobility Passengers"),
-                            Positioned(
-                              top: 0,
-                              left: 0,
-                              right: 0,
-                              child: ClipRRect(
+                            ClipRRect(
                                 borderRadius: BorderRadius.circular(12), // Adjust the radius as needed
                                 child: Image.asset(
                                   "assets/reduced mobility passenger.jpg",
@@ -38,7 +34,6 @@ class MedicalClearanceInfo extends StatelessWidget {
                                   fit: BoxFit.cover,
                                 ),
                               ),
-                            ),
                             SizedBox(height: 15),
                             Text("Travel regulations may vary by airline and destination. Please check with your airline and local authorities for the latest requirements.\n",style: TextStyle(fontSize: 18,color: Colors.blue[800],fontWeight: FontWeight.bold),
                             ),

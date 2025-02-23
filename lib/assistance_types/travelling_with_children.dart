@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/special_assistance_styling.dart';
-import 'package:jet_set_go/information_pages/travelling_with_infants_info.dart';
+import 'package:jet_set_go/information_pages/travelling_with_children_info.dart';
 import 'package:jet_set_go/contact_options/visit_counter.dart';
 import '../contact_options/calling_option.dart';
 
