@@ -31,6 +31,22 @@ class _HomePageState extends State<HomePage> {
   void _onNavItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+
+      // Add navigation functionality if required
+      switch (index) {
+        case 0:
+          Navigator.pushNamed(context, '/home'); // Navigate to Home Page
+          break;
+        case 1:
+          Navigator.pushNamed(context, '/settings'); // Navigate to Settings
+          break;
+        case 2:
+          Navigator.pushNamed(context, '/features'); // Navigate to Features Page
+          break;
+        case 3:
+          Navigator.pushNamed(context, '/profile'); // Navigate to Profile Page
+          break;
+      }
     });
   }
 
