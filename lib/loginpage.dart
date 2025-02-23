@@ -85,24 +85,43 @@ class _SignUpPageState extends State<SignUpPage> {
                 _buildTextField("Password", obscureText: true),
 
                 // Checkbox for "Remember Me"
+                // Checkbox for "Remember Me" and "Forgot Password" Button
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // Push items to opposite sides
                   children: [
-                    Checkbox(
-                      value: _rememberMe,
-                      onChanged: (value) {
-                        // Air Hostess Image (Behind Main Text)
-                        setState(() {
-                          _rememberMe = value!;
-                        });
-                      },
-                      activeColor: Colors.deepPurpleAccent,
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: _rememberMe,
+                          onChanged: (value) {
+                            setState(() {
+                              _rememberMe = value!;
+                            });
+                          },
+                          activeColor: Colors.deepPurpleAccent,
+                        ),
+                        Text(
+                          "Remember Me",
+                          style: TextStyle(color: Colors.white, fontFamily: 'Poppins'),
+                        ),
+                      ],
                     ),
-                    Text(
-                      "Remember Me",
-                      style: TextStyle(color: Colors.white, fontFamily: 'Poppins'),
+                    TextButton(
+                      onPressed: () {
+                        // TODO: Implement forgot password functionality
+                      },
+                      child: Text(
+                        "Forgot Password?",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Poppins',
+                          decoration: TextDecoration.underline, // Add underline for emphasis
+                        ),
+                      ),
                     ),
                   ],
                 ),
+
                 SizedBox(height: 10),
 
                 // Login Button
