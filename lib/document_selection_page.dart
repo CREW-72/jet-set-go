@@ -41,6 +41,62 @@ class _DocumentSelectionPageState extends State<DocumentSelectionPage> {
       ),
     );
   }
+  Widget _buildAirTicketButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () => _navigateToUploadPage(context, "Air Ticket"),
+      child: Container(
+        height: 140, // Button height
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Color(0xFFA5E5FF),
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 6,
+              spreadRadius: 1,
+              offset: Offset(2, 3),
+            ),
+          ],
+          image: DecorationImage(
+            image: AssetImage("assets/images/plane_pattern.png"), // Your plane pattern image
+            fit: BoxFit.cover, // Cover the entire button
+            opacity: 0.5, // Adjust this value to control transparency
+          ),
+        ),
+        child: Stack(
+          children: [
+            // Move Image to the Left Corner
+            Positioned(
+              left: -20, // Aligns to the left edge
+              top: -20, // Adjust this to move it up/down
+              child: Image.asset(
+                "assets/images/ticket.png",
+                width: 200, // Adjust width for a bigger icon
+                height: 200, // Adjust height
+                fit: BoxFit.contain,
+              ),
+            ),
+
+            // Air Ticket Text
+            Positioned(
+              left: 150, // Moves text to the right, adjust as needed
+              top: 50, // Center text vertically
+              child: Text(
+                "Air Ticket",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 
   Widget _buildDocumentButton(
       BuildContext context, String documentType, String assetPath) {
@@ -50,7 +106,7 @@ class _DocumentSelectionPageState extends State<DocumentSelectionPage> {
         height: 130, // Uniform height for all buttons
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Color(0xFFA5E5FF),
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
@@ -60,6 +116,11 @@ class _DocumentSelectionPageState extends State<DocumentSelectionPage> {
               offset: Offset(2, 2),
             ),
           ],
+          image: DecorationImage(
+            image: AssetImage("assets/images/plane_pattern.png"), // Your plane pattern image
+            fit: BoxFit.cover, // Cover the entire button
+            opacity: 0.5, // Adjust this value to control transparency
+          ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +129,7 @@ class _DocumentSelectionPageState extends State<DocumentSelectionPage> {
             SizedBox(height: 10),
             Text(
               documentType,
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -95,18 +156,14 @@ class _DocumentSelectionPageState extends State<DocumentSelectionPage> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              SizedBox(height: 10), // Top spacing
+              SizedBox(height: 40), // Top spacing
 
               // Air Ticket Button (Full Width)
               SizedBox(
                 width: double.infinity,
-                child: _buildDocumentButton(
-                  context,
-                  "Air Ticket",
-                  "assets/images/ticket.png",
-                ),
+                child: _buildAirTicketButton(context),
               ),
-              SizedBox(height: 20), // Space between ticket button and grid
+              SizedBox(height: 10), // Space between ticket button and grid
 
               // Grid layout for the other six buttons
               SizedBox(
