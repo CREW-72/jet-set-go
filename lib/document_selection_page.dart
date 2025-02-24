@@ -140,61 +140,106 @@ class _DocumentSelectionPageState extends State<DocumentSelectionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        title: Text("Select Document Type"),
-        backgroundColor: Colors.blue,
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/background.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              SizedBox(height: 40), // Top spacing
-
-              // Air Ticket Button (Full Width)
-              SizedBox(
-                width: double.infinity,
-                child: _buildAirTicketButton(context),
+      body: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/background.jpg"),
+                fit: BoxFit.cover,
               ),
-              SizedBox(height: 10), // Space between ticket button and grid
+            ),
+          ),
 
-              // Grid layout for the other six buttons
-              SizedBox(
-                height: 500, // Adjust this value to move the grid up/down
-                child: GridView.count(
-                  crossAxisCount: 2, // 2 items per row
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 1.3, // Adjusts button height
-                  children: [
-                    _buildDocumentButton(
-                        context, "Passport", "assets/images/passport.png"),
-                    _buildDocumentButton(
-                        context, "Boarding Pass", "assets/images/boarding_pass.png"),
-                    _buildDocumentButton(
-                        context, "Visa", "assets/images/visa.png"),
-                    _buildDocumentButton(
-                        context, "NIC", "assets/images/nic.png"),
-                    _buildDocumentButton(
-                        context, "Prescriptions", "assets/images/prescriptions.png"),
-                    _buildDocumentButton(
-                        context, "Other", "assets/images/other.png"),
-                  ],
+          // HEADER SECTION (Copied from Transport Page)
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset("assets/images/header.png", height: 160, fit: BoxFit.cover),
+          ),
+          Positioned(
+            top: 50,
+            left: 20,
+            child: Text(
+              'USER\'S',
+              style: TextStyle(
+                fontSize: 45,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                letterSpacing: 3.0,
+              ),
+            ),
+          ),
+          Positioned(
+            top: 113,
+            left: 24,
+            child: Text(
+              'DOCUMENTS',
+              style: TextStyle(fontSize: 20, color: Colors.white, letterSpacing: 2.0),
+            ),
+          ),
+          Positioned(
+            top: 150,
+            left: 20,
+            right: 120,
+            child: Image.asset("assets/images/line.png", height: 8, fit: BoxFit.cover),
+          ),
+          Positioned(
+            top: 100,
+            right: 70,
+            child: Image.asset("assets/images/plane_takeoff.png", height: 50),
+          ),
+          Positioned(
+            top: 50,
+            right: 20,
+            child: IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.white, size: 28),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+
+          // CONTENT SECTION BELOW HEADER
+          Padding(
+            padding: const EdgeInsets.only(top: 200, left: 20, right: 20),
+            child: Column(
+              children: [
+                // Air Ticket Button (No changes here)
+                SizedBox(
+                  width: double.infinity,
+                  child: _buildAirTicketButton(context),
                 ),
-              ),
-            ],
+
+                // Grid Section Moved Up
+                Transform.translate(
+                  offset: Offset(0, -45),  // Moves GridView UP
+                  child: SizedBox(
+                    height: 500,
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 5, // Adjust for closer button spacing
+                      mainAxisSpacing: 5,
+                      childAspectRatio: 1.3,
+                      children: [
+                        _buildDocumentButton(context, "Passport", "assets/images/passport.png"),
+                        _buildDocumentButton(context, "Boarding Pass", "assets/images/boarding_pass.png"),
+                        _buildDocumentButton(context, "Visa", "assets/images/visa.png"),
+                        _buildDocumentButton(context, "NIC", "assets/images/nic.png"),
+                        _buildDocumentButton(context, "Prescriptions", "assets/images/prescriptions.png"),
+                        _buildDocumentButton(context, "Other", "assets/images/other.png"),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
 
-      // Bottom Navigation Bar (Copied from HomePage)
+      // Bottom Navigation Bar
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onNavItemTapped,
@@ -205,34 +250,10 @@ class _DocumentSelectionPageState extends State<DocumentSelectionPage> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         items: [
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Icon(Icons.home),
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Icon(Icons.settings),
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Icon(Icons.lightbulb),
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Icon(Icons.person),
-            ),
-            label: '',
-          ),
+          BottomNavigationBarItem(icon: Padding(padding: EdgeInsets.only(top: 10), child: Icon(Icons.home)), label: ''),
+          BottomNavigationBarItem(icon: Padding(padding: EdgeInsets.only(top: 10), child: Icon(Icons.settings)), label: ''),
+          BottomNavigationBarItem(icon: Padding(padding: EdgeInsets.only(top: 10), child: Icon(Icons.lightbulb)), label: ''),
+          BottomNavigationBarItem(icon: Padding(padding: EdgeInsets.only(top: 10), child: Icon(Icons.person)), label: ''),
         ],
       ),
     );
