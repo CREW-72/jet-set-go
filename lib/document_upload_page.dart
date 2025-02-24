@@ -18,9 +18,33 @@ class DocumentUploadPage extends StatefulWidget {
 class _DocumentUploadPageState extends State<DocumentUploadPage> {
   List<File> _uploadedFiles = [];
   final List<File> _capturedImages = [];
+  int _selectedIndex = 0;
 
   ///variable to track the text in the take picture button
   String _cameraButtonText = "Take Picture";
+
+  void _onNavItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+
+      // Add navigation functionality if required
+      switch (index) {
+        case 0:
+          Navigator.pushNamed(context, '/home'); // Navigate to Home Page
+          break;
+        case 1:
+          Navigator.pushNamed(context, '/settings'); // Navigate to Settings
+          break;
+        case 2:
+          Navigator.pushNamed(context, '/features'); // Navigate to Features Page
+          break;
+        case 3:
+          Navigator.pushNamed(context, '/profile'); // Navigate to Profile Page
+          break;
+      }
+    });
+  }
+
 
   @override
   void initState() {
@@ -170,131 +194,168 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
-        decoration: BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
-        image: AssetImage("assets/images/background.jpg"), ///Background Image
-        fit: BoxFit.cover,
-        )
+          image: AssetImage("assets/images/background.jpg"), ///Background Image
+          fit: BoxFit.cover,
         ),
-    child:  Scaffold(
-      backgroundColor: Colors.transparent,
-      appBar: AppBar(title: Text("Upload ${widget.documentType}")),
-    body: SingleChildScrollView(
-    padding: EdgeInsets.all(16),
-    child: Column(
-    children: [
-    /// List of Uploaded/Generated PDFs
-    if (_uploadedFiles.isNotEmpty) ...[
-    SizedBox(height: 20),
-    Text("Uploaded Documents:", style: TextStyle(fontWeight: FontWeight.bold)),
-    ListView.builder(
-    shrinkWrap: true,
-    physics: NeverScrollableScrollPhysics(),
-    itemCount: _uploadedFiles.length,
-    itemBuilder: (context, index) {
-    File file = _uploadedFiles[index];
-    return Card(
-    margin: EdgeInsets.symmetric(vertical: 8),
-    child: ListTile(
-    title: Text(file.path.split('/').last),
-    trailing: Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-    IconButton(
-    icon: Icon(Icons.visibility, color: Colors.blue),
-    onPressed: () => _openFile(file),
-    ),
-    IconButton(
-    icon: Icon(Icons.delete, color: Colors.red),
-    onPressed: () => _deleteFile(file),
-    ),
-    ],
-    ),
-    ),
+      ),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(title: Text("Upload ${widget.documentType}")),
+        body: SingleChildScrollView(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            children: [
+              /// List of Uploaded/Generated PDFs
+              if (_uploadedFiles.isNotEmpty) ...[
+                SizedBox(height: 20),
+                Text("Uploaded Documents:", style: TextStyle(fontWeight: FontWeight.bold)),
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: _uploadedFiles.length,
+                  itemBuilder: (context, index) {
+                    File file = _uploadedFiles[index];
+                    return Card(
+                      margin: EdgeInsets.symmetric(vertical: 8),
+                      child: ListTile(
+                        title: Text(file.path.split('/').last),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              icon: Icon(Icons.visibility, color: Colors.blue),
+                              onPressed: () => _openFile(file),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.delete, color: Colors.red),
+                              onPressed: () => _deleteFile(file),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ],
+              /// Buttons for uploading documents
+              ElevatedButton.icon(
+                onPressed: _pickPDF,
+                icon: Icon(Icons.upload_file),
+                label: Text("Upload PDF"),
+              ),
+
+              if (_capturedImages.isEmpty)
+                ElevatedButton.icon(
+                  onPressed: _captureImage,
+                  icon: Icon(Icons.camera_alt),
+                  label: Text(_cameraButtonText),
+                ),
+
+              /// Display captured images before converting to PDF
+              if (_capturedImages.isNotEmpty)
+                Column(
+                  children: [
+                    SizedBox(height: 10),
+                    Text("Captured Images:"),
+                    Container(
+                      height: 100,
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: _capturedImages.length,
+                        itemBuilder: (context, index) {
+                          return Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Image.file(
+                                  _capturedImages[index],
+                                  width: 80,
+                                  height: 80,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: GestureDetector(
+                                  onTap: () => setState(() => _capturedImages.removeAt(index)),
+                                  child: Container(
+                                    padding: EdgeInsets.all(4),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Icon(Icons.close, size: 18, color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: _captureImage,
+                      icon: Icon(Icons.camera_alt),
+                      label: Text(_cameraButtonText),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: _convertToPDF,
+                      icon: Icon(Icons.picture_as_pdf),
+                      label: Text("Save as PDF"),
+                    ),
+                  ],
+                ),
+            ],
+          ),
+        ),
+
+        /// navigation bar
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _onNavItemTapped,
+          backgroundColor: Colors.blue[900],
+          selectedItemColor: Color(0xFFACE6FC),
+          unselectedItemColor: Color(0xFFACE6FC),
+          type: BottomNavigationBarType.fixed,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: [
+            BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Icon(Icons.home),
+              ),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Icon(Icons.settings),
+              ),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Icon(Icons.lightbulb),
+              ),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Icon(Icons.person),
+              ),
+              label: '',
+            ),
+          ],
+        ),
+      ),
     );
-    },
-    ),
-    ],
-    /// Buttons for uploading documents
-    ElevatedButton.icon(
-    onPressed: _pickPDF,
-    icon: Icon(Icons.upload_file),
-    label: Text("Upload PDF"),
-    ),
-
-    if(_capturedImages.isEmpty)
-    ElevatedButton.icon(
-    onPressed: _captureImage,
-    icon: Icon(Icons.camera_alt),
-    label: Text(_cameraButtonText),
-    ),
-
-    /// Display captured images before converting to PDF
-    if (_capturedImages.isNotEmpty)
-    Column(
-    children: [
-    SizedBox(height: 10),
-    Text("Captured Images:"),
-    Container(
-    height: 100,
-    padding: EdgeInsets.symmetric(vertical: 10),
-    child: ListView.builder(
-    scrollDirection: Axis.horizontal,
-    itemCount: _capturedImages.length,
-    itemBuilder: (context, index) {
-    return Stack(
-    children: [
-    Padding(
-    padding: const EdgeInsets.all(5.0),
-    child: Image.file(
-    _capturedImages[index],
-    width: 80,
-    height: 80,
-    fit: BoxFit.cover,
-    ),
-    ),
-    Positioned(
-    top: 0,
-    right: 0,
-    child: GestureDetector(
-    onTap: () => setState(() => _capturedImages.removeAt(index)),
-    child: Container(
-    padding: EdgeInsets.all(4),
-    decoration: BoxDecoration(
-    color: Colors.red,
-    shape: BoxShape.circle,
-    ),
-    child: Icon(Icons.close, size: 18, color: Colors.white),
-    ),
-    ),
-    ),
-    ],
-    );
-    },
-    ),
-    ),
-    ElevatedButton.icon(
-    onPressed: _captureImage,
-    icon: Icon(Icons.camera_alt),
-    label: Text(_cameraButtonText),
-    ),
-    ElevatedButton.icon(
-    onPressed: _convertToPDF,
-    icon: Icon(Icons.picture_as_pdf),
-    label: Text("Save as PDF"),
-    ),
-    ],
-    ),
-
-
-    ],
-    ),
-    ),
-    ),
-
-    );
-
   }
 }
