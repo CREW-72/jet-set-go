@@ -1,25 +1,11 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(SignUpApp());
-}
-
-class SignUpApp extends StatelessWidget {
+class LoginPage extends StatefulWidget {  // Fixed class name
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SignUpPage(),
-    );
-  }
+  _LoginPageState createState() => _LoginPageState();  // Fixed class name
 }
 
-class SignUpPage extends StatefulWidget {
-  @override
-  _SignUpPageState createState() => _SignUpPageState();
-}
-
-class _SignUpPageState extends State<SignUpPage> {
+class _LoginPageState extends State<LoginPage> {  // Fixed class name
   bool _rememberMe = false; // Checkbox state
 
   @override

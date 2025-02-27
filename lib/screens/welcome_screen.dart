@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: WelcomeScreen(),
-  ));
-}
-
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -37,9 +30,13 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 40),
-              CustomButton(text: "Login", onTap: () {}),
+              CustomButton(text: "Login", onTap: () {
+                Navigator.pushNamed(context, '/login');
+              }),
               SizedBox(height: 15),
-              CustomButton(text: "Sign up", onTap: () {}),
+              CustomButton(text: "Sign up", onTap: () {
+                Navigator.pushNamed(context, '/signup');
+              }),
             ],
           ),
         ),
