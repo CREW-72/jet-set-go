@@ -194,167 +194,299 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage("assets/images/background.jpg"), ///Background Image
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        appBar: AppBar(title: Text("Upload ${widget.documentType}")),
-        body: SingleChildScrollView(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            children: [
-              /// List of Uploaded/Generated PDFs
-              if (_uploadedFiles.isNotEmpty) ...[
-                SizedBox(height: 20),
-                Text("Uploaded Documents:", style: TextStyle(fontWeight: FontWeight.bold)),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: _uploadedFiles.length,
-                  itemBuilder: (context, index) {
-                    File file = _uploadedFiles[index];
-                    return Card(
-                      margin: EdgeInsets.symmetric(vertical: 8),
-                      child: ListTile(
-                        title: Text(file.path.split('/').last),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: Icon(Icons.visibility, color: Colors.blue),
-                              onPressed: () => _openFile(file),
-                            ),
-                            IconButton(
-                              icon: Icon(Icons.delete, color: Colors.red),
-                              onPressed: () => _deleteFile(file),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ],
-              /// Buttons for uploading documents
-              ElevatedButton.icon(
-                onPressed: _pickPDF,
-                icon: Icon(Icons.upload_file),
-                label: Text("Upload PDF"),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Stack(
+        children: [
+          /// BACKGROUND IMAGE
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/background.jpg"), /// Background Image
+                fit: BoxFit.cover,
               ),
+            ),
+          ),
 
-              if (_capturedImages.isEmpty)
-                ElevatedButton.icon(
-                  onPressed: _captureImage,
-                  icon: Icon(Icons.camera_alt),
-                  label: Text(_cameraButtonText),
+          /// HEADER SECTION
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 170, // ✅ Adjusted for full visibility
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/header.png"),
+                  fit: BoxFit.cover,
                 ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: 70,
+            left: 20,
+            right: 70, // ✅ Added to prevent overlap with the back button
+            child: Container(
+              constraints: BoxConstraints(maxWidth: 250), // ✅ Restricts title width
+              child: Text(
+                'UPLOAD ${widget.documentType.toUpperCase()}',
+                style: TextStyle(
+                  fontSize: 24, // ✅ Slightly reduced to fit longer titles
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  letterSpacing: 1.5,
+                ),
+                overflow: TextOverflow.ellipsis, // ✅ Ensures long text doesn’t overflow
+                maxLines: 1, // ✅ Limits to one line
+              ),
+            ),
+          ),
+          Positioned(
+            top: 65,
+            right: 20,
+            child: IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.white, size: 28),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
 
-              /// Display captured images before converting to PDF
-              if (_capturedImages.isNotEmpty)
-                Column(
+          /// MAIN CONTENT BELOW HEADER
+          Positioned.fill(
+            top: 180, // ✅ Ensures content starts BELOW the header
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch, // Aligns everything neatly
                   children: [
-                    SizedBox(height: 10),
-                    Text("Captured Images:"),
-                    Container(
-                      height: 100,
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: _capturedImages.length,
+                    /// UPLOADED FILES LIST
+                    if (_uploadedFiles.isNotEmpty) ...[
+                      SizedBox(height: 20),
+                      Text("Uploaded Documents:",
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: _uploadedFiles.length,
                         itemBuilder: (context, index) {
-                          return Stack(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: Image.file(
-                                  _capturedImages[index],
-                                  width: 80,
-                                  height: 80,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Positioned(
-                                top: 0,
-                                right: 0,
-                                child: GestureDetector(
-                                  onTap: () => setState(() => _capturedImages.removeAt(index)),
-                                  child: Container(
-                                    padding: EdgeInsets.all(4),
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Icon(Icons.close, size: 18, color: Colors.white),
+                          File file = _uploadedFiles[index];
+                          return Card(
+                            margin: EdgeInsets.symmetric(vertical: 8),
+                            child: ListTile(
+                              title: Text(file.path.split('/').last),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.visibility, color: Colors.blue),
+                                    onPressed: () => _openFile(file),
                                   ),
-                                ),
+                                  IconButton(
+                                    icon: Icon(Icons.delete, color: Colors.red),
+                                    onPressed: () => _deleteFile(file),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           );
                         },
                       ),
-                    ),
+                    ],
+
+                    /// UPLOAD BUTTONS
+                    SizedBox(height: 20),
+                    // Upload PDF Button
                     ElevatedButton.icon(
-                      onPressed: _captureImage,
-                      icon: Icon(Icons.camera_alt),
-                      label: Text(_cameraButtonText),
+                      onPressed: _pickPDF,
+                      icon: Icon(Icons.upload_file, color: Colors.white, size: 22), // ✅ Adjusted icon size
+                      label: Text(
+                        "Upload PDF",
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600), // ✅ Better readability
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF017BFE), // ✅ Aviation Blue
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30), // ✅ Softer edges
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 16), // ✅ Better touch size
+                        shadowColor: Colors.black26, // ✅ Subtle shadow
+                        elevation: 5, // ✅ Floating effect
+                      ),
                     ),
-                    ElevatedButton.icon(
-                      onPressed: _convertToPDF,
-                      icon: Icon(Icons.picture_as_pdf),
-                      label: Text("Save as PDF"),
-                    ),
+                    SizedBox(height: 10),
+                    if (_capturedImages.isEmpty)
+                    // Take Picture Button
+                      ElevatedButton.icon(
+                        onPressed: _captureImage,
+                        icon: Icon(Icons.camera_alt, color: Colors.white, size: 22), // ✅ Adjusted icon
+                        label: Text(
+                          _cameraButtonText,
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600), // ✅ Readable font
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF00AEEF), // ✅ Bright Blue (aviation style)
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30), // ✅ Softer edges
+                          ),
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          shadowColor: Colors.black26,
+                          elevation: 5,
+                        ),
+                      ),
+
+                    /// ADD IMAGES & SAVE AS PDF SECTION
+                      if (_capturedImages.isNotEmpty)
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(height: 20),
+
+                            // Image Previews Section
+                            Text("Captured Images:", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                            Container(
+                              height: 120, // ✅ Increased for better image display
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: _capturedImages.length,
+                                itemBuilder: (context, index) {
+                                  return Stack(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(12), // ✅ Rounded images
+                                          child: Image.file(
+                                            _capturedImages[index],
+                                            width: 90,
+                                            height: 90,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        top: 0,
+                                        right: 0,
+                                        child: GestureDetector(
+                                          onTap: () => setState(() => _capturedImages.removeAt(index)),
+                                          child: Container(
+                                            padding: EdgeInsets.all(4),
+                                            decoration: BoxDecoration(
+                                              color: Colors.red,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Icon(Icons.close, size: 18, color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
+                            ),
+
+                            SizedBox(height: 20),
+
+                            // Buttons inside a Row
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+
+                                // ADD IMAGES BUTTON (Outlined)
+                                OutlinedButton.icon(
+                                  onPressed: _captureImage,
+                                  icon: Icon(Icons.add, color: Colors.blue, size: 22), // ✅ "+" icon
+                                  label: Text(
+                                    "Add Images",
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.blue),
+                                  ),
+                                  style: OutlinedButton.styleFrom(
+                                    side: BorderSide(color: Colors.blue, width: 2), // ✅ Dashed Border effect
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16), // ✅ Better touch area
+                                  ),
+                                ),
+
+                                SizedBox(width: 15), // ✅ Spacing between buttons
+
+                                // SAVE AS PDF BUTTON (Solid)
+                                ElevatedButton.icon(
+                                  onPressed: _convertToPDF,
+                                  icon: Icon(Icons.picture_as_pdf, color: Colors.white, size: 22), // ✅ PDF Icon
+                                  label: Text(
+                                    "Save as PDF",
+                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.redAccent, // ✅ Different color to indicate "final action"
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                    shadowColor: Colors.black26,
+                                    elevation: 4,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                   ],
                 ),
-            ],
+              ),
+            ),
           ),
-        ),
+        ],
+      ),
 
-        /// navigation bar
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: _onNavItemTapped,
-          backgroundColor: Colors.blue[900],
-          selectedItemColor: Color(0xFFACE6FC),
-          unselectedItemColor: Color(0xFFACE6FC),
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          items: [
-            BottomNavigationBarItem(
-              icon: Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Icon(Icons.home),
-              ),
-              label: '',
+      /// BOTTOM NAVIGATION BAR
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onNavItemTapped,
+        backgroundColor: Colors.blue[900],
+        selectedItemColor: Color(0xFFACE6FC),
+        unselectedItemColor: Color(0xFFACE6FC),
+        type: BottomNavigationBarType.fixed,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        items: [
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Icon(Icons.home),
             ),
-            BottomNavigationBarItem(
-              icon: Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Icon(Icons.settings),
-              ),
-              label: '',
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Icon(Icons.settings),
             ),
-            BottomNavigationBarItem(
-              icon: Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Icon(Icons.lightbulb),
-              ),
-              label: '',
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Icon(Icons.lightbulb),
             ),
-            BottomNavigationBarItem(
-              icon: Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Icon(Icons.person),
-              ),
-              label: '',
+            label: '',
+          ),
+          BottomNavigationBarItem(
+            icon: Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: Icon(Icons.person),
             ),
-          ],
-        ),
+            label: '',
+          ),
+        ],
       ),
     );
   }
