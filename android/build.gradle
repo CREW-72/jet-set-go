@@ -4,7 +4,8 @@ buildscript {
         mavenCentral()   // Required for some plugins
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.2.1' // Updated AGP version
+        classpath 'com.android.tools.build:gradle:8.2.1' //// Updated AGP version
+        classpath 'com.google.gms:google-services:4.3.8' // Firebase Google Services Plugin
     }
 }
 
