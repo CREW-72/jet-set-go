@@ -33,7 +33,7 @@ class _SignUpPageState extends State<SignUpPage> {
           // Background Image
           Positioned.fill(
             child: Image.asset(
-              'assets/images/background.png',
+              'assets/images/background.jpg',
               fit: BoxFit.cover,
             ),
           ),
