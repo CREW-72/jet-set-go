@@ -12,6 +12,10 @@
 .swiftpm/
 migrate_working_dir/
 
+# Windows-specific
+Thumbs.db
+*.log
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -23,15 +27,18 @@ migrate_working_dir/
 # is commented out by default.
 #.vscode/
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# Flutter/Dart-specific
 .dart_tool/
+.idea/
+build/
+ios/Pods/
+pubspec.lock
 .flutter-plugins
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
-/build/
+**/doc/api/
+**/ios/Flutter/.last_build_id
 
 # Symbolication related
 app.*.symbols
@@ -43,3 +50,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Generated Files
+.vscode/
+*.swp
