@@ -61,6 +61,11 @@ flutter:
   assets:
      - assets/packing_bg.jpg
      - assets/luggage.jpg
+     - assets/app_bar_bg.jpg
+     - assets/background.jpg
+     - assets/line.jpg
+     - assets/plane_bg.jpg
+     - assets/plane_icon.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
