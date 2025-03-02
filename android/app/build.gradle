@@ -42,7 +42,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.jet_set_go"
-        minSdkVersion 23  //  <----  Updated minSdkVersion
+        minSdkVersion 23  // Updated minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -50,9 +50,6 @@ android {
 
     buildTypes {
         release {
-            // Signing config for release builds.
-            // Ideally, you'd store the key information in local.properties
-            // file so that you don't commit it to git.
             signingConfig signingConfigs.debug
         }
     }
@@ -64,4 +61,7 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0"
+    implementation 'com.google.android.gms:play-services-base:17.6.0'
 }
+
+apply plugin: 'com.google.gms.google-services'
