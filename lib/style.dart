@@ -32,7 +32,7 @@ class UI extends StatelessWidget {
             right: 0,
             child: Image.asset(
               "assets/app_bar_bg.jpg",
-              height: 126,
+              height: 136,
               fit: BoxFit.cover,
             ),
           ),
