@@ -31,25 +31,26 @@ class UI extends StatelessWidget {
             left: 0,
             right: 0,
             child: Image.asset(
-              "assets/app_bar_bg.jpg",
+              "assets/header.jpg",
               height: 136,
               fit: BoxFit.cover,
             ),
           ),
-          Positioned(
+          /*Positioned(
             top:0,
             left: 0,right: 0,
             child: Image.asset(
               "assets/plane_bg.jpg",
               height: 126,// Adjust the size as needed
               fit: BoxFit.cover,
+
             ),
-          ),
+          ),*/
           Positioned(
             top:80,
             left: 130,right: 0,
             child: Image.asset(
-              "assets/plane_icon.jpg",
+              "assets/plane.png",
               height: 50,// Adjust the size as needed
             ),
           ),
@@ -64,13 +65,13 @@ class UI extends StatelessWidget {
           Positioned(
             top: 25,
             left: 20,
-            child: Text('SPECIAL', style: TextStyle(fontSize: 45, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: 3.0, // Increase the width of the letters
+            child: Text('PACKING', style: TextStyle(fontSize: 45, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: 3.0, // Increase the width of the letters
             ),),
           ),
           Positioned(
             top: 85,
             left: 20,
-            child: Text('ASSISTANCE',style: TextStyle(fontSize: 20,color: Colors.white,letterSpacing: 2.0,),),
+            child: Text('TIPS',style: TextStyle(fontSize: 20,color: Colors.white,letterSpacing: 2.0,),),
           ),
         ],
       ),

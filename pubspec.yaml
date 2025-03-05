@@ -66,6 +66,9 @@ flutter:
      - assets/line.jpg
      - assets/plane_bg.jpg
      - assets/plane_icon.jpg
+     - assets/header.jpg
+     - assets/headerIcon.jpg
+     - assets/plane.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

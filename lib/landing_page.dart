@@ -18,7 +18,7 @@ class LandingPage extends StatelessWidget {
 
             // Dark Overlay for better text contrast
             Container(
-              color: Colors.black.withOpacity(0.5),
+             color: Colors.black.withOpacity(0.5),
             ),
 
             // Main Content
