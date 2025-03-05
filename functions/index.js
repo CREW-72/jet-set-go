@@ -38,42 +38,32 @@ exports.getFlightDetails = onRequest({ secrets: [FLIGHTAWARE_API_KEY] }, async (
     // Format flight data
     const flightData = response.data.flights[0];
     const formattedData = {
-          flightNumber: flightData.ident || "Unknown",
-          airline: flightData.operator_iata || "Unknown Airline",
+          flightNumber: flightData.ident || "N/A",
+          airline: flightData.operator_iata || "Unknown",
           origin: {
-            code: flightData.origin?.code_iata || "N/A",
-            name: flightData.origin?.name || "Unknown",
-            city: flightData.origin?.city || "Unknown",
+            code: flightData.origin.code_iata || "N/A",
+            name: flightData.origin.name || "N/A",
+            city: flightData.origin.city || "N/A",
             terminal: flightData.terminal_origin || "N/A",
             gate: flightData.gate_origin || "N/A",
           },
           destination: {
-            code: flightData.destination?.code_iata || "N/A",
-            name: flightData.destination?.name || "Unknown",
-            city: flightData.destination?.city || "Unknown",
+            code: flightData.destination.code_iata || "N/A",
+            name: flightData.destination.name || "N/A",
+            city: flightData.destination.city || "N/A",
             terminal: flightData.terminal_destination || "N/A",
             gate: flightData.gate_destination || "N/A",
           },
-          departure: {
-            scheduled: flightData.scheduled_out || "N/A",
-            estimated: flightData.estimated_out || "N/A",
-            actual: flightData.actual_out || "N/A",
-          },
-          takeoff: {
-            scheduled: flightData.scheduled_off || "N/A",
-            estimated: flightData.estimated_off || "N/A",
-            actual: flightData.actual_off || "N/A",
-          },
-          arrival: {
-            scheduled: flightData.scheduled_in || "N/A",
-            estimated: flightData.estimated_in || "N/A",
-            actual: flightData.actual_in || "N/A",
-          },
           status: flightData.status || "Unknown",
-          delayMinutes: flightData.arrival_delay || 0,
+          scheduledDeparture: flightData.scheduled_out || "N/A",
+          estimatedDeparture: flightData.estimated_out || "N/A",
+          actualDeparture: flightData.actual_out || "N/A",
+          scheduledArrival: flightData.scheduled_in || "N/A",
+          estimatedArrival: flightData.estimated_in || "N/A",
+          actualArrival: flightData.actual_in || "N/A",
           aircraft: {
-            registration: flightData.registration || "Unknown",
-            model: flightData.aircraft_type || "Unknown Model",
+            model: flightData.aircraft_type || "Unknown",
+            registration: flightData.registration || "N/A",
           },
           lastUpdated: new Date().toISOString(),
         };
@@ -81,6 +71,7 @@ exports.getFlightDetails = onRequest({ secrets: [FLIGHTAWARE_API_KEY] }, async (
     // Store in Firestore for caching
     await db.collection("flights").doc(flightNumber).set(formattedData);
 
+    res.set("Cache-Control", "public, max-age=300, s-maxage=600"); // Cache headers
     res.status(200).json(formattedData);
   } catch (error) {
     console.error("Error fetching flight data:", error);
