@@ -14,15 +14,13 @@ class FlightTrackingPage extends StatefulWidget {
   _FlightTrackingPageState createState() => _FlightTrackingPageState();
 }
 
-class _FlightTrackingPageState extends State<FlightTrackingPage> with SingleTickerProviderStateMixin {
+class _FlightTrackingPageState extends State<FlightTrackingPage> {
   final TextEditingController _searchController = TextEditingController();
   bool _isLoading = false;
   bool _hasError = false;
   String _errorMessage = '';
   Flight? _flight;
   Timer? _refreshTimer;
-  late AnimationController _animationController;
-  late Animation<double> _progressAnimation;
 
   @override
   void initState() {
@@ -126,9 +124,6 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> with SingleTick
         _isLoading = false;
       });
 
-      // Animate the progress indicator
-      _animationController.reset();
-      _animationController.forward();
 
       // Set up periodic refresh
       _refreshTimer?.cancel();
