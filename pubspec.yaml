@@ -41,11 +41,15 @@ dependencies:
   provider: ^6.1.1 #for state management
   flutter_polyline_points: ^2.0.1 #to create routes
   location: ^5.0.3 #more precise location
-  http: ^1.1.0 #For network requests
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+
+
+  shared_preferences: ^2.2.0 #for storing user data locally
+  google_sign_in: ^6.1.5
+
 
 
 dev_dependencies:

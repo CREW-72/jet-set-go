@@ -13,4 +13,28 @@ class AirportNode {
     required this.floor,
     required this.name,
   });
+  // Convert AirportNode to Map for JSON encoding
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'latitude': latitude,
+      'longitude': longitude,
+      'floor': floor,
+      'name': name,
+    };
+  }
+
+  // Factory constructor to create AirportNode from Map
+  factory AirportNode.fromJson(Map<String, dynamic> json) {
+    return AirportNode(
+      id: json['id'],
+      latitude: json['latitude'],
+      longitude: json['longitude'],
+      floor: json['floor'],
+      name: json['name'],
+    );
+  }
 }
+
+
+

@@ -1,10 +1,16 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.jet_set_go">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-feature android:name="android.hardware.location.gps"/> //added this line
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- Required for Google Maps -->
+    <uses-feature android:name="android.hardware.location.gps" android:required="true" />
+    <uses-feature android:name="android.hardware.location.network" android:required="true" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 
 
     <application
@@ -43,6 +49,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
@@ -54,5 +62,8 @@
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
         </intent>
+    </queries>
+    <queries>
+        <package android:name="com.google.android.gms" />
     </queries>
 </manifest>
