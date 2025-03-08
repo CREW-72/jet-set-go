@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/landing_page.dart';
+import 'package:jet_set_go/style.dart'; // Import the UI class
 
-class EfficientPackingTips extends StatelessWidget{
+class EfficientPackingTips extends StatelessWidget {
   final List<Map<String, String>> tips = [
     {"title": "Limit Shoes to Three Pairs", "icon": "👟", "desc": "Pack a casual pair, a formal pair, and comfortable travel shoes."},
     {"title": "Use Compression Bags", "icon": "🧳", "desc": "Save space for bulky items like jackets by using compression bags."},
@@ -12,16 +13,17 @@ class EfficientPackingTips extends StatelessWidget{
   ];
 
   @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(title: Text("Efficient Packing Tips"),
-      ),
+  Widget build(BuildContext context) {
+    return UI(
+      title: 'PACKING TIPS',
+      subtitle: 'FOR EFFICIENCY',
       body: Column(
         children: [
+          SizedBox(height: 130),
           Expanded(
             child: ListView(
               padding: EdgeInsets.all(10),
-              children: tips.map((tip){
+              children: tips.map((tip) {
                 return Card(
                   margin: EdgeInsets.symmetric(vertical: 8),
                   child: ListTile(
@@ -34,30 +36,30 @@ class EfficientPackingTips extends StatelessWidget{
             ),
           ),
           Padding(
-          padding: const EdgeInsets.only(bottom: 40.0),
-          child: SizedBox(
-            width: 300,
-            height: 45,
-            child:ElevatedButton.icon(
-            onPressed: (){
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LandingPage()
+            padding: const EdgeInsets.only(bottom: 40.0),
+            child: SizedBox(
+              width: 300,
+              height: 45,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => LandingPage(),
+                    ),
+                  );
+                },
+                icon: Icon(Icons.arrow_forward, color: Colors.blue),
+                label: Text("Finish"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32.0),
+                  ),
                 ),
-              );
-            },
-            icon: Icon(Icons.arrow_forward, color: Colors.blue,),
-            label: Text("Finish"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.blue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-          ),
-          ),
-          ),
+              ),
+            ),
           ),
         ],
       ),

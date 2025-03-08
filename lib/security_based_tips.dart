@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/weather_based_tips.dart';
+import 'package:jet_set_go/style.dart'; // Import the UI class
 
 class SecurityBasedTips extends StatelessWidget {
   final Map<String, List<Map<String, String>>> tips = {
@@ -44,18 +45,20 @@ class SecurityBasedTips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: tips.keys.length,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Security Tips"),
-          bottom: TabBar(
-            isScrollable: true,
-            tabs: tips.keys.map((category) => Tab(text: category)).toList(),
-          ),
-        ),
-        body: Column(
+    return UI(
+      title: 'SECURITY TIPS',
+      subtitle: 'FOR SAFE TRAVEL',
+      body: DefaultTabController(
+        length: tips.keys.length,
+        child: Column(
           children: [
+            SizedBox(height: 130),
+            TabBar(
+              isScrollable: true,
+              labelColor: Colors.white, // Selected tab text color
+              unselectedLabelColor: Colors.grey, // Unselected tab text color
+              tabs: tips.keys.map((category) => Tab(text: category)).toList(),
+            ),
             Expanded(
               child: TabBarView(
                 children: tips.keys.map((category) {
@@ -78,28 +81,28 @@ class SecurityBasedTips extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 40.0),
               child: SizedBox(
-              width: 300,
-              height: 45,
-              child:ElevatedButton.icon(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => WeatherBasedTips(),
+                width: 300,
+                height: 45,
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WeatherBasedTips(),
+                      ),
+                    );
+                  },
+                  icon: Icon(Icons.arrow_forward, color: Colors.blue),
+                  label: Text("Next"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    foregroundColor: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(32.0),
+                    ),
                   ),
-                );
-              },
-              icon: Icon(Icons.arrow_forward, color: Colors.blue,),
-              label: Text("Next"),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.blue,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(32.0),
                 ),
               ),
-            ),
-            ),
             ),
           ],
         ),
