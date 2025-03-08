@@ -39,7 +39,7 @@ dependencies:
   firebase_auth: ^4.15.0    # If using Authentication
   geocoding: ^2.1.1           # For reverse geocoding (address from lat/lng)
   provider: ^6.1.1 #for state management
-  flutter_polyline_points: ^2.0.1 #to create routes
+  flutter_polyline_points: ^1.0.0 #to create routes
   location: ^5.0.3 #more precise location
 
   # The following adds the Cupertino Icons font to your application.
@@ -49,6 +49,9 @@ dependencies:
 
   shared_preferences: ^2.2.0 #for storing user data locally
   google_sign_in: ^6.1.5
+
+  google_maps_webservice: ^0.0.20-nullsafety.5
+  http: ^0.13.0
 
 
 

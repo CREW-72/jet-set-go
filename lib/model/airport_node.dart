@@ -4,7 +4,7 @@ class AirportNode {
   final double latitude;
   final double longitude;
   final int floor;
-  final String name; // e.g., "Gate A1", "Restroom"
+  final String name;
 
   AirportNode({
     required this.id,

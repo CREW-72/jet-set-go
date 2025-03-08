@@ -1,195 +1,201 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:jet_set_go/service/firebase_service.dart';
-import 'package:jet_set_go/service/location_service.dart';
-import 'package:jet_set_go/widgets/local_storage.dart';
-import 'package:location/location.dart' as loc;
-import 'package:permission_handler/permission_handler.dart' as perm;
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_webservice/places.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-import '../widgets/destination_search.dart';
-import 'model/airport_node.dart';
+import 'package:jet_set_go/widgets/search_destination.dart';
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-import 'package:flutter/services.dart';
 
-class PlayServicesChecker {
-  static const MethodChannel _channel = MethodChannel('com.example.app/play_services');
 
-  static Future<bool> isPlayServicesAvailable() async {
-    try {
-      final bool available = await _channel.invokeMethod('isPlayServicesAvailable');
-      return available;
-    } on PlatformException catch (e) {
-      print("Failed to check Play Services: '${e.message}'.");
-      return false; // Assume unavailable on error
-    }
-  }
-}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class MapScreen extends StatefulWidget {
   @override
   _MapScreenState createState() => _MapScreenState();
 }
 
-
 class _MapScreenState extends State<MapScreen> {
-  final Completer<GoogleMapController> mapController = Completer(); // to ensure that the GoogleMapController is properly initialized
+  final Completer<GoogleMapController> _controller = Completer();
 
-  bool _playServicesAvailable = true; // Default: assume available
+  // Default camera position (will update to current location)
+  static final CameraPosition _initialPosition = CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 14,
+  );
 
-  LatLng? _currentLocation;
-  bool _isLoading = true;
-  final LocationService _locationService = LocationService();
-  final FirebaseService _firebaseService = FirebaseService(); // Or LocalDataService()
-  List<AirportNode> _airportNodes = [];
-  AirportNode? _selectedDestination; // Track selected destination
+  Set<Marker> _markers = {};
+  Set<Polyline> _polylines = {};
+  Position? _currentPosition;
+
+
+  final String _googleMapsApiKey = "AIzaSyABCiY42Xyt3NYRw79vDRz0uJPCSTIWIwY";
 
   @override
   void initState() {
     super.initState();
-    print("initState is running...//////////////////////////////////////////"); // Add this line
-    _checkPlayServices();
+    _getCurrentLocation();
   }
 
-  Future<void> _checkPlayServices() async {
-    bool available = await PlayServicesChecker.isPlayServicesAvailable();
-    setState(() {
-      _playServicesAvailable = available;
-    });
-    if (!_playServicesAvailable) {
-      // Handle the case where Play Services are unavailable (show a dialog, etc.)
-      print("Google Play Services are not available!");
-    }
-    _loadAirportData(); // Load airport data *after* checking Play Services
-    _checkLocationServiceAndPermission();
-  }
-
-  Future<void> _loadAirportData() async {
-    try {
-      _airportNodes = await _firebaseService.getAirportNodes();
-      setState(() {});
-      print('data loaded////////////////////////////////////////////');
-    } catch (e) {
-      print('/////////////////////////////////////////////Error loading airport data: $e'); // ADDED
-    }
-  }
-
-  Future<void> _checkLocationServiceAndPermission() async {
-    if (!await _locationService.isLocationServiceEnabled()) {
-      print("Location service is disabled");
-      setState(() => _isLoading = false);
-      return;
-    }
-
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied ||
-        permission == LocationPermission.deniedForever) {
-      permission = await Geolocator.requestPermission();
-    }
-
-    if (permission == LocationPermission.whileInUse ||
-        permission == LocationPermission.always) {
-      _getCurrentLocation(); // Fetch only if granted
-    } else {
-      print("Location permission denied");
-      setState(() => _isLoading = false);
-    }
-  }
-
+  // Get the device's current location
   Future<void> _getCurrentLocation() async {
-    LatLng? lastLocation = await LocalStorageService.getLastKnownLocation();
-    if (lastLocation != null) {
-      _currentLocation = lastLocation;
-    } else {
-      _currentLocation = await _locationService.getCurrentLocation();
-      if (_currentLocation != null) {
-        await LocalStorageService.saveLastKnownLocation(_currentLocation!);
-      }
-    }
-
-    if (_currentLocation != null) {
-      final GoogleMapController controller = await mapController.future;
-      controller.animateCamera(CameraUpdate.newLatLngZoom(_currentLocation!, 17));
-    }
-
-    setState(() => _isLoading = false);
-  }
-
-  Future<void> _showDestinationSearch() async {
-    print("Starting _showDestinationSearch...");
-    final GoogleMapController controller = await mapController.future;
-    print("GoogleMapController obtained.");
-
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        print("Showing DestinationSearch modal...");
-        return DestinationSearch(
-          airportNodes: _airportNodes,
-          onDestinationSelected: (AirportNode destination) {
-            print("Destination selected: ${destination.name}");
-            setState(() {
-              _selectedDestination = destination;
-            });
-            print("Animating camera to destination: ${destination.latitude}, ${destination.longitude}");
-            controller.animateCamera(
-              CameraUpdate.newLatLngZoom(
-                LatLng(destination.latitude, destination.longitude),
-                18,
-              ),
-            );
-            Navigator.pop(context);
-            print("Modal closed.");
-          },
-        );
-      },
+    Position position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    setState(() {
+      _currentPosition = position;
+      _markers.add(
+        Marker(
+          markerId: MarkerId("currentLocation"),
+          position: LatLng(position.latitude, position.longitude),
+          infoWindow: InfoWindow(title: "Your Location"),
+        ),
+      );
+    });
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(
+      CameraUpdate.newLatLng(
+        LatLng(position.latitude, position.longitude),
+      ),
     );
   }
 
-  void _onMapTapped(LatLng position) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('Location Tapped'),
-              Text('Latitude: ${position.latitude}'),
-              Text('Longitude: ${position.longitude}'),
-            ],
+  // Custom search function that navigates to our SearchPage
+  Future<void> _searchAndNavigate() async {
+    Prediction? prediction = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SearchPage(apiKey: _googleMapsApiKey),
+      ),
+    );
+
+    if (prediction != null) {
+      GoogleMapsPlaces places = GoogleMapsPlaces(apiKey: _googleMapsApiKey);
+      PlacesDetailsResponse detail =
+      await places.getDetailsByPlaceId(prediction.placeId!);
+      final lat = detail.result.geometry!.location.lat;
+      final lng = detail.result.geometry!.location.lng;
+
+      _goToLocation(lat, lng);
+
+      setState(() {
+        _markers.add(
+          Marker(
+            markerId: MarkerId(prediction.placeId!),
+            position: LatLng(lat, lng),
+            infoWindow: InfoWindow(title: detail.result.name),
           ),
         );
-      },
+      });
+    }
+  }
+
+  // Animate the camera to a specific location
+  Future<void> _goToLocation(double lat, double lng) async {
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(
+      CameraUpdate.newLatLngZoom(LatLng(lat, lng), 20),
     );
+  }
+
+  // Fetch directions from the current location to the tapped destination
+  Future<void> _getDirections(LatLng destination) async {
+    if (_currentPosition == null) return;
+    final origin =
+        "${_currentPosition!.latitude},${_currentPosition!.longitude}";
+    final dest = "${destination.latitude},${destination.longitude}";
+
+    final url =
+        "https://maps.googleapis.com/maps/api/directions/json?origin=$origin&destination=$dest&key=$_googleMapsApiKey";
+    final response = await http.get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      if (data['routes'].isNotEmpty) {
+        final route = data['routes'][0];
+        final polyline = route['overview_polyline']['points'];
+        final List<LatLng> polylinePoints = _decodePolyline(polyline);
+        setState(() {
+          _polylines.add(
+            Polyline(
+              polylineId: PolylineId("route"),
+              points: polylinePoints,
+              color: Colors.blue,
+              width: 5,
+            ),
+          );
+        });
+      }
+    }
+  }
+
+  // Decode a polyline string into a list of LatLng coordinates.
+  List<LatLng> _decodePolyline(String encoded) {
+    List<LatLng> points = [];
+    int index = 0, len = encoded.length;
+    int lat = 0, lng = 0;
+
+    while (index < len) {
+      int b, shift = 0, result = 0;
+      do {
+        b = encoded.codeUnitAt(index++) - 63;
+        result |= (b & 0x1F) << shift;
+        shift += 5;
+      } while (b >= 0x20);
+      int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+      lat += dlat;
+
+      shift = 0;
+      result = 0;
+      do {
+        b = encoded.codeUnitAt(index++) - 63;
+        result |= (b & 0x1F) << shift;
+        shift += 5;
+      } while (b >= 0x20);
+      int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+      lng += dlng;
+
+      points.add(LatLng(lat / 1E5, lng / 1E5));
+    }
+    return points;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Airport Navigation')),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showDestinationSearch,
-        child: const Icon(Icons.search),
+      body: Stack(
+        children: [
+          GoogleMap(
+            initialCameraPosition: _initialPosition,
+            markers: _markers,
+            polylines: _polylines,
+            myLocationEnabled: true,
+            indoorViewEnabled: true, // Enables indoor maps (if available).
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
+            onTap: (LatLng tappedPoint) {
+              setState(() {
+                _markers.add(
+                  Marker(
+                    markerId: MarkerId(tappedPoint.toString()),
+                    position: tappedPoint,
+                    infoWindow: InfoWindow(title: "Take Me Here"),
+                  ),
+                );
+              });
+              _getDirections(tappedPoint);
+            },
+          ),
+          Positioned(
+            top: 150, // Adjust position as needed
+            right: 10,
+            child: FloatingActionButton(
+              child: Icon(Icons.search, color:const Color(0xFFACE6FC)), backgroundColor: Colors.blue[900],
+              onPressed: _searchAndNavigate,
+            ),
+          ),
+        ],
       ),
-      body: _playServicesAvailable
-          ? GoogleMap(
-              onMapCreated: (GoogleMapController controller) {
-                mapController.complete(controller);
-              },
-              initialCameraPosition: CameraPosition(
-                target: _currentLocation ?? LatLng(7.1762, 79.8829), // Airport as default
-                zoom: 20.0,
-              ),
-              myLocationEnabled: true,
-              myLocationButtonEnabled: true,
-              onTap: _onMapTapped,
-            )
-          : Center(child: Text('Google Play Services are not available.')),
     );
   }
 }
