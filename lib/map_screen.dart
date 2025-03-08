@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:http/http.dart' as http;
+import 'package:jet_set_go/maps_styling.dart';
 import 'dart:convert';
 
 import 'package:jet_set_go/widgets/search_destination.dart';
@@ -20,8 +21,8 @@ class _MapScreenState extends State<MapScreen> {
 
   // Default camera position (will update to current location)
   static final CameraPosition _initialPosition = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14,
+    target: LatLng(7.1762, 79.88292),
+    zoom:14,
   );
 
   Set<Marker> _markers = {};
@@ -93,7 +94,7 @@ class _MapScreenState extends State<MapScreen> {
   Future<void> _goToLocation(double lat, double lng) async {
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(
-      CameraUpdate.newLatLngZoom(LatLng(lat, lng), 20),
+      CameraUpdate.newLatLngZoom(LatLng(lat, lng), 16),
     );
   }
 
@@ -161,7 +162,7 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return UI(
       body: Stack(
         children: [
           GoogleMap(
@@ -187,8 +188,7 @@ class _MapScreenState extends State<MapScreen> {
             },
           ),
           Positioned(
-            top: 150, // Adjust position as needed
-            right: 10,
+bottom: 110,        right: 10,
             child: FloatingActionButton(
               child: Icon(Icons.search, color:const Color(0xFFACE6FC)), backgroundColor: Colors.blue[900],
               onPressed: _searchAndNavigate,

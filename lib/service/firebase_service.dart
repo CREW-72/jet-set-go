@@ -1,4 +1,3 @@
-// lib/services/firebase_service.dart (example)
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../model/airport_edge.dart';
 import '../model/airport_node.dart';

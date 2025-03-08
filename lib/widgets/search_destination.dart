@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
+import 'package:jet_set_go/maps_styling.dart';
 
 class SearchPage extends StatefulWidget {
   final String apiKey;
@@ -42,36 +43,78 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Search Location'),
-      ),
-      body: Column(
+    return UI(
+      body: Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                hintText: 'Search Destination',
-                border: OutlineInputBorder(),
-              ),
-              onChanged: _searchPlaces,
-            ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: _predictions.length,
-              itemBuilder: (context, index) {
-                final prediction = _predictions[index];
-                return ListTile(
-                  title: Text(prediction.description ?? ''),
-                  onTap: () {
-                    // Return the selected prediction to the previous screen.
-                    Navigator.of(context).pop(prediction);
+          Column(
+            children: [
+              SizedBox(height:225),
+              Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: _predictions.length,
+                  itemBuilder: (context, index) {
+                    final prediction = _predictions[index];
+                    return Card(
+                      margin: EdgeInsets.symmetric(vertical: 8),
+                      elevation: 3,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: ListTile(
+                        leading: Icon(Icons.location_on, color: Colors.blueAccent),
+                        title: Text(
+                          prediction.description ?? '',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        onTap: () {
+                          Navigator.of(context).pop(prediction);
+                        },
+                      ),
+                    );
                   },
-                );
-              },
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            top: 150, // Adjust vertical position
+            left: 16,
+            right: 16,
+            child: Card(
+              elevation: 6,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Row(
+                  children: [
+                    Icon(Icons.search, color: Colors.blue[900]),
+                    SizedBox(width: 20),
+
+                    Expanded(
+                      child: TextField(
+                        controller: _controller,
+                        decoration: InputDecoration(
+                          hintText: 'Search Destination',
+                          border: InputBorder.none,
+                        ),
+                        onChanged: _searchPlaces,
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.clear, color: Colors.grey),
+                      onPressed: () {
+                        _controller.clear();
+                        setState(() {
+                          _predictions = [];
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ],
