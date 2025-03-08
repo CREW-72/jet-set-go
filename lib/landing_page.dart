@@ -6,6 +6,8 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UI(
+      title: 'LUGGAGE',
+      subtitle: 'PACKING TIPS',
       body: Scaffold(
         body: Stack(
           fit: StackFit.expand,

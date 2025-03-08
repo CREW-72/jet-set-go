@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 class UI extends StatelessWidget {
   final Widget body;
   final BottomNavigationBar? bottomNavigationBar;
+  final String title;
+  final String subtitle;
 
   const UI({
     required this.body,
+    required this.title,
+    required this.subtitle,
     this.bottomNavigationBar,
     super.key,
   });
@@ -36,42 +40,48 @@ class UI extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          /*Positioned(
-            top:0,
-            left: 0,right: 0,
-            child: Image.asset(
-              "assets/plane_bg.jpg",
-              height: 126,// Adjust the size as needed
-              fit: BoxFit.cover,
-
-            ),
-          ),*/
           Positioned(
-            top:80,
-            left: 130,right: 0,
+            top: 80,
+            left: 130,
+            right: 0,
             child: Image.asset(
               "assets/plane.png",
-              height: 50,// Adjust the size as needed
+              height: 50, // Adjust the size as needed
             ),
           ),
           Positioned(
-            top:100,
-            left: 20,right: 170,
+            top: 100,
+            left: 20,
+            right: 170,
             child: Image.asset(
               "assets/line.jpg",
-              height: 50,// Adjust the size as needed
+              height: 50, // Adjust the size as needed
             ),
           ),
           Positioned(
             top: 25,
             left: 20,
-            child: Text('PACKING', style: TextStyle(fontSize: 45, fontWeight: FontWeight.w900, color: Colors.white, letterSpacing: 3.0, // Increase the width of the letters
-            ),),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 45,
+                fontWeight: FontWeight.w900,
+                color: Colors.white,
+                letterSpacing: 3.0, // Increase the width of the letters
+              ),
+            ),
           ),
           Positioned(
             top: 85,
             left: 20,
-            child: Text('TIPS',style: TextStyle(fontSize: 20,color: Colors.white,letterSpacing: 2.0,),),
+            child: Text(
+              subtitle,
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white,
+                letterSpacing: 2.0,
+              ),
+            ),
           ),
         ],
       ),

@@ -14,53 +14,53 @@ class WeatherBasedTips extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UI(
-      body: Scaffold(
-        appBar: AppBar(title: Text("Weather Tips")),
-        body: Column(
-          children: [
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.all(10),
-                children: tips.map((tip) {
-                  return Card(
-                    margin: EdgeInsets.symmetric(vertical: 8),
-                    child: ListTile(
-                      leading: Text(tip["icon"]!, style: TextStyle(fontSize: 24)),
-                      title: Text(tip["title"]!, style: TextStyle(fontWeight: FontWeight.bold)),
-                      subtitle: Text(tip["desc"]!),
+      title: 'CLIMATE',
+      subtitle: 'CARRY-ON TIPS',
+      body: Column(
+        children: [
+          SizedBox(height: 130),
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.all(10),
+              children: tips.map((tip) {
+                return Card(
+                  margin: EdgeInsets.symmetric(vertical: 8),
+                  child: ListTile(
+                    leading: Text(tip["icon"]!, style: TextStyle(fontSize: 24)),
+                    title: Text(tip["title"]!, style: TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text(tip["desc"]!),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 40.0),
+            child: SizedBox(
+              width: 300,
+              height: 45,
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => GeneralTips(),
                     ),
                   );
-                }).toList(),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 40.0),
-              child: SizedBox(
-                width: 300,
-                height: 45,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => GeneralTips(),
-                      ),
-                    );
-                  },
-                  icon: Icon(Icons.arrow_forward, color: Colors.blue),
-                  label: Text("Next"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.blue,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32.0),
-                    ),
+                },
+                icon: Icon(Icons.arrow_forward, color: Colors.blue),
+                label: Text("Next"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(32.0),
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

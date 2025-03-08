@@ -1,5 +1,6 @@
 // lib/packing_selection_screen.dart
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/style.dart';
 import 'tips_display_screen.dart';
 
 class PackingSelectionScreen extends StatefulWidget {
@@ -18,15 +19,18 @@ class _PackingSelectionScreenState extends State<PackingSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Select Age Groups")),
+    return UI(
+      title: 'LUGGAGE',
+      subtitle: 'PACKING TIPS',
+      //appBar: AppBar(title: Text("Select Age Groups")),
       body: Column(
         children: [
+          SizedBox(height:100),
           Expanded(
             child: ListView(
               children: categories.map((category) {
                 return CheckboxListTile(
-                  title: Text(category["title"]),
+                  title: Text(category["title"] ,style: TextStyle(fontSize:20,color: Colors.white),),
                   secondary: Icon(category["icon"]),
                   value: selectedCategories.contains(category["title"]),
                   onChanged: (bool? value) {

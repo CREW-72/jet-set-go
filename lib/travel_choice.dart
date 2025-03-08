@@ -7,17 +7,24 @@ class TravelChoice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UI(
+      title: 'LUGGAGE',
+      subtitle: 'PACKING TIPS',
       //appBar: AppBar(title: Text("Travel Choice")),
-      body: Center(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment:CrossAxisAlignment.center,
+
           children: [
-            Text(
-              "Travelling Solo or With Family?",
-              style: TextStyle(fontSize: 24,
-              color: Colors.white),
+            Center(
+              child: Text(
+                "Travelling Solo or With Family?",
+                style: TextStyle(fontSize: 24,
+                color: Colors.white),
+              ),
             ),
-            SizedBox(height: 450),
+            SizedBox(height: 100),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

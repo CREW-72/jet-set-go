@@ -1,24 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/security_based_tips.dart';
+import 'package:jet_set_go/style.dart';
 import 'packing_selection_screen.dart';
 
 class TravelDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("Travel Details")),
+    return UI(
+      title: 'LUGGAGE',
+      subtitle: 'PACKING TIPS',
+      //appBar: AppBar(title: Text("Travel Details")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center, // Ensure horizontal centering
           children: [
-            Text(
-              "Is there any Children travelling with you?",
-              style: TextStyle(fontSize: 20),
+            Center(
+              child: Text(
+                "Are there any Children travelling with you?",
+                style: TextStyle(fontSize: 24, color: Colors.white),
+                textAlign: TextAlign.center, // Center text horizontally
+              ),
             ),
-            SizedBox(height: 450),
+            SizedBox(height: 100), // Adjusted for more balanced spacing
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
+
               children: [
                 ElevatedButton.icon(
                   onPressed: () {
