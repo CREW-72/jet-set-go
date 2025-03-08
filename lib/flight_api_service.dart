@@ -5,11 +5,16 @@ class FlightApiService {
   static const String baseUrl = "https://us-central1-jetsetgo-ee55b.cloudfunctions.net"; // Firebase function URL
 
   // Fetch flight details from backend
-  static Future<Map<String, dynamic>?> getFlightDetails(String flightNumber) async {
+  Future<Map<String, dynamic>?> getFlightDetails(String flightNumber) async {
     final Uri url = Uri.parse("$baseUrl/getFlightDetails?flightNumber=$flightNumber");
 
     try {
+      print("Making API request: $url ");
+      
       final response = await http.get(url);
+
+      print("🔹 API Response Status: ${response.statusCode}"); // Debug log
+      print("📩 API Response Body: ${response.body}"); // Debug log
 
       if (response.statusCode == 200) {
         return json.decode(response.body); // ✅ Return JSON response

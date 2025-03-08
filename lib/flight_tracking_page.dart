@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
+import 'package:jet_set_go/flight_api_service.dart'; // ✅ Import API Service
 
 class FlightTrackingPage extends StatefulWidget {
   const FlightTrackingPage({Key? key}) : super(key: key);
@@ -21,11 +19,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
   String _errorMessage = '';
   Flight? _flight;
   Timer? _refreshTimer;
-
-  @override
-  void initState() {
-    super.initState();
-  }
+  final FlightApiService _apiService = FlightApiService(); //Initialize API service
 
   @override
   void dispose() {
@@ -50,87 +44,28 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
     });
 
     try {
-      // Simulate API call with a delay
-      await Future.delayed(const Duration(seconds: 2));
+      print("Fetching flight details for $flightNumber");
 
-      // Mock flight data - in a real app, this would be fetched from an API
-      final mockFlight = Flight(
-        flightNumber: flightNumber,
-        airline: Airline(
-          code: 'UA',
-          name: 'United Airlines',
-          logo: 'https://example.com/united-logo.png',
-        ),
-        origin: Airport(
-          code: 'SFO',
-          name: 'San Francisco International Airport',
-          city: 'San Francisco',
-          terminal: 'Terminal 3',
-          gate: 'G12',
-        ),
-        destination: Airport(
-          code: 'JFK',
-          name: 'John F. Kennedy International Airport',
-          city: 'New York',
-          terminal: 'Terminal 4',
-          gate: 'B8',
-        ),
-        departure: FlightTime(
-          scheduled: DateTime.now().subtract(const Duration(hours: 1)),
-          actual: DateTime.now().subtract(const Duration(minutes: 45)),
-        ),
-        arrival: FlightTime(
-          scheduled: DateTime.now().add(const Duration(hours: 4)),
-          estimated: DateTime.now().add(const Duration(hours: 4, minutes: 15)),
-        ),
-        status: FlightStatus.inAir,
-        delayMinutes: 15,
-        aircraft: Aircraft(
-          registration: 'N12345',
-          model: 'Boeing 787-9',
-        ),
-        events: [
-          FlightEvent(
-            type: EventType.checkIn,
-            time: DateTime.now().subtract(const Duration(hours: 3)),
-            completed: true,
-          ),
-          FlightEvent(
-            type: EventType.security,
-            time: DateTime.now().subtract(const Duration(hours: 2)),
-            completed: true,
-          ),
-          FlightEvent(
-            type: EventType.boarding,
-            time: DateTime.now().subtract(const Duration(hours: 1, minutes: 30)),
-            completed: true,
-          ),
-          FlightEvent(
-            type: EventType.departure,
-            time: DateTime.now().subtract(const Duration(minutes: 45)),
-            completed: true,
-          ),
-          FlightEvent(
-            type: EventType.arrival,
-            time: DateTime.now().add(const Duration(hours: 4, minutes: 15)),
-            completed: false,
-          ),
-        ],
-        progressPercent: 0.25,
-      );
+      final flightData = await _apiService.getFlightDetails(flightNumber);
 
-      setState(() {
-        _flight = mockFlight;
-        _isLoading = false;
-      });
+      print("API response: $flightData");
 
+      if (flightData != null) {
+        setState(() {
+          _flight = Flight.fromJson(flightData); // Convert JSON map to Flight object
+          _isLoading = false;
+        });
+      } else {
+        setState(() {
+          _isLoading = false;
+          _hasError = true;
+          _errorMessage = 'Flight not found. Please check the flight number.';
+        });
+      }
+    } catch (e, stackTrace) {
+      print("Error in _searchFlight: $e");
+      print("Stack trace: $stackTrace");
 
-      // Set up periodic refresh
-      _refreshTimer?.cancel();
-      _refreshTimer = Timer.periodic(const Duration(minutes: 1), (timer) {
-        _refreshFlightData();
-      });
-    } catch (e) {
       setState(() {
         _isLoading = false;
         _hasError = true;
@@ -143,8 +78,13 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
     if (_flight == null) return;
 
     try {
-      // In a real app, this would refresh data from the API
-      // For demo purposes, we'll just update the progress
+      final updatedFlight = await _apiService.getFlightDetails(_flight!.flightNumber);
+
+      if (updatedFlight != null) {
+        setState(() {
+          _flight = Flight.fromJson(updatedFlight);
+        });
+      }
     } catch (e) {
       // Handle refresh error silently
     }
@@ -287,22 +227,6 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
               borderRadius: BorderRadius.circular(12),
             ),
           ),
-          const SizedBox(height: 24),
-          Container(
-            height: 100,
-            decoration: BoxDecoration(
-              color: cardColor,
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          const SizedBox(height: 24),
-          Container(
-            height: 200,
-            decoration: BoxDecoration(
-              color: cardColor,
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
         ],
       ),
     );
@@ -330,6 +254,8 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
       case FlightStatus.cancelled:
         statusColor = Colors.red;
         break;
+      default:
+        statusColor = Colors.grey;
     }
 
     return Container(
@@ -448,7 +374,8 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      timeFormat.format(flight.departure.actual ?? flight.departure.scheduled),
+                      //THIS RETURNS TIME RIGHT NOW IF ACTUAL AND SCHEDULED IS NOT LISTED.
+                      timeFormat.format(flight.departure.actual ?? flight.departure.scheduled ?? DateTime.now()),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -457,7 +384,8 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      dateFormat.format(flight.departure.scheduled),
+                      //THIS RETURNS TIME RIGHT NOW IF DEPARTURE TIME IS NOT PROVIDED
+                      dateFormat.format(flight.departure.scheduled??DateTime.now()),
                       style: TextStyle(
                         fontSize: 14,
                         color: subtitleColor,
@@ -526,7 +454,8 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      timeFormat.format(flight.arrival.estimated ?? flight.arrival.scheduled),
+                      //SHOWS TIME RIGHT NOW IF ARRIVAL ESTIMATED, SCHEDULED IS N/A
+                      timeFormat.format(flight.arrival.estimated ?? flight.arrival.scheduled ?? DateTime.now()),
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -535,7 +464,8 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      dateFormat.format(flight.arrival.scheduled),
+                      //SHOWS TIME RIGHT NOW IF ARRIVAL SCHEDULED IS N/A
+                      dateFormat.format(flight.arrival.scheduled??DateTime.now()),
                       style: TextStyle(
                         fontSize: 14,
                         color: subtitleColor,
@@ -595,35 +525,6 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
           ],
         ],
       ),
-    );
-  }
-
-
-  Widget _buildProgressStat(String label, String value, IconData icon, Color textColor, Color? subtitleColor) {
-    return Column(
-      children: [
-        Icon(
-          icon,
-          color: Theme.of(context).primaryColor,
-          size: 20,
-        ),
-        const SizedBox(height: 4),
-        Text(
-          value,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: textColor,
-          ),
-        ),
-        const SizedBox(height: 2),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            color: subtitleColor,
-          ),
-        ),
-      ],
     );
   }
 
@@ -800,6 +701,8 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
         return Icons.flight_land;
       case FlightStatus.cancelled:
         return Icons.cancel;
+      default:
+        return Icons.question_mark;
     }
   }
 
@@ -819,6 +722,8 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
         return 'Arrived';
       case FlightStatus.cancelled:
         return 'Cancelled';
+      default:
+        return 'Unknown';
     }
   }
 
@@ -834,9 +739,13 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
         return 'Departure';
       case EventType.arrival:
         return 'Arrival';
+      default:
+        return 'unknown';
     }
   }
+
 }
+
 
 // Models
 enum FlightStatus {
@@ -847,6 +756,7 @@ enum FlightStatus {
   inAir,
   arrived,
   cancelled,
+  unknown,
 }
 
 enum EventType {
@@ -855,18 +765,21 @@ enum EventType {
   boarding,
   departure,
   arrival,
+  unknown,
 }
 
 class Airline {
   final String code;
   final String name;
-  final String? logo;
 
-  Airline({
-    required this.code,
-    required this.name,
-    this.logo,
-  });
+  Airline({required this.code, required this.name});
+
+  factory Airline.fromJson(Map<String, dynamic> json) {
+    return Airline(
+      code: json['code'] ?? 'Unknown Code',
+      name: json['name'] ?? 'Unknown Airline',
+    );
+  }
 }
 
 class Airport {
@@ -883,28 +796,59 @@ class Airport {
     this.terminal,
     this.gate,
   });
+
+  factory Airport.fromJson(Map<String,dynamic> json){
+    return Airport(
+      code: json['code']??'Unknown Code',
+      name: json['name']??'Unknown Airport',
+      city: json['city']??'Unknown City',
+      terminal: json['terminal'] == 'N/A' ? null : json['terminal'],
+      gate: json['gate'] == 'N/A' ? null : json['gate'],
+    );
+  }
 }
 
 class FlightTime {
-  final DateTime scheduled;
-  final DateTime? actual;
+  final DateTime? scheduled;
   final DateTime? estimated;
+  final DateTime? actual;
 
   FlightTime({
-    required this.scheduled,
-    this.actual,
+    this.scheduled,
     this.estimated,
+    this.actual,
   });
+
+  factory FlightTime.fromJson(Map<String, dynamic> json) {
+    return FlightTime(
+      scheduled: (json['scheduled'] != null && json['scheduled'] != 'N/A')
+          ? DateTime.tryParse(json['scheduled'])
+          : null,
+      estimated: (json['estimated'] != null && json['estimated'] != 'N/A')
+          ? DateTime.tryParse(json['estimated'])
+          : null,
+      actual: (json['actual'] != null && json['actual'] != 'N/A')
+          ? DateTime.tryParse(json['actual'])
+          : null,
+    );
+  }
 }
 
 class Aircraft {
   final String registration;
   final String model;
 
-  Aircraft({
-    required this.registration,
-    required this.model,
-  });
+  Aircraft({required this.registration, required this.model});
+
+  factory Aircraft.fromJson(Map<String, dynamic> json) {
+    print("Parsing Aircraft JSON: $json"); // Debugging print
+    return Aircraft(
+      model: json['model'] ?? 'Unknown', // ✅ Ensure model is never null
+      registration: (json['registration'] == null || json['registration'] == "N/A")
+          ? 'Unknown'
+          : json['registration'], // ✅ Convert null or "N/A" to 'Unknown'
+    );
+  }
 }
 
 class FlightEvent {
@@ -912,11 +856,35 @@ class FlightEvent {
   final DateTime time;
   final bool completed;
 
-  FlightEvent({
-    required this.type,
-    required this.time,
-    required this.completed,
-  });
+  FlightEvent({required this.type, required this.time, required this.completed});
+
+  factory FlightEvent.fromJson(Map<String, dynamic> json) {
+    return FlightEvent(
+      type: EventType.values.firstWhere(
+            (e) => e.toString().split('.').last == json['type'],
+        orElse: () => EventType.unknown,
+      ),
+      time: DateTime.tryParse(json['time'] ?? '') ?? DateTime.now(),
+      completed: json['completed'] ?? false,
+    );
+  }
+
+  static EventType _parseEventType(String? type) {
+    switch (type?.toLowerCase()) {
+      case 'check-in':
+        return EventType.checkIn;
+      case 'security':
+        return EventType.security;
+      case 'boarding':
+        return EventType.boarding;
+      case 'departure':
+        return EventType.departure;
+      case 'arrival':
+        return EventType.arrival;
+      default:
+        return EventType.checkIn; // Default fallback
+    }
+  }
 }
 
 class Flight {
@@ -946,31 +914,69 @@ class Flight {
     required this.progressPercent,
   });
 
-  Flight copyWith({
-    String? flightNumber,
-    Airline? airline,
-    Airport? origin,
-    Airport? destination,
-    FlightTime? departure,
-    FlightTime? arrival,
-    FlightStatus? status,
-    int? delayMinutes,
-    Aircraft? aircraft,
-    List<FlightEvent>? events,
-    double? progressPercent,
-  }) {
+  /// ✅ **Convert JSON map to Flight object**
+  factory Flight.fromJson(Map<String, dynamic> json) {
     return Flight(
-      flightNumber: flightNumber ?? this.flightNumber,
-      airline: airline ?? this.airline,
-      origin: origin ?? this.origin,
-      destination: destination ?? this.destination,
-      departure: departure ?? this.departure,
-      arrival: arrival ?? this.arrival,
-      status: status ?? this.status,
-      delayMinutes: delayMinutes ?? this.delayMinutes,
-      aircraft: aircraft ?? this.aircraft,
-      events: events ?? this.events,
-      progressPercent: progressPercent ?? this.progressPercent,
+      flightNumber: json['flightNumber'] ?? '',
+
+      // ✅ Fix airline issue (Handles both String & Map cases)
+      airline: json['airline'] is Map<String, dynamic>
+          ? Airline.fromJson(json['airline'])
+          : Airline(code: json['airline'] ?? 'Unknown', name: json['airline'] ?? 'Unknown Airline'),
+
+      origin: Airport.fromJson(json['origin'] ?? {}),
+      destination: Airport.fromJson(json['destination'] ?? {}),
+
+      // ✅ Convert timestamps to DateTime safely
+      departure: FlightTime.fromJson({
+        'scheduled': json['scheduledDeparture'],
+        'estimated': json['estimatedDeparture'],
+        'actual': json['actualDeparture'] != 'N/A' ? json['actualDeparture'] : null
+      }),
+      arrival: FlightTime.fromJson({
+        'scheduled': json['scheduledArrival'],
+        'estimated': json['estimatedArrival'],
+        'actual': json['actualArrival'] != 'N/A' ? json['actualArrival'] : null
+      }),
+
+      // ✅ Ensure status parsing is handled correctly
+      status: _parseFlightStatus(json['status']),
+
+      // ✅ Fix delayMinutes (if missing, default to 0)
+      delayMinutes: json['delayMinutes'] ?? 0,
+
+      // ✅ Handle aircraft (if missing, use default values)
+      aircraft: json['aircraft'] != null && json['aircraft'] is Map<String, dynamic>
+          ? Aircraft.fromJson(json['aircraft'])
+          : Aircraft(model: "Unknown", registration: "Unknown"), // ✅ Provide default aircraft if needed
+
+      // ✅ Handle events (if missing, use an empty list)
+      events: (json['events'] as List<dynamic>?)?.map((e) => FlightEvent.fromJson(e)).toList() ?? [],
+
+      // ✅ Fix progressPercent (ensure it's always a double)
+      progressPercent: (json['progressPercent'] ?? 0).toDouble(),
     );
+  }
+
+  /// ✅ **Parse Flight Status from String**
+  static FlightStatus _parseFlightStatus(String? status) {
+    switch (status?.toLowerCase()) {
+      case 'on time':
+        return FlightStatus.onTime;
+      case 'delayed':
+        return FlightStatus.delayed;
+      case 'boarding':
+        return FlightStatus.boarding;
+      case 'departed':
+        return FlightStatus.departed;
+      case 'in air':
+        return FlightStatus.inAir;
+      case 'arrived':
+        return FlightStatus.arrived;
+      case 'cancelled':
+        return FlightStatus.cancelled;
+      default:
+        return FlightStatus.unknown;
+    }
   }
 }
