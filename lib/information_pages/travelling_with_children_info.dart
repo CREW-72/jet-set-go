@@ -35,7 +35,8 @@ class TravellingWithInfantsInfo extends StatelessWidget {
                                 ),
                               ),
                             SizedBox(height: 15,),
-                            Text("Travel regulations may vary by airline and destination. Please check with your airline and local authorities for the latest requirements.\n",style: TextStyle(fontSize: 18,color: Colors.blue[800],fontWeight: FontWeight.bold),
+                            Text("Travel regulations may vary by airline and destination. Please check with your airline and local authorities for the latest requirements.\n",
+                              style: TextStyle(fontSize: 18,color: Colors.blue[800],fontWeight: FontWeight.bold),
                             ),
                             Text(
                               "1. Children (Ages 2-11 years) cannot travel alone and must be accompanied by an adult.\n\n"

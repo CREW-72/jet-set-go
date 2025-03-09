@@ -35,15 +35,32 @@ class MedicalClearanceInfo extends StatelessWidget {
                                 ),
                               ),
                             SizedBox(height: 15),
-                            Text("Travel regulations may vary by airline and destination. Please check with your airline and local authorities for the latest requirements.\n",style: TextStyle(fontSize: 18,color: Colors.blue[800],fontWeight: FontWeight.bold),
+                            Text("Travel regulations may vary by airline and destination. "
+                                "Please check with your airline and local authorities for the latest requirements.\n",
+                              style: TextStyle(fontSize: 18,color: Colors.blue[800],fontWeight: FontWeight.bold),
                             ),
-                            Text("To ensure the comfort, safety, and well-being of all passengers on board, passengers with the following conditions or reduced mobility must obtain medical clearance from the Group Medical Officer (CMBIMUL) prior to booking or flying.\n\nThe airline requires medical clearance for any unusual medical conditions disclosed at booking and may consult with the Group Medical Officer before confirming the flight.",
-                              style: TextStyle(fontSize: 18,color: Colors.blue[800],fontWeight: FontWeight.w500),
+                            Text("To ensure the comfort, safety, and well-being of all passengers on board,"
+                                " passengers with the following conditions or reduced mobility must obtain"
+                                " medical clearance from the Group Medical Officer (CMBIMUL) prior to booking or flying.\n\n"
+                                "The airline requires medical clearance for any unusual medical conditions disclosed"
+                                " at booking and may consult with the Group Medical Officer before confirming the flight.",
+                              style: TextStyle(fontSize: 16,color: Colors.blue[800],fontWeight: FontWeight.w500),
                             ),
                             SizedBox(height: 24),
                             buildSectionHeading("Conditions Requiring Medical Clearance:"),
                             SizedBox(height: 24),
-                            Text("1. Passengers with contagious diseases or conditions that may pose a health risk to others.\n\n 2. Passengers exhibiting unusual behavior or physical conditions that could impact other passengers or crew\n\n3. Passengers needing medical attention (Extra Oxygen) or special equipment during the flight.\n\n4. Passengers with medical conditions that may worsen during the flight.(recent surgeries, heart attacks,strokes)\n\n5. Passengers with mental impairments,Alzheimer’s, Autism or intellectual disabilities.\n\n6. WCHC Passengers:\n\n  • WCHR (R for ramp) - Able to\n    ascend/descend steps and\n    make own way to/from cabin\n    seat but aircraft.\n\n  • WCHS (S for steps)- cannot\n    ascend/descend steps hence\n    must be carried up/down steps\n    but can make own way to/from\n    cabin seat.\n\n  • WCHC (C for cabin seat) -\n    completely immobile.\n\n7. Passengers below 75 years and above 85 years of age who require wheelchair assistance.\n\n8. Passengers needing a stretcher.",
+                            Text("1. Passengers with contagious diseases or conditions that may pose a health risk to others.\n\n"
+                                " 2. Passengers exhibiting unusual behavior or physical conditions that could impact other passengers or crew\n\n"
+                                "3. Passengers needing medical attention (Extra Oxygen) or special equipment during the flight.\n\n"
+                                "4. Passengers with medical conditions that may worsen during the flight.(recent surgeries, heart attacks,strokes)\n\n"
+                                "5. Passengers with mental impairments,Alzheimer’s, Autism or intellectual disabilities.\n\n"
+                                "6. WCHC Passengers:\n\n  • WCHR (R for ramp) - Able to"
+                                "\n    ascend/descend steps and\n    make own way to/from cabin"
+                                "\n    seat but aircraft.\n\n  • WCHS (S for steps)- cannot\n    ascend/descend steps hence"
+                                "\n    must be carried up/down steps\n    but can make own way to/from\n    cabin seat."
+                                "\n\n  • WCHC (C for cabin seat) -\n    completely immobile.\n\n"
+                                "7. Passengers below 75 years and above 85 years of age who require wheelchair assistance.\n\n"
+                                "8. Passengers needing a stretcher.",
                               style: TextStyle(fontSize: 18, color: Colors.blue[800],fontWeight: FontWeight.w500),
                             ),
                             SizedBox(height: 20),
@@ -71,7 +88,7 @@ Widget buildSectionHeading(String title) {
         textAlign: TextAlign.center,
         style: TextStyle(
           fontFamily: 'Poppins',
-          fontSize: 26,
+          fontSize: 18,
           color: Colors.blue[800],
           fontWeight: FontWeight.bold,
         ),
@@ -86,7 +103,7 @@ Widget buildText(String text, {bool isBold = false}) {
     child: Text(
       text,
       style: TextStyle(
-        fontSize: 18,
+        fontSize: 16,
         color: Colors.blue[800],
         fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
       ),

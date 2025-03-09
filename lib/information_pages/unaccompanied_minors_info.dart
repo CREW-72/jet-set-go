@@ -35,7 +35,9 @@ class UnaccompaniedMinorsInfo extends StatelessWidget {
                                 ),
                               ),
                             SizedBox(height: 15),
-                            Text("Travel regulations may vary by airline and destination. Please check with your airline and local authorities for the latest requirements.", style: TextStyle(fontSize: 18,color: Colors.blue[800],fontWeight: FontWeight.bold),
+                            Text("Travel regulations may vary by airline and destination. "
+                                "Please check with your airline and local authorities for the latest requirements.",
+                              style: TextStyle(fontSize: 18,color: Colors.blue[800],fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 10),
                             buildText(
@@ -75,7 +77,7 @@ Widget buildSectionHeading(String title) {
       child: Text(
         title,
         style: TextStyle(
-          fontSize: 24,
+          fontSize: 18,
           color: Colors.blue[800],
           fontWeight: FontWeight.bold,
         ),
@@ -90,7 +92,7 @@ Widget buildText(String text, {bool isBold = false}) {
     child: Text(
       text,
       style: TextStyle(
-        fontSize: 18,
+        fontSize: 16,
         color: Colors.blue[800],
           fontWeight: FontWeight.w500
       ),
