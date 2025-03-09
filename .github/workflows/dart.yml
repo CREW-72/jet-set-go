@@ -2,9 +2,9 @@ name: Dart & Flutter CI
 
 on:
   push:
-    branches: [ "main" , "development" ]
+    branches: [ "document-upload-feature" ]
   pull_request:
-    branches: [ "main" , "development" ]
+    branches: [ "document-upload-feature" ]
   workflow_dispatch: # ✅ Allows manual execution from GitHub Actions UI
 
 jobs:
