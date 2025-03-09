@@ -24,7 +24,7 @@ class TravellingDuringPregnancy extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 24,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
 
                         ),
@@ -115,7 +115,7 @@ class AssistanceOption extends StatelessWidget {
                     text,
                     style:  TextStyle(
                       color: Colors.blue[900],
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

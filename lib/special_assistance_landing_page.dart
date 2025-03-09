@@ -26,7 +26,7 @@ class SpecialAssistanceLandingPage extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Container(
                 width: 350,
-                height: 250,
+                height: 230,
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
                 decoration: BoxDecoration(
                   color: Color.fromRGBO(255, 255, 255, 0.9),
@@ -47,18 +47,18 @@ class SpecialAssistanceLandingPage extends StatelessWidget {
                       TextSpan(
                         text: "Receive Guidance\n",
                         style: TextStyle(
-                          fontSize: 28,
+                          fontSize: 24,
                           color: Colors.blue[900],
                           fontWeight: FontWeight.bold,
                         ),
                         children: [
                           TextSpan(
                             text: "On\n",
-                            style: TextStyle(fontSize: 28, color: Colors.blue[900],fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 24, color: Colors.blue[900],fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
                             text: "Special Assistance",
-                            style: TextStyle(fontSize: 28,color: Colors.blue[900], fontWeight: FontWeight.bold),
+                            style: TextStyle(fontSize: 24,color: Colors.blue[900], fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
