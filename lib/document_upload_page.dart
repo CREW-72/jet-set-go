@@ -143,7 +143,7 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
                 }
 
                 final directory = await getApplicationDocumentsDirectory();
-                final filePath = "${directory.path}/${customName}.pdf";
+                final filePath = "${directory.path}/$customName.pdf";
                 final savedFile = File(filePath);
 
                 if (file != null) {
