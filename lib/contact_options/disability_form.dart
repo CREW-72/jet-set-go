@@ -18,7 +18,7 @@ class DisabilityForm extends StatelessWidget {
                       const SizedBox(height: 110),
                       Container(
                         width: 350,
-                        height: 600,
+                        height: 400,
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: Color.fromRGBO(255, 255, 255, 0.85),
@@ -32,22 +32,24 @@ class DisabilityForm extends StatelessWidget {
                               child: Text(
                                 "Disability Assistance Request Form",
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 18,
                                   color: Colors.blue[800],
                                   fontWeight: FontWeight.bold,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            Icon(Icons.file_open_outlined, color: Colors.blue[800], size: 150),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 10),
+
+                            Icon(Icons.file_open_outlined, color: Colors.blue[800], size: 120),
+                            const SizedBox(height: 10),
                             Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Text(
                                   "This form is provided by Sri Lankan Airlines to request assistance.\nPlease note that, this is not available for flights departing in the next 72 hours.",
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 16,
                                     color: Colors.blue[800],
                                     fontWeight: FontWeight.w600
                                   ),
@@ -60,7 +62,7 @@ class DisabilityForm extends StatelessWidget {
                                 _launchFormURL();
                               },
                               icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
-                              label: Text("Continue", style: TextStyle(fontSize: 20)),
+                              label: Text("Continue", style: TextStyle(fontSize: 16)),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.blue[800],
                                 foregroundColor: Colors.white,

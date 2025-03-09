@@ -22,7 +22,7 @@ class CallingOption extends StatelessWidget {
                       const SizedBox(height: 110),
                       Container(
                         width: 350,
-                        height: 600,
+                        height: 400,
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: Color.fromRGBO(255, 255, 255, 0.85),
@@ -36,21 +36,21 @@ class CallingOption extends StatelessWidget {
                               child: Text(
                                 "Call BIA Passenger Service Unit",
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 18,
                                   color: Colors.blue[800],
                                   fontWeight: FontWeight.bold,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                            ),
-                            Icon(Icons.phone, color: Colors.blue[800], size: 150),
-                            const SizedBox(height: 12),
+                            ),  const SizedBox(height: 10),
+                            Icon(Icons.phone, color: Colors.blue[800], size: 120),
+                            const SizedBox(height: 10),
                             Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Text("The BIA Service Center is located at the BIA premises.Call +94197332382 for guidance and to arrange required assistance.",
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 16,
                                     color: Colors.blue[800],
                                     fontWeight: FontWeight.w600
                                   ),
@@ -63,7 +63,7 @@ class CallingOption extends StatelessWidget {
                                 _launchDialer(context, '0197332382');
                               },
                               icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
-                              label: Text("Continue", style: TextStyle(fontSize: 20)),
+                              label: Text("Continue", style: TextStyle(fontSize: 16)),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.blue[800],
                                 foregroundColor: Colors.white,

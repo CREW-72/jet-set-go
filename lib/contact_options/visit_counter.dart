@@ -17,7 +17,7 @@ class VisitCounter extends StatelessWidget {
                       const SizedBox(height: 110),
                       Container(
                         width: 350,
-                        height: 600,
+                        height: 400,
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: Color.fromRGBO(255, 255, 255, 0.85),
@@ -31,22 +31,23 @@ class VisitCounter extends StatelessWidget {
                               child: Text(
                                 "Visit Passenger Service Counter",
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: 18,
                                   color: Colors.blue[800],
                                   fontWeight: FontWeight.bold,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            Icon(Icons.info_outline_rounded, color: Colors.blue[800], size: 150),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 10),
+                            Icon(Icons.info_outline_rounded, color: Colors.blue[800], size: 120),
+                            const SizedBox(height: 10),
                             Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Text(
                                   "For any special assistance needed, Visit the Passenger Service Unit located at the BIA premises .\nClick 'Continue' and we’ll direct you to the counter.",
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 16,
                                     color: Colors.blue[800],
                                     fontWeight: FontWeight.w600
                                   ),
@@ -59,7 +60,7 @@ class VisitCounter extends StatelessWidget {
                                 _inProgressMessage(context);
                               },
                               icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
-                              label: Text("Continue", style: TextStyle(fontSize: 20)),
+                              label: Text("Continue", style: TextStyle(fontSize: 16)),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.blue[800],
                                 foregroundColor: Colors.white,
@@ -87,7 +88,7 @@ void  _inProgressMessage(BuildContext context){
 
           Text(
             "⚠️ Warning",
-            style: TextStyle(color: Colors.blue[800], fontFamily: "Arial", fontWeight: FontWeight.w600
+            style: TextStyle(fontSize: 18,color: Colors.blue[800], fontFamily: "Arial", fontWeight: FontWeight.w600
             ),
           ),
         ],
@@ -102,7 +103,7 @@ void  _inProgressMessage(BuildContext context){
           child: Text(
             'Close',
             style: TextStyle(
-                color: Colors.blue[800], fontFamily: "Arial", fontSize: 20),
+                color: Colors.blue[800], fontFamily: "Arial", fontSize: 16),
           ),
           onPressed: () {
             Navigator.of(context).pop();
