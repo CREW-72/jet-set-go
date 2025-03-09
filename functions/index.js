@@ -34,12 +34,36 @@ exports.getFlightDetails = onRequest({ secrets: [FLIGHTAWARE_API_KEY] }, async (
     if (response.status !== 200) {
       return res.status(response.status).json({ error: "Failed to fetch flight data" });
     }
+    const airlineNames = {
+      "EK": "Emirates",
+      "UL": "SriLankan Airlines",
+      "QR": "Qatar Airways",
+      "SQ": "Singapore Airlines",
+      "BA": "British Airways",
+      "AA": "American Airlines",
+      "UA": "United Airlines",
+      "CX": "Cathay Pacific",
+      "LH": "Lufthansa",
+      "AF": "Air France",
+      "QF": "Qantas",
+      "AI": "Air India",
+      "TK": "Turkish Airlines",
+      "ET": "Ethiopian Airlines",
+      "MH": "Malaysia Airlines",
+      "SV": "Saudia",
+      "DL": "Delta Airlines",
+      "KL": "KLM",
+      "VS": "Virgin Atlantic",
+      // Add more airlines as needed
+    };
+
 
     // Format flight data
     const flightData = response.data.flights[0];
     const formattedData = {
           flightNumber: flightData.ident || "N/A",
-          airline: flightData.operator_iata || "Unknown",
+          iata: flightData.operator_iata,
+          airlineName: airlineNames[flightData.operator_iata] || flightData.operator_iata || "Unknown",
           origin: {
             code: flightData.origin.code_iata || "N/A",
             name: flightData.origin.name || "N/A",

@@ -93,17 +93,17 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    final backgroundColor = isDarkMode ? Colors.grey[900] : Colors.grey[50];
-    final cardColor = isDarkMode ? Colors.grey[800] : Colors.white;
-    final textColor = isDarkMode ? Colors.white : Colors.black;
-    final subtitleColor = isDarkMode ? Colors.grey[400] : Colors.grey[600];
+    final backgroundColor = Color(0xFF0A1F44);
+    final cardColor = Color(0xFF1C3C78);
+    final textColor = Colors.white;
+    final subtitleColor = Color(0xFFB0C4DE);
 
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
-        title: const Text('Flight Tracker'),
+        title: const Text('Flight Details'),
         elevation: 0,
-        backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        backgroundColor: backgroundColor,
         foregroundColor: textColor,
       ),
       body: RefreshIndicator(
@@ -122,7 +122,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                 // Search Bar
                 Container(
                   decoration: BoxDecoration(
-                    color: cardColor,
+                    color: Color(0xFF1D3557),
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
@@ -152,7 +152,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                         ),
                         IconButton(
                           icon: const Icon(Icons.arrow_forward),
-                          color: Theme.of(context).primaryColor,
+                          color: Color(0xFF00A6FF),
                           onPressed: () => _searchFlight(_searchController.text),
                         ),
                       ],
@@ -190,12 +190,12 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                 // Flight Information
                 if (!_isLoading && _flight != null) ...[
                   _buildFlightHeader(_flight!, textColor, subtitleColor),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 12),
                   _buildFlightRoute(_flight!, textColor, subtitleColor, cardColor),
-                  const SizedBox(height: 24),
-                  _buildFlightTimeline(_flight!, textColor, subtitleColor, cardColor),
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 12),
                   _buildFlightDetails(_flight!, textColor, subtitleColor, cardColor),
+                  const SizedBox(height: 12),
+                  _buildFlightTimeline(_flight!, textColor, subtitleColor, cardColor),
                 ],
               ],
             ),
@@ -255,13 +255,13 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
         statusColor = Colors.red;
         break;
       default:
-        statusColor = Colors.grey;
+        statusColor = Colors.green;
     }
 
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: statusColor.withOpacity(0.1),
+        color: Color(0xFF1E3A5F),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: statusColor.withOpacity(0.3), width: 1),
       ),
@@ -395,7 +395,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: Colors.blue.withOpacity(0.1),
+                        color: Color(0xFF00A6FF),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
@@ -403,7 +403,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -415,7 +415,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                   Icon(
                     Icons.flight_takeoff,
                     size: 24,
-                    color: Theme.of(context).primaryColor,
+                    color: Color(0xFF00A6FF),
                   ),
                   const SizedBox(height: 8),
                   Container(
@@ -427,7 +427,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                   Icon(
                     Icons.flight_land,
                     size: 24,
-                    color: Theme.of(context).primaryColor,
+                    color: Color(0xFF00A6FF),
                   ),
                 ],
               ),
@@ -476,7 +476,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: Colors.blue.withOpacity(0.1),
+                        color: Color(0xFF00A6FF),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
@@ -484,7 +484,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue,
+                          color: Colors.white,
                         ),
                       ),
                     ),
@@ -531,6 +531,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
   Widget _buildFlightTimeline(Flight flight, Color textColor, Color? subtitleColor, Color? cardColor) {
     return Container(
       padding: const EdgeInsets.all(24),
+      width: 400,
       decoration: BoxDecoration(
         color: cardColor,
         borderRadius: BorderRadius.circular(12),
@@ -553,7 +554,14 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
               color: textColor,
             ),
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 12,),
+          Text(
+            'Feature will be available soon!',
+            style:TextStyle(
+              fontSize: 16,
+              color: textColor,
+            ),
+          ),
           ...flight.events.asMap().entries.map((entry) {
             final index = entry.key;
             final event = entry.value;
@@ -702,7 +710,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
       case FlightStatus.cancelled:
         return Icons.cancel;
       default:
-        return Icons.question_mark;
+        return Icons.check_circle;
     }
   }
 
@@ -723,7 +731,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
       case FlightStatus.cancelled:
         return 'Cancelled';
       default:
-        return 'Unknown';
+        return 'Scheduled';
     }
   }
 
@@ -776,11 +784,12 @@ class Airline {
 
   factory Airline.fromJson(Map<String, dynamic> json) {
     return Airline(
-      code: json['code'] ?? 'Unknown Code',
-      name: json['name'] ?? 'Unknown Airline',
+      code: json['iata'] ?? 'Unknown Code',
+      name: json['airlineName'] ?? 'Unknown Airline', // Directly using API response
     );
   }
 }
+
 
 class Airport {
   final String code;
@@ -803,7 +812,7 @@ class Airport {
       name: json['name']??'Unknown Airport',
       city: json['city']??'Unknown City',
       terminal: json['terminal'] == 'N/A' ? null : json['terminal'],
-      gate: json['gate'] == 'N/A' ? null : json['gate'],
+      gate: json['gate'] == 'N/A' ? "TBD" : json['gate'],
     );
   }
 }
@@ -843,10 +852,10 @@ class Aircraft {
   factory Aircraft.fromJson(Map<String, dynamic> json) {
     print("Parsing Aircraft JSON: $json"); // Debugging print
     return Aircraft(
-      model: json['model'] ?? 'Unknown', // ✅ Ensure model is never null
+      model: json['model'] ?? 'Unknown', // Ensure model is never null
       registration: (json['registration'] == null || json['registration'] == "N/A")
           ? 'Unknown'
-          : json['registration'], // ✅ Convert null or "N/A" to 'Unknown'
+          : json['registration'], // Convert null or "N/A" to 'Unknown'
     );
   }
 }
@@ -920,9 +929,10 @@ class Flight {
       flightNumber: json['flightNumber'] ?? '',
 
       // ✅ Fix airline issue (Handles both String & Map cases)
-      airline: json['airline'] is Map<String, dynamic>
-          ? Airline.fromJson(json['airline'])
-          : Airline(code: json['airline'] ?? 'Unknown', name: json['airline'] ?? 'Unknown Airline'),
+      airline: Airline.fromJson({
+        "iata": json['iata'],  // Use 'iata' instead of 'code'
+        "airlineName": json['airlineName'],  // Use 'airlineName' instead of mapping manually
+      }),
 
       origin: Airport.fromJson(json['origin'] ?? {}),
       destination: Airport.fromJson(json['destination'] ?? {}),
@@ -939,18 +949,18 @@ class Flight {
         'actual': json['actualArrival'] != 'N/A' ? json['actualArrival'] : null
       }),
 
-      // ✅ Ensure status parsing is handled correctly
+      // Ensure status parsing is handled correctly
       status: _parseFlightStatus(json['status']),
 
-      // ✅ Fix delayMinutes (if missing, default to 0)
+      // Fix delayMinutes (if missing, default to 0)
       delayMinutes: json['delayMinutes'] ?? 0,
 
-      // ✅ Handle aircraft (if missing, use default values)
+      // Handle aircraft (if missing, use default values)
       aircraft: json['aircraft'] != null && json['aircraft'] is Map<String, dynamic>
           ? Aircraft.fromJson(json['aircraft'])
-          : Aircraft(model: "Unknown", registration: "Unknown"), // ✅ Provide default aircraft if needed
+          : Aircraft(model: "Unknown", registration: "Unknown"), // Provide default aircraft if needed
 
-      // ✅ Handle events (if missing, use an empty list)
+      // Handle events (if missing, use an empty list)
       events: (json['events'] as List<dynamic>?)?.map((e) => FlightEvent.fromJson(e)).toList() ?? [],
 
       // ✅ Fix progressPercent (ensure it's always a double)
