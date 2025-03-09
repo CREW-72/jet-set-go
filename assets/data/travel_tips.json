@@ -1,0 +1,32 @@
+{
+  "categories": [
+    {
+      "title": "Entering the Airport",
+      "tips": ["Arrive early", "Keep ID ready", "Follow security protocols"]
+    },
+    {
+      "title": "Check-in",
+      "tips": ["Use online check-in", "Keep boarding pass handy", "Check baggage allowance"]
+    },
+    {
+      "title": "Immigration",
+      "tips": ["Have visa & passport ready", "Fill out required forms", "Follow officer instructions"]
+    },
+    {
+      "title": "Waiting for the Plane",
+      "tips": ["Monitor flight status", "Charge devices", "Stay near gate"]
+    },
+    {
+      "title": "Lounge Experience",
+      "tips": ["Use lounge access", "Enjoy free Wi-Fi", "Refresh before flight"]
+    },
+    {
+      "title": "In-Flight Etiquette",
+      "tips": ["Keep seat upright", "Respect fellow passengers", "Follow cabin crew instructions"]
+    },
+    {
+      "title": "Landing at Destination",
+      "tips": ["Follow deboarding rules", "Have customs forms ready", "Claim baggage promptly"]
+    }
+  ]
+}

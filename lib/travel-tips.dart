@@ -1,4 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'models/travel-tip.dart';
 
 class TravelTipsApp extends StatelessWidget {
   @override
@@ -13,16 +16,40 @@ class TravelTipsApp extends StatelessWidget {
   }
 }
 
-class TravelTipsScreen extends StatelessWidget {
-  final List<Map<String, dynamic>> travelTipsCategories = [
-    {'title': 'Entering the Airport', 'tips': ['Arrive early', 'Keep ID ready', 'Follow security protocols']},
-    {'title': 'Check-in', 'tips': ['Use online check-in', 'Keep boarding pass handy', 'Check baggage allowance']},
-    {'title': 'Immigration', 'tips': ['Have visa & passport ready', 'Fill out required forms', 'Follow officer instructions']},
-    {'title': 'Waiting for the Plane', 'tips': ['Monitor flight status', 'Charge devices', 'Stay near gate']},
-    {'title': 'Lounge Experience', 'tips': ['Use lounge access', 'Enjoy free Wi-Fi', 'Refresh before flight']},
-    {'title': 'In-Flight Etiquette', 'tips': ['Keep seat upright', 'Respect fellow passengers', 'Follow cabin crew instructions']},
-    {'title': 'Landing at Destination', 'tips': ['Follow deboarding rules', 'Have customs forms ready', 'Claim baggage promptly','Claim baggage promptly']},
-  ];
+class TravelTipsScreen extends StatefulWidget {
+  @override
+  _TravelTipsScreenState createState() => _TravelTipsScreenState();
+}
+
+class _TravelTipsScreenState extends State<TravelTipsScreen> {
+  List<TravelTip> travelTipsCategories = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    loadTravelTips();
+  }
+
+  Future<void> loadTravelTips() async {
+    try {
+      // Load the JSON file from assets
+      final String jsonString = await rootBundle.loadString('assets/data/travel_tips.json');
+      final Map<String, dynamic> jsonData = json.decode(jsonString);
+
+      setState(() {
+        travelTipsCategories = (jsonData['categories'] as List)
+            .map((category) => TravelTip.fromJson(category))
+            .toList();
+        isLoading = false;
+      });
+    } catch (e) {
+      print('Error loading travel tips: $e');
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +57,9 @@ class TravelTipsScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Air Travel Tips'),
       ),
-      body: GridView.builder(
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : GridView.builder(
         padding: EdgeInsets.all(10),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -45,8 +74,8 @@ class TravelTipsScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => TipsDetailScreen(
-                    title: travelTipsCategories[index]['title'],
-                    tips: travelTipsCategories[index]['tips'],
+                    title: travelTipsCategories[index].title,
+                    tips: travelTipsCategories[index].tips,
                   ),
                 ),
               );
@@ -58,7 +87,7 @@ class TravelTipsScreen extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  travelTipsCategories[index]['title'],
+                  travelTipsCategories[index].title,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                 ),
