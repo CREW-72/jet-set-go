@@ -2,10 +2,10 @@ name: Dart & Flutter CI
 
 on:
   push:
-    branches: [ "document-upload-feature" ]
+    branches: [ "main", "development" ]
   pull_request:
-    branches: [ "document-upload-feature" ]
-  workflow_dispatch: # ✅ Allows manual execution from GitHub Actions UI
+    branches: [ "main", "development" ]
+  workflow_dispatch: # ✅ Allows manual execution from GitHub UI
 
 jobs:
   build:
@@ -15,11 +15,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # ✅ Set up Flutter
+      # ✅ Install Flutter 3.29.1 (which includes Dart 3.6.1)
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16.0'
+          flutter-version: '3.29.1'  # ✅ Set the correct Flutter version
 
       # ✅ Enable cache to speed up builds
       - name: Cache Flutter Dependencies
@@ -30,14 +30,12 @@ jobs:
           restore-keys: |
             flutter-pub-cache-${{ runner.os }}-
 
-      # ✅ Install dependencies
+      # ✅ Verify Flutter & Dart version
+      - name: Check Flutter Version
+        run: flutter --version
+
       - name: Install dependencies
         run: flutter pub get
 
-      # ✅ Analyze project source
       - name: Analyze project source
         run: flutter analyze
-
-      # ✅ Run tests (if applicable)
-      #- name: Run tests
-      #  run: flutter test
