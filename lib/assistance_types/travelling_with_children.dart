@@ -4,8 +4,8 @@ import 'package:jet_set_go/information_pages/travelling_with_children_info.dart'
 import 'package:jet_set_go/contact_options/visit_counter.dart';
 import '../contact_options/calling_option.dart';
 
-class TravellingWithBabies extends StatelessWidget {
-  const TravellingWithBabies({super.key});
+class TravellingWithChildren extends StatelessWidget {
+  const TravellingWithChildren({super.key});
 
 
   @override
