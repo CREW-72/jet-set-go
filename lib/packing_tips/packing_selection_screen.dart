@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/style.dart';
+import 'package:jet_set_go/packing_tips/style.dart';
 import 'tips_display_screen.dart';
 
 class PackingSelectionScreen extends StatefulWidget {

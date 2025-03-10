@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/packing_tips/landing_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -77,7 +78,12 @@ class HomePageState extends State<HomePage> {
                       ),
                       elevation: 4,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => LandingPage()),
+                          );
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(

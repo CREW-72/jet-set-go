@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/security_based_tips.dart';
-import 'package:jet_set_go/style.dart'; // Import the UI class
+import 'package:jet_set_go/packing_tips/security_based_tips.dart';
+import 'package:jet_set_go/packing_tips/style.dart'; // Import the UI class
 
 class TipsDisplayScreen extends StatelessWidget {
   final List<String> selectedCategories;

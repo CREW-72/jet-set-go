@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/general_tips.dart';
-import 'package:jet_set_go/style.dart'; // Import the UI class
+import 'package:jet_set_go/packing_tips/efficient_packing_tips.dart';
+import 'package:jet_set_go/packing_tips/style.dart'; // Import the UI class
 
-class WeatherBasedTips extends StatelessWidget {
+class TechTips extends StatelessWidget {
   final List<Map<String, String>> tips = [
-    {"title": "Check Destination Weather", "icon": "🌍", "desc": "Pack accordingly—warm layers for cold climates, light clothing for tropical destinations."},
-    {"title": "Rain or Snow Preparedness", "icon": "☔", "desc": "Carry a compact umbrella or waterproof jacket to stay dry."},
-    {"title": "Sun Protection", "icon": "🌞", "desc": "Pack sunscreen, sunglasses, and a hat for sunny destinations."},
-    {"title": "Layering Strategy", "icon": "🧥", "desc": "Opt for layers instead of heavy clothing for better temperature control."},
-    {"title": "Footwear Choices", "icon": "👟", "desc": "Waterproof boots for cold/wet areas; breathable shoes for hot regions."}
+    {"title": "Universal Adapter", "icon": "🔌", "desc": "Ensure compatibility with different country power sockets."},
+    {"title": "Portable Charger", "icon": "🔋", "desc": "A high-capacity power bank is useful for long flights or layovers."},
+    {"title": "Noise-Canceling Headphones", "icon": "🎧", "desc": "Helps reduce travel stress by blocking out noise."},
+    {"title": "Offline Maps & Travel Apps", "icon": "🗺️", "desc": "Download maps and apps to navigate without Wi-Fi."},
+    {"title": "E-Readers & Entertainment", "icon": "📚", "desc": "Download books, movies, and podcasts before your flight."},
+    {"title": "AirTags or Tile Trackers", "icon": "📍", "desc": "Place these in checked baggage to track lost luggage."}
   ];
 
   @override
   Widget build(BuildContext context) {
     return UI(
-      title: 'CLIMATE',
-      subtitle: 'CARRY-ON TIPS',
+      title: 'TECH TIPS',
+      subtitle: 'FOR SMART TRAVEL',
       body: Column(
         children: [
           SizedBox(height: 130),
@@ -44,7 +45,7 @@ class WeatherBasedTips extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => GeneralTips(),
+                      builder: (context) => EfficientPackingTips(),
                     ),
                   );
                 },

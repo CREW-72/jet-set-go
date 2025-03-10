@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/efficient_packing_tips.dart';
-import 'package:jet_set_go/style.dart'; // Import the UI class
+import 'package:jet_set_go/packing_tips/style.dart';
+import 'package:jet_set_go/packing_tips/tech_tips.dart'; // Import the UI class
 
-class TechTips extends StatelessWidget {
+class GeneralTips extends StatelessWidget {
   final List<Map<String, String>> tips = [
-    {"title": "Universal Adapter", "icon": "🔌", "desc": "Ensure compatibility with different country power sockets."},
-    {"title": "Portable Charger", "icon": "🔋", "desc": "A high-capacity power bank is useful for long flights or layovers."},
-    {"title": "Noise-Canceling Headphones", "icon": "🎧", "desc": "Helps reduce travel stress by blocking out noise."},
-    {"title": "Offline Maps & Travel Apps", "icon": "🗺️", "desc": "Download maps and apps to navigate without Wi-Fi."},
-    {"title": "E-Readers & Entertainment", "icon": "📚", "desc": "Download books, movies, and podcasts before your flight."},
-    {"title": "AirTags or Tile Trackers", "icon": "📍", "desc": "Place these in checked baggage to track lost luggage."}
+    {"title": "Pack Light", "icon": "🧳", "desc": "Only bring essentials to avoid heavy luggage."},
+    {"title": "Stay Organized", "icon": "📦", "desc": "Use packing cubes to keep your items sorted."},
+    {"title": "First Aid Kit", "icon": "💊", "desc": "Carry a small kit with basic medications and bandages."},
+    {"title": "Travel Insurance", "icon": "🛡️", "desc": "Ensure you have coverage for emergencies."},
+    {"title": "Copies of Documents", "icon": "📄", "desc": "Keep digital and physical copies of important documents."},
+    {"title": "Local Currency", "icon": "💵", "desc": "Have some local currency for small purchases."},
+    {"title": "Comfortable Shoes", "icon": "👟", "desc": "Wear shoes suitable for walking long distances."},
+    {"title": "Reusable Water Bottle", "icon": "🚰", "desc": "Stay hydrated and reduce plastic waste."},
+    {"title": "Snacks", "icon": "🍎", "desc": "Bring healthy snacks for long journeys."},
+    {"title": "Portable Charger", "icon": "🔋", "desc": "Keep your devices charged on the go."}
   ];
 
   @override
   Widget build(BuildContext context) {
     return UI(
-      title: 'TECH TIPS',
-      subtitle: 'FOR SMART TRAVEL',
+      title: 'GENERAL TIPS',
+      subtitle: 'FOR TRAVELERS',
       body: Column(
         children: [
           SizedBox(height: 130),
@@ -45,7 +49,7 @@ class TechTips extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => EfficientPackingTips(),
+                      builder: (context) => TechTips(),
                     ),
                   );
                 },

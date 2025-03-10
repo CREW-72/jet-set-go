@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/style.dart';
-import 'package:jet_set_go/tech_tips.dart'; // Import the UI class
+import 'package:jet_set_go/packing_tips/general_tips.dart';
+import 'package:jet_set_go/packing_tips/style.dart'; // Import the UI class
 
-class GeneralTips extends StatelessWidget {
+class WeatherBasedTips extends StatelessWidget {
   final List<Map<String, String>> tips = [
-    {"title": "Pack Light", "icon": "🧳", "desc": "Only bring essentials to avoid heavy luggage."},
-    {"title": "Stay Organized", "icon": "📦", "desc": "Use packing cubes to keep your items sorted."},
-    {"title": "First Aid Kit", "icon": "💊", "desc": "Carry a small kit with basic medications and bandages."},
-    {"title": "Travel Insurance", "icon": "🛡️", "desc": "Ensure you have coverage for emergencies."},
-    {"title": "Copies of Documents", "icon": "📄", "desc": "Keep digital and physical copies of important documents."},
-    {"title": "Local Currency", "icon": "💵", "desc": "Have some local currency for small purchases."},
-    {"title": "Comfortable Shoes", "icon": "👟", "desc": "Wear shoes suitable for walking long distances."},
-    {"title": "Reusable Water Bottle", "icon": "🚰", "desc": "Stay hydrated and reduce plastic waste."},
-    {"title": "Snacks", "icon": "🍎", "desc": "Bring healthy snacks for long journeys."},
-    {"title": "Portable Charger", "icon": "🔋", "desc": "Keep your devices charged on the go."}
+    {"title": "Check Destination Weather", "icon": "🌍", "desc": "Pack accordingly—warm layers for cold climates, light clothing for tropical destinations."},
+    {"title": "Rain or Snow Preparedness", "icon": "☔", "desc": "Carry a compact umbrella or waterproof jacket to stay dry."},
+    {"title": "Sun Protection", "icon": "🌞", "desc": "Pack sunscreen, sunglasses, and a hat for sunny destinations."},
+    {"title": "Layering Strategy", "icon": "🧥", "desc": "Opt for layers instead of heavy clothing for better temperature control."},
+    {"title": "Footwear Choices", "icon": "👟", "desc": "Waterproof boots for cold/wet areas; breathable shoes for hot regions."}
   ];
 
   @override
   Widget build(BuildContext context) {
     return UI(
-      title: 'GENERAL TIPS',
-      subtitle: 'FOR TRAVELERS',
+      title: 'CLIMATE',
+      subtitle: 'CARRY-ON TIPS',
       body: Column(
         children: [
           SizedBox(height: 130),
@@ -49,7 +44,7 @@ class GeneralTips extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => TechTips(),
+                      builder: (context) => GeneralTips(),
                     ),
                   );
                 },

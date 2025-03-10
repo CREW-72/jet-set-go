@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/landing_page.dart';
-import 'package:jet_set_go/style.dart'; // Import the UI class
+import 'package:jet_set_go/packing_tips/landing_page.dart';
+import 'package:jet_set_go/packing_tips/style.dart'; // Import the UI class
 
 class EfficientPackingTips extends StatelessWidget {
   final List<Map<String, String>> tips = [

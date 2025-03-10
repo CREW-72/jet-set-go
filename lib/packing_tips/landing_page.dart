@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/travel_choice.dart';
-import 'package:jet_set_go/style.dart'; // Import the UI class
+import 'package:jet_set_go/packing_tips/travel_choice.dart';
+import 'package:jet_set_go/packing_tips/style.dart'; // Import the UI class
 
 class LandingPage extends StatelessWidget {
   @override

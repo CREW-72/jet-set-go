@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/security_based_tips.dart';
-import 'package:jet_set_go/style.dart';
-import 'packing_selection_screen.dart';
+import 'package:jet_set_go/packing_tips/security_based_tips.dart';
+import 'package:jet_set_go/packing_tips/style.dart';
+import 'package:jet_set_go/packing_tips/travel_details.dart';
 
-class TravelDetails extends StatelessWidget {
+class TravelChoice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UI(
@@ -14,7 +14,7 @@ class TravelDetails extends StatelessWidget {
         child: Center(
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.9), // Soft white background
+              color: Colors.white.withOpacity(0.9), // Slightly increased opacity for readability
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
@@ -31,7 +31,7 @@ class TravelDetails extends StatelessWidget {
               children: [
                 // Attractive Heading
                 Text(
-                  "👨‍👩‍👧‍👦 Are There Any Children Traveling With You?",
+                  "🛫 Who’s Joining Your Journey?",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 26,
@@ -42,7 +42,7 @@ class TravelDetails extends StatelessWidget {
                 SizedBox(height: 8),
                 // Subtitle with softer tone
                 Text(
-                  "Let’s make sure you have the best packing tips for your family trip!",
+                  "Flying solo or bringing the whole crew? Let’s tailor your travel experience!",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
@@ -50,8 +50,8 @@ class TravelDetails extends StatelessWidget {
                     color: Colors.black54,
                   ),
                 ),
-                SizedBox(height: 30),
-                // Buttons for Yes and No selection
+                SizedBox(height: 40),
+                // Buttons for Solo and Family selection
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -60,18 +60,18 @@ class TravelDetails extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PackingSelectionScreen(),
+                            builder: (context) => SecurityBasedTips(),
                           ),
                         );
                       },
-                      icon: Icon(Icons.check, color: Colors.white),
+                      icon: Icon(Icons.person, color: Colors.white),
                       label: Text(
-                        "Yes",
+                        "Solo",
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent,
-                        minimumSize: Size(160, 55),
+                        minimumSize: Size(140, 55),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -84,18 +84,18 @@ class TravelDetails extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SecurityBasedTips(),
+                            builder: (context) => TravelDetails(),
                           ),
                         );
                       },
-                      icon: Icon(Icons.close, color: Colors.white),
+                      icon: Icon(Icons.family_restroom, color: Colors.white),
                       label: Text(
-                        "No",
+                        "Family",
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.purpleAccent,
-                        minimumSize: Size(160, 55),
+                        backgroundColor: Colors.deepPurpleAccent,
+                        minimumSize: Size(140, 55),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
