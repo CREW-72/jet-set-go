@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TravelTipsApp extends StatelessWidget {
+  const TravelTipsApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,6 +16,8 @@ class TravelTipsApp extends StatelessWidget {
 }
 
 class TravelTipsScreen extends StatelessWidget {
+  TravelTipsScreen({super.key});
+
   final List<Map<String, dynamic>> travelTipsCategories = [
     {'title': 'Entering the Airport', 'tips': ['Arrive early', 'Keep ID ready', 'Follow security protocols']},
     {'title': 'Check-in', 'tips': ['Use online check-in', 'Keep boarding pass handy', 'Check baggage allowance']},
@@ -72,10 +76,11 @@ class TravelTipsScreen extends StatelessWidget {
 }
 
 class TipsDetailScreen extends StatelessWidget {
+  const TipsDetailScreen({super.key, required this.title, required this.tips});
   final String title;
   final List<String> tips;
 
-  TipsDetailScreen({required this.title, required this.tips});
+
 
   @override
   Widget build(BuildContext context) {
