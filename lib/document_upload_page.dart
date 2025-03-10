@@ -12,10 +12,10 @@ class DocumentUploadPage extends StatefulWidget {
   const DocumentUploadPage({super.key, required this.documentType});
 
   @override
-  _DocumentUploadPageState createState() => _DocumentUploadPageState();
+  DocumentUploadPageState createState() => DocumentUploadPageState();
 }
 
-class _DocumentUploadPageState extends State<DocumentUploadPage> {
+class DocumentUploadPageState extends State<DocumentUploadPage> {
   List<File> _uploadedFiles = [];
   final List<File> _capturedImages = [];
   int _selectedIndex = 0;
@@ -134,6 +134,8 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
             ),
             TextButton(
               onPressed: () async {
+                final navigator = Navigator.of(context);
+
                 String customName = nameController.text.trim();
                 if (customName.isEmpty) {
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -153,7 +155,8 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
                 }
 
                 _saveFile(savedFile);
-                Navigator.of(context).pop();
+
+                navigator.pop();
               },
               child: Text("Save"),
             ),
@@ -202,7 +205,7 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/background.jpg"), /// Background Image
+                image: AssetImage("assets/images/background.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -214,7 +217,7 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
             left: 0,
             right: 0,
             child: Container(
-              height: 170, // ✅ Adjusted for full visibility
+              height: 170,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/images/header.png"),
@@ -226,19 +229,19 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
           Positioned(
             top: 70,
             left: 20,
-            right: 70, // ✅ Added to prevent overlap with the back button
+            right: 70,
             child: Container(
-              constraints: BoxConstraints(maxWidth: 250), // ✅ Restricts title width
+              constraints: BoxConstraints(maxWidth: 250),
               child: Text(
                 'UPLOAD ${widget.documentType.toUpperCase()}',
                 style: TextStyle(
-                  fontSize: 24, // ✅ Slightly reduced to fit longer titles
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
                   letterSpacing: 1.5,
                 ),
-                overflow: TextOverflow.ellipsis, // ✅ Ensures long text doesn’t overflow
-                maxLines: 1, // ✅ Limits to one line
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
               ),
             ),
           ),
@@ -255,7 +258,7 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
 
           /// MAIN CONTENT BELOW HEADER
           Positioned.fill(
-            top: 180, // ✅ Ensures content starts BELOW the header
+            top: 180,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: SingleChildScrollView(
@@ -301,20 +304,20 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
                     // Upload PDF Button
                     ElevatedButton.icon(
                       onPressed: _pickPDF,
-                      icon: Icon(Icons.upload_file, color: Colors.white, size: 22), // ✅ Adjusted icon size
+                      icon: Icon(Icons.upload_file, color: Colors.white, size: 22),
                       label: Text(
                         "Upload PDF",
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600), // ✅ Better readability
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF017BFE), // ✅ Aviation Blue
+                        backgroundColor: Color(0xFF017BFE),
                         foregroundColor: Colors.white,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30), // ✅ Softer edges
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                        padding: EdgeInsets.symmetric(vertical: 16), // ✅ Better touch size
-                        shadowColor: Colors.black26, // ✅ Subtle shadow
-                        elevation: 5, // ✅ Floating effect
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        shadowColor: Colors.black26,
+                        elevation: 5,
                       ),
                     ),
                     SizedBox(height: 10),
@@ -322,16 +325,16 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
                     // Take Picture Button
                       ElevatedButton.icon(
                         onPressed: _captureImage,
-                        icon: Icon(Icons.camera_alt, color: Colors.white, size: 22), // ✅ Adjusted icon
+                        icon: Icon(Icons.camera_alt, color: Colors.white, size: 22),
                         label: Text(
                           _cameraButtonText,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600), // ✅ Readable font
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF00AEEF), // ✅ Bright Blue (aviation style)
+                          backgroundColor: Color(0xFF00AEEF),
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30), // ✅ Softer edges
+                            borderRadius: BorderRadius.circular(30),
                           ),
                           padding: EdgeInsets.symmetric(vertical: 16),
                           shadowColor: Colors.black26,
@@ -349,7 +352,7 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
                             // Image Previews Section
                             Text("Captured Images:", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                             Container(
-                              height: 120, // ✅ Increased for better image display
+                              height: 120,
                               padding: EdgeInsets.symmetric(vertical: 10),
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
@@ -360,7 +363,7 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
                                       Padding(
                                         padding: const EdgeInsets.all(5.0),
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(12), // ✅ Rounded images
+                                          borderRadius: BorderRadius.circular(12),
                                           child: Image.file(
                                             _capturedImages[index],
                                             width: 90,
@@ -400,32 +403,32 @@ class _DocumentUploadPageState extends State<DocumentUploadPage> {
                                 // ADD IMAGES BUTTON (Outlined)
                                 OutlinedButton.icon(
                                   onPressed: _captureImage,
-                                  icon: Icon(Icons.add, color: Colors.blue, size: 22), // ✅ "+" icon
+                                  icon: Icon(Icons.add, color: Colors.blue, size: 22),
                                   label: Text(
                                     "Add Images",
                                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.blue),
                                   ),
                                   style: OutlinedButton.styleFrom(
-                                    side: BorderSide(color: Colors.blue, width: 2), // ✅ Dashed Border effect
+                                    side: BorderSide(color: Colors.blue, width: 2),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(12),
                                     ),
-                                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16), // ✅ Better touch area
+                                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
                                   ),
                                 ),
 
-                                SizedBox(width: 15), // ✅ Spacing between buttons
+                                SizedBox(width: 15),
 
                                 // SAVE AS PDF BUTTON (Solid)
                                 ElevatedButton.icon(
                                   onPressed: _convertToPDF,
-                                  icon: Icon(Icons.picture_as_pdf, color: Colors.white, size: 22), // ✅ PDF Icon
+                                  icon: Icon(Icons.picture_as_pdf, color: Colors.white, size: 22),
                                   label: Text(
                                     "Save as PDF",
                                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                                   ),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.redAccent, // ✅ Different color to indicate "final action"
+                                    backgroundColor: Colors.redAccent,
                                     foregroundColor: Colors.white,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(12),

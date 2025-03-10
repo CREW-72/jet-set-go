@@ -5,10 +5,10 @@ class DocumentSelectionPage extends StatefulWidget {
   const DocumentSelectionPage({super.key});
 
   @override
-  _DocumentSelectionPageState createState() => _DocumentSelectionPageState();
+  DocumentSelectionPageState createState() => DocumentSelectionPageState();
 }
 
-class _DocumentSelectionPageState extends State<DocumentSelectionPage> {
+class DocumentSelectionPageState extends State<DocumentSelectionPage> {
   int _selectedIndex = 0;
 
   void _onNavItemTapped(int index) {
