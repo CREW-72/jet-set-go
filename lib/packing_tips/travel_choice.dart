@@ -4,6 +4,7 @@ import 'package:jet_set_go/packing_tips/style.dart';
 import 'package:jet_set_go/packing_tips/travel_details.dart';
 
 class TravelChoice extends StatelessWidget {
+  TravelChoice({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return UI(
@@ -14,7 +15,7 @@ class TravelChoice extends StatelessWidget {
         child: Center(
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.9), // Slightly increased opacity for readability
+              color: Color.fromRGBO(255, 255, 255, 0.9), // Slightly increased opacity for readability
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(

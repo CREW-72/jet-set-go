@@ -3,6 +3,7 @@ import 'package:jet_set_go/packing_tips/style.dart';
 import 'package:jet_set_go/packing_tips/tech_tips.dart'; // Import the UI class
 
 class GeneralTips extends StatelessWidget {
+  GeneralTips({Key? key}) : super(key: key);
   final List<Map<String, String>> tips = [
     {"title": "Pack Light", "icon": "🧳", "desc": "Only bring essentials to avoid heavy luggage."},
     {"title": "Stay Organized", "icon": "📦", "desc": "Use packing cubes to keep your items sorted."},

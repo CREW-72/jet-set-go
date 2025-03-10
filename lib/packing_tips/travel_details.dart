@@ -4,6 +4,7 @@ import 'package:jet_set_go/packing_tips/style.dart';
 import 'packing_selection_screen.dart';
 
 class TravelDetails extends StatelessWidget {
+  TravelDetails({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return UI(
@@ -14,7 +15,7 @@ class TravelDetails extends StatelessWidget {
         child: Center(
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.9), // Soft white background
+              color: Color.fromRGBO(255, 255, 255, 0.9), // Soft white background
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(

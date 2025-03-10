@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/packing_tips/travel_choice.dart';
-import 'package:jet_set_go/packing_tips/style.dart'; // Import the UI class
 
 class LandingPage extends StatelessWidget {
+  LandingPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +20,7 @@ class LandingPage extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Colors.black.withOpacity(0.6), Colors.transparent],
+                colors: [Color.fromRGBO(0, 0, 0, 0.6), Colors.transparent],
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
               ),
@@ -56,12 +57,12 @@ class LandingPage extends StatelessWidget {
                   // Glassmorphic Container
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.15),
+                      color: Color.fromRGBO(255, 255, 255, 0.15),
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.white.withOpacity(0.3)),
+                      border: Border.all(color: Color.fromRGBO(255, 255, 255, 0.3)),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
+                          color: Color.fromRGBO(0, 0, 0, 0.1),
                           blurRadius: 10,
                           spreadRadius: 2,
                         ),
@@ -99,7 +100,7 @@ class LandingPage extends StatelessWidget {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              shadowColor: Colors.blueAccent.withOpacity(0.5),
+                              shadowColor: Color.fromRGBO(0, 0, 255, 0.5),
                             ),
                           ),
                         ),

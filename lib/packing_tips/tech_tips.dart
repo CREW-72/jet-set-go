@@ -3,6 +3,7 @@ import 'package:jet_set_go/packing_tips/efficient_packing_tips.dart';
 import 'package:jet_set_go/packing_tips/style.dart'; // Import the UI class
 
 class TechTips extends StatelessWidget {
+  TechTips({Key? key}) : super(key: key);
   final List<Map<String, String>> tips = [
     {"title": "Universal Adapter", "icon": "🔌", "desc": "Ensure compatibility with different country power sockets."},
     {"title": "Portable Charger", "icon": "🔋", "desc": "A high-capacity power bank is useful for long flights or layovers."},

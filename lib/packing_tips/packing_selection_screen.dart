@@ -3,6 +3,7 @@ import 'package:jet_set_go/packing_tips/style.dart';
 import 'tips_display_screen.dart';
 
 class PackingSelectionScreen extends StatefulWidget {
+  PackingSelectionScreen({Key? key}) : super(key: key);
   @override
   _PackingSelectionScreenState createState() => _PackingSelectionScreenState();
 }
@@ -70,7 +71,7 @@ class _PackingSelectionScreenState extends State<PackingSelectionScreen> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      color: isSelected ? Colors.blueAccent.withOpacity(0.8) : Colors.white,
+                      color: isSelected ? Color.fromRGBO(0, 0, 255, 0.8) : Colors.white,
                       child: ListTile(
                         leading: Icon(
                           category["icon"],
@@ -104,13 +105,13 @@ class _PackingSelectionScreenState extends State<PackingSelectionScreen> {
               child: ElevatedButton(
                 onPressed: selectedCategories.isNotEmpty
                     ? () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => TipsDisplayScreen(selectedCategories),
-                    ),
-                  );
-                }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TipsDisplayScreen(selectedCategories),
+                          ),
+                        );
+                      }
                     : null, // Disables button if no selection
                 style: ElevatedButton.styleFrom(
                   backgroundColor: selectedCategories.isNotEmpty ? Colors.deepPurpleAccent : Colors.grey,

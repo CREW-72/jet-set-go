@@ -3,6 +3,7 @@ import 'package:jet_set_go/packing_tips/landing_page.dart';
 import 'package:jet_set_go/packing_tips/style.dart'; // Import the UI class
 
 class EfficientPackingTips extends StatelessWidget {
+  EfficientPackingTips({Key? key}) : super(key: key);
   final List<Map<String, String>> tips = [
     {"title": "Limit Shoes to Three Pairs", "icon": "👟", "desc": "Pack a casual pair, a formal pair, and comfortable travel shoes."},
     {"title": "Use Compression Bags", "icon": "🧳", "desc": "Save space for bulky items like jackets by using compression bags."},
