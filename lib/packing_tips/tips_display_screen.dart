@@ -5,7 +5,7 @@ import 'package:jet_set_go/packing_tips/style.dart'; // Import the UI class
 class TipsDisplayScreen extends StatelessWidget {
   final List<String> selectedCategories;
 
-  TipsDisplayScreen(this.selectedCategories);
+  TipsDisplayScreen(this.selectedCategories, {super.key});
 
   final Map<String, List<Map<String, String>>> tips = {
     "Toddlers (0-3 years)": [

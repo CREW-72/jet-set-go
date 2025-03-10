@@ -3,7 +3,7 @@ import 'package:jet_set_go/packing_tips/general_tips.dart';
 import 'package:jet_set_go/packing_tips/style.dart'; // Import the UI class
 
 class WeatherBasedTips extends StatelessWidget {
-  WeatherBasedTips({Key? key}) : super(key: key);
+  WeatherBasedTips({super.key});
   final List<Map<String, String>> tips = [
     {"title": "Check Destination Weather", "icon": "🌍", "desc": "Pack accordingly—warm layers for cold climates, light clothing for tropical destinations."},
     {"title": "Rain or Snow Preparedness", "icon": "☔", "desc": "Carry a compact umbrella or waterproof jacket to stay dry."},

@@ -4,7 +4,7 @@ import 'package:jet_set_go/packing_tips/style.dart';
 import 'package:jet_set_go/packing_tips/travel_details.dart';
 
 class TravelChoice extends StatelessWidget {
-  TravelChoice({Key? key}) : super(key: key);
+  const TravelChoice({super.key});
   @override
   Widget build(BuildContext context) {
     return UI(

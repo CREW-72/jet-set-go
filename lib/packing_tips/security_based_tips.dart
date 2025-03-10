@@ -3,7 +3,7 @@ import 'package:jet_set_go/packing_tips/weather_based_tips.dart';
 import 'package:jet_set_go/packing_tips/style.dart'; // Import the UI class
 
 class SecurityBasedTips extends StatelessWidget {
-  SecurityBasedTips({Key? key}) : super(key: key);
+  SecurityBasedTips({super.key});
   final Map<String, List<Map<String, String>>> tips = {
     "Security Regulations": [
       {"title": "Follow TSA Rules", "icon": "🛃", "desc": "Keep liquids in 100ml bottles and place them in a clear, zip-lock bag."},

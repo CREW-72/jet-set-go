@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jet_set_go/packing_tips/travel_choice.dart';
 
 class LandingPage extends StatelessWidget {
-  LandingPage({Key? key}) : super(key: key);
+  const LandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {

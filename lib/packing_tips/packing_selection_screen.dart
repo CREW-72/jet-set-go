@@ -1,14 +1,15 @@
+
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/packing_tips/style.dart';
 import 'tips_display_screen.dart';
 
 class PackingSelectionScreen extends StatefulWidget {
-  PackingSelectionScreen({Key? key}) : super(key: key);
+  const PackingSelectionScreen({super.key});
   @override
-  _PackingSelectionScreenState createState() => _PackingSelectionScreenState();
+  PackingSelectionScreenState createState() => PackingSelectionScreenState();
 }
 
-class _PackingSelectionScreenState extends State<PackingSelectionScreen> {
+class PackingSelectionScreenState extends State<PackingSelectionScreen> {
   List<String> selectedCategories = [];
 
   final List<Map<String, dynamic>> categories = [
