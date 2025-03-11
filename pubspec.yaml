@@ -10,6 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  file_picker: ^8.0.0      # For selecting files (PDFs, images)
+  image_picker: ^1.0.7     # For taking pictures
+  path_provider: ^2.1.2    # For saving files locally
+  pdf: ^3.10.6             # For generating PDFs from images
+  open_file: ^3.3.2        # To open/view saved documents
   google_fonts: ^6.2.1
   cupertino_icons: ^1.0.8
   url_launcher: ^6.3.1
@@ -29,6 +34,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/images/
     - assets/background.png
     - assets/app bar background.png
     - assets/plane pattern.png
