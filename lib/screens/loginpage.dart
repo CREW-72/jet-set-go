@@ -3,11 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
   @override
-  _LoginPageState createState() => _LoginPageState();
+  LoginPageState createState() => LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginPageState extends State<LoginPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -28,7 +30,10 @@ class _LoginPageState extends State<LoginPage> {
         password: passwordController.text.trim(),
       );
 
+      if(mounted){
       Navigator.pushReplacementNamed(context, '/');  // Navigate to Home Screen after login
+      }
+
     } catch (e) {
       _showError(e.toString());
     } finally {
@@ -50,7 +55,9 @@ class _LoginPageState extends State<LoginPage> {
 
       await _auth.signInWithCredential(credential);
 
-      Navigator.pushReplacementNamed(context, '/');
+      if(mounted){
+        Navigator.pushReplacementNamed(context, '/');
+      }
     } catch (e) {
       _showError(e.toString());
     } finally {
@@ -70,10 +77,10 @@ class _LoginPageState extends State<LoginPage> {
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,  // ✅ Prevents UI overlap with keyboard
-      body: SingleChildScrollView(  // ✅ Allows scrolling when keyboard appears
-        child: Container(
-          height: size.height,  // ✅ Ensures full-screen height
+      resizeToAvoidBottomInset: true,  // Prevents UI overlap with keyboard
+      body: SingleChildScrollView(  // Allows scrolling when keyboard appears
+        child: SizedBox(
+          height: size.height,  // Ensures full-screen height
           child: Stack(
             children: [
               Positioned.fill(
@@ -208,7 +215,7 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.pushNamed(context, '/signup');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF87A8EE).withOpacity(0.6),
+                        backgroundColor: Color(0xFF87A8EE).withAlpha(153),
                         padding: EdgeInsets.symmetric(vertical: 14, horizontal: 40),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -230,7 +237,7 @@ class _LoginPageState extends State<LoginPage> {
                     ElevatedButton(
                       onPressed: _signInWithGoogle,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF87A8EE).withOpacity(0.6),
+                        backgroundColor: Color(0xFF87A8EE).withAlpha(153),
                         padding: EdgeInsets.symmetric(vertical: 14, horizontal: 40),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -268,7 +275,7 @@ class _LoginPageState extends State<LoginPage> {
           hintText: hint,
           hintStyle: TextStyle(color: Colors.white70, fontFamily: 'Poppins'),
           filled: true,
-          fillColor: Colors.white.withOpacity(0.2),
+          fillColor: Colors.white.withAlpha(51),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide.none),
           contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
         ),

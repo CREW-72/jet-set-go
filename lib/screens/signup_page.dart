@@ -4,11 +4,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
+
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  SignUpPageState createState() => SignUpPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class SignUpPageState extends State<SignUpPage> {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
   final _formKey = GlobalKey<FormState>();
@@ -31,26 +33,23 @@ class _SignUpPageState extends State<SignUpPage> {
         setState(() => isLoading = false);  // Stop loading
         return;
       }
-      print("Creating user in firebase auth");
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-      print("User created: ${userCredential.user?.uid}");
 
-      print("saving user data in firestore...");
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'username': usernameController.text.trim(),
         'email': emailController.text.trim(),
       });
-      print("User data stored successfully in firestore!..");
 
       if(mounted){
         setState(() => isLoading = false);  // Stop loading after success
       }
 
-      print("Navigating to login page...");
-      Navigator.pushReplacementNamed(context, '/login');
+      if(mounted){
+        Navigator.pushReplacementNamed(context, '/login');
+      }
 
     } catch (e) {
       _showError(e.toString());
@@ -82,7 +81,9 @@ class _SignUpPageState extends State<SignUpPage> {
         });
       }
 
-      Navigator.pushReplacementNamed(context, '/');
+      if(mounted){
+        Navigator.pushReplacementNamed(context, '/');
+      }
     } catch (e) {
       _showError(e.toString());
     } finally {
@@ -187,7 +188,7 @@ class _SignUpPageState extends State<SignUpPage> {
           hintText: hint,
           hintStyle: TextStyle(color: Colors.white70),
           filled: true,
-          fillColor: Colors.white.withOpacity(0.2),
+          fillColor: Colors.white.withAlpha(51),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide.none),
           contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
         ),

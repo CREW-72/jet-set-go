@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +51,7 @@ class CustomButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
 
-  CustomButton({required this.text, required this.onTap});
+  const CustomButton({super.key,required this.text, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
