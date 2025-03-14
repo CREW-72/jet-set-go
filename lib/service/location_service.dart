@@ -26,7 +26,6 @@ class LocationService {
           desiredAccuracy: LocationAccuracy.high);
       return LatLng(position.latitude, position.longitude);
     } catch (e) {
-      print("Error getting location: $e");
       return null;
     }
   }
@@ -40,7 +39,6 @@ class LocationService {
         ))
         .map((Position position) => LatLng(position.latitude, position.longitude))
         .handleError((error) {
-      print("Error in location stream: $error");
       return null; // Or handle the error differently
     });
   }

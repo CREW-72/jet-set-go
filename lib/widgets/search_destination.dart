@@ -5,7 +5,7 @@ import 'package:jet_set_go/maps_styling.dart';
 class SearchDestination extends StatefulWidget {
   final String apiKey;
 
-  const SearchDestination.SearchDestination({Key? key, required this.apiKey}) : super(key: key);
+  const SearchDestination.searchDestination({super.key, required this.apiKey});
 
   @override
   _SearchDestinationState createState() => _SearchDestinationState();

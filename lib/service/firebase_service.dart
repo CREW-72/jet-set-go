@@ -22,7 +22,6 @@ class FirebaseService {
         );
       }).toList();
     } catch (e) {
-      print("Error fetching nodes: $e");
       return [];
     }
   }
@@ -42,7 +41,6 @@ class FirebaseService {
         );
       }).toList();
     } catch (e) {
-      print("Error fetching edges: $e");
       return [];
     }
 

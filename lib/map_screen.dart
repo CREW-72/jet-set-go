@@ -74,7 +74,7 @@ class _MapScreenState extends State<MapScreen> {
     Prediction? prediction = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => SearchDestination.SearchDestination(apiKey: _googleMapsApiKey),
+        builder: (context) => SearchDestination.searchDestination(apiKey: _googleMapsApiKey),
       ),
     );
 
