@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:jet_set_go/homepage_registered_user.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:jet_set_go/screens/welcome_screen.dart';
+import 'package:jet_set_go/screens/signup_page.dart';
+import 'package:jet_set_go/screens/loginpage.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -13,12 +18,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme(
-          Theme.of(context).textTheme, // Apply global font
-        ),
-      ),
-      home: HomePage(), // Set the initial screen here
+      title: 'Jet Set Go',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => WelcomeScreen(),
+        '/signup': (context) => SignUpPage(),
+        '/login': (context) => LoginPage(),
+      },
     );
   }
 }
