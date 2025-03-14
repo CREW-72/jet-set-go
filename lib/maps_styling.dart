@@ -64,45 +64,6 @@ class UI extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: bottomNavigationBar ??
-          BottomNavigationBar(
-            backgroundColor: Colors.blue[900],
-            selectedItemColor: const Color(0xFFACE6FC),
-            unselectedItemColor: const Color(0xFFACE6FC),
-            type: BottomNavigationBarType.fixed,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Icon(Icons.home),
-                ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Icon(Icons.settings),
-                ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Icon(Icons.lightbulb),
-                ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Icon(Icons.person),
-                ),
-                label: '',
-              ),
-            ],
-          ),
     );
   }
 }

@@ -12,6 +12,8 @@ import 'package:jet_set_go/widgets/search_destination.dart';
 
 
 class MapScreen extends StatefulWidget {
+  const MapScreen({super.key});
+
   @override
   _MapScreenState createState() => _MapScreenState();
 }
@@ -21,12 +23,12 @@ class _MapScreenState extends State<MapScreen> {
 
   // Default camera position (will update to current location)
   static final CameraPosition _initialPosition = CameraPosition(
-    target: LatLng(7.1762, 79.88292),
-    zoom:14,
+    target: LatLng(7.1741265,79.8863501),
+    zoom:18,
   );
 
-  Set<Marker> _markers = {};
-  Set<Polyline> _polylines = {};
+  final Set<Marker> _markers = {};
+  final Set<Polyline> _polylines = {};
   Position? _currentPosition;
 
 
@@ -188,10 +190,12 @@ class _MapScreenState extends State<MapScreen> {
             },
           ),
           Positioned(
-bottom: 110,        right: 10,
+            bottom:100,
+            right: 10,
             child: FloatingActionButton(
-              child: Icon(Icons.search, color:const Color(0xFFACE6FC)), backgroundColor: Colors.blue[900],
+              backgroundColor: Colors.blue[900],
               onPressed: _searchAndNavigate,
+              child: Icon(Icons.search, color:const Color(0xFFACE6FC)),
             ),
           ),
         ],
