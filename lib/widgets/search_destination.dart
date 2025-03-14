@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:jet_set_go/maps_styling.dart';
 
-class SearchPage extends StatefulWidget {
+class SearchDestination extends StatefulWidget {
   final String apiKey;
 
-  const SearchPage({Key? key, required this.apiKey}) : super(key: key);
+  const SearchDestination.SearchDestination({Key? key, required this.apiKey}) : super(key: key);
 
   @override
-  _SearchPageState createState() => _SearchPageState();
+  _SearchDestinationState createState() => _SearchDestinationState();
 }
 
-class _SearchPageState extends State<SearchPage> {
+class _SearchDestinationState extends State<SearchDestination> {
   final TextEditingController _controller = TextEditingController();
   List<Prediction> _predictions = [];
 

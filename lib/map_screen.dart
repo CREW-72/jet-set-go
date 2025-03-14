@@ -42,8 +42,14 @@ class _MapScreenState extends State<MapScreen> {
 
   // Get the device's current location
   Future<void> _getCurrentLocation() async {
+    LocationSettings locationSettings = LocationSettings(
+      accuracy: LocationAccuracy.high,
+    );
+
     Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      locationSettings: locationSettings,
+    );
+
     setState(() {
       _currentPosition = position;
       _markers.add(
@@ -54,6 +60,7 @@ class _MapScreenState extends State<MapScreen> {
         ),
       );
     });
+
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(
       CameraUpdate.newLatLng(
@@ -67,7 +74,7 @@ class _MapScreenState extends State<MapScreen> {
     Prediction? prediction = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => SearchPage(apiKey: _googleMapsApiKey),
+        builder: (context) => SearchDestination.SearchDestination(apiKey: _googleMapsApiKey),
       ),
     );
 
