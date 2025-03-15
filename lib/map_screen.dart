@@ -28,7 +28,7 @@ class _MapScreenState extends State<MapScreen> {
   final Set<Polyline> _polylines = {};
   Position? _currentPosition;
 
-  final String _googleMapsApiKey = "AIzaSyABCiY42Xyt3NYRw79vDRz0uJPCSTIWIwY";
+  final String _googleMapsApiKey = "GOOGLE_MAPS_API_KEY";
 
   @override
   void initState() {

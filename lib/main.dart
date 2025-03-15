@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:jet_set_go/map_screen.dart'; // Import MapScreen
 
 void main() async{
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
