@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:jet_set_go/maps_styling.dart';
 import 'dart:convert';
 import 'package:jet_set_go/widgets/search_destination.dart';
-import 'package:jet_set_go/widgets/custom_info_window.dart';
+
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -27,7 +27,6 @@ class _MapScreenState extends State<MapScreen> {
   final Set<Marker> _markers = {};
   final Set<Polyline> _polylines = {};
   Position? _currentPosition;
-  LatLng? _selectedPosition;
 
   final String _googleMapsApiKey = "AIzaSyABCiY42Xyt3NYRw79vDRz0uJPCSTIWIwY";
 
@@ -163,47 +162,42 @@ class _MapScreenState extends State<MapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        GoogleMap(
-          initialCameraPosition: _initialPosition,
-          markers: _markers,
-          polylines: _polylines,
-          myLocationEnabled: true,
-          indoorViewEnabled: true,
-          onMapCreated: (GoogleMapController controller) {
-            _controller.complete(controller);
-          },
-          onTap: (LatLng tappedPoint) {
-            setState(() {
-              _selectedPosition = tappedPoint;
-              _markers.add(
-                Marker(
-                  markerId: MarkerId(tappedPoint.toString()),
-                  position: tappedPoint,
-                  infoWindow: InfoWindow(title: "Take Me Here"),
-                ),
-              );
-            });
-            _getDirections(tappedPoint);
-          },
-        ),
-        if (_selectedPosition != null)
+    return UI(
+      body: Stack(
+        children: [
+          GoogleMap(
+            initialCameraPosition: _initialPosition,
+            markers: _markers,
+            polylines: _polylines,
+            myLocationEnabled: true,
+            indoorViewEnabled: true,
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
+            onTap: (LatLng tappedPoint) {
+              setState(() {
+                _markers.add(
+                  Marker(
+                    markerId: MarkerId(tappedPoint.toString()),
+                    position: tappedPoint,
+                    infoWindow: InfoWindow(title: "Take Me Here"),
+                  ),
+                );
+              });
+              _getDirections(tappedPoint);
+            },
+          ),
           Positioned(
-            left: 16,
             bottom: 100,
-            child: CustomInfoWindow(title: "Take Me Here"),
+            right: 10,
+            child: FloatingActionButton(
+              backgroundColor: Colors.blue[900],
+              onPressed: _searchAndNavigate,
+              child: Icon(Icons.search, color: const Color(0xFFACE6FC)),
+            ),
           ),
-        Positioned(
-          bottom: 100,
-          right: 10,
-          child: FloatingActionButton(
-            backgroundColor: Colors.blue[900],
-            onPressed: _searchAndNavigate,
-            child: Icon(Icons.search, color: const Color(0xFFACE6FC)),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

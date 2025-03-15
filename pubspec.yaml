@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_dotenv: ^5.0.2
   google_maps_flutter: ^2.5.0
   geolocator: ^13.0.2 #for getting users location
   permission_handler: ^11.0.1 #for getting user location permission
