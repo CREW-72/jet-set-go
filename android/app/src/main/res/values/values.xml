@@ -1,0 +1,7 @@
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">839317677387</string>
+    <string name="google_api_key" translatable="false">AIzaSyBB-e97Ku-DvOgu9abGZ63aSukIPPokdJI</string>
+    <string name="google_app_id" translatable="false">1:839317677387:android:8a6b3c91f121739beef4ce</string>
+    <string name="google_storage_bucket" translatable="false">jetsetgo-ee55b.firebasestorage.app</string>
+    <string name="project_id" translatable="false">jetsetgo-ee55b</string>
+</resources>

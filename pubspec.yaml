@@ -16,17 +16,36 @@ dependencies:
   pdf: ^3.10.6             # For generating PDFs from images
   open_file: ^3.3.2        # To open/view saved documents
   google_fonts: ^6.2.1
+
+  flutter_dotenv: ^5.0.2
+  google_maps_flutter: ^2.5.0
+  geolocator: ^13.0.2 #for getting users location
+  permission_handler: ^11.0.1 #for getting user location permission
+  geocoding: ^2.1.1           # For reverse geocoding (address from lat/lng)
+  provider: ^6.1.1 #for state management
+  flutter_polyline_points: ^1.0.0 #to create routes
+  location: ^5.0.3 #more precise location
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   flutter_gif: ^0.0.4
   flutter_image: ^4.1.12
   url_launcher: ^6.3.1
   logger: ^2.5.0
-  permission_handler: ^11.3.1
   firebase_core: ^3.12.1
   firebase_auth: ^5.5.1
   cloud_firestore: ^5.6.5
-  google_sign_in: ^6.2.2
   flutterfire_cli: ^1.1.0
+
+
+  shared_preferences: ^2.2.0 #for storing user data locally
+  google_sign_in: ^6.1.5
+
+  google_maps_webservice: ^0.0.20-nullsafety.5
+  http: ^0.13.0
+
+
 
 dev_dependencies:
   flutter_test:
@@ -36,8 +55,13 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
-
+  # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/images/pageBackground.png
+     - assets/images/headerBackground.png
+     - assets/images/Line 1.png
+     - assets/images/takeoff.png
+     - .env
     - assets/images/
     - assets/background.png
     - assets/app bar background.png
@@ -49,7 +73,6 @@ flutter:
     - assets/travelling with children.webp
     - assets/unaccompanied minor.webp
     - assets/elder Passenger.jpg
-    - assets/images/
     - assets/packing_bg.jpg
     - assets/luggage.jpg
     - assets/app_bar_bg.jpg
@@ -60,3 +83,7 @@ flutter:
     - assets/header.jpg
     - assets/headerIcon.jpg
     - assets/plane.png
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+

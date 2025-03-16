@@ -14,6 +14,8 @@ desktop.ini
 .swiftpm/
 migrate_working_dir/
 
+# Windows-specific
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -23,10 +25,11 @@ migrate_working_dir/
 # VS Code (comment this out if you want to track workspace settings)
 .vscode/
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# Flutter/Dart-specific
 .dart_tool/
+build/
+ios/Pods/
+pubspec.lock
 .flutter-plugins
 .flutter-plugins-dependencies
 .pub-cache/
@@ -35,6 +38,8 @@ migrate_working_dir/
 /macos/
 /windows/
 /linux/
+**/doc/api/
+**/ios/Flutter/.last_build_id
 
 # Symbolication related
 app.*.symbols
@@ -46,6 +51,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Generated Files
 
 # Node-related (if using npm or yarn)
 node_modules/

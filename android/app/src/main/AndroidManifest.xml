@@ -1,10 +1,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.jet_set_go">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+
+    <!-- Required for Google Maps -->
+    <uses-feature android:name="android.hardware.location.gps" android:required="true" />
+    <uses-feature android:name="android.hardware.location.network" android:required="true" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.example.jet_set_go">
+
     <application
         android:label="jet_set_go"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:enableOnBackInvokedCallback="true">
+
+        android:icon="@mipmap/ic_launcher">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyABCiY42Xyt3NYRw79vDRz0uJPCSTIWIwY"/>
 
         <activity
             android:name=".MainActivity"
@@ -35,15 +54,20 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
+
+
     </application>
 
-    <!-- Queries section (COMBINED) -->
+         In particular, this is used by the Flutter engine in io.flutter.plugin.text.ProcessTextPlugin. -->
     <queries>
         <!-- Query for text processing apps -->
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
         </intent>
+    </queries>
+    <queries>
+        <package android:name="com.google.android.gms" />
         <!-- Query for opening URLs -->
         <intent>
             <action android:name="android.intent.action.VIEW"/>
