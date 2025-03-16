@@ -6,6 +6,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,11 +23,13 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
   void _onNavItemTapped(int index) {
@@ -121,7 +125,6 @@ class _HomePageState extends State<HomePage> {
                       elevation: 4,
                       child: InkWell(
                         onTap: () {
-                          print("Button Clicked!");
                         },
                         child: Ink(
                           decoration: BoxDecoration(
