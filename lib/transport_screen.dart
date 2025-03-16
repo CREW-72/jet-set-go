@@ -138,15 +138,6 @@ class TransportScreenState extends State<TransportScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-            "Transport Assistance",
-            style: TextStyle(
-              color: Colors.white,
-            ),
-        ),
-        backgroundColor: Colors.blue[900],
-      ),
       body: Stack(
         children: [
           GoogleMap(
@@ -155,19 +146,78 @@ class TransportScreenState extends State<TransportScreen> {
             polylines: _polylines,
             myLocationEnabled: true,
             zoomControlsEnabled: false,
+            padding: EdgeInsets.only(bottom: 0),
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
             },
           ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset("assets/images/headerBackground.png", height: 160, fit: BoxFit.cover),
+          ),
+          Positioned(
+            top: 60,
+            left: 20,
+            child: Text(
+              'TRANSPORT',
+              style: TextStyle(
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                letterSpacing: 3.0,
+              ),
+            ),
+          ),
 
           Positioned(
-            top: 85,
+            top: 105,
+            left: 24,
+            child: Text(
+              'ASSISTANCE',
+              style: TextStyle(fontSize: 20, color: Colors.white, letterSpacing: 2.0),
+            ),
+          ),
+
+          Container(
+            margin: EdgeInsets.only(top: 130,left: 25),
+            width: 275,
+            height: 4,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+
+          Positioned(
+            top: 95,
+            right: 80,
+            child: Image.asset("assets/images/takeoff.png", height: 40),
+          ),
+
+          Positioned(
+            top: 150,
+            left: 10,
+            right: 10,
+            child: TransportOptions(
+              onModeChanged: (mode) {
+                setState(() {
+                  _selectedMode = mode;
+                });
+                _updateRoute();
+              },
+            ),
+          ),
+
+          Positioned(
+            top: 215,
             left: 20,
             right: 20,
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Color(0xFFF8F9FA),
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   BoxShadow(
@@ -180,13 +230,14 @@ class TransportScreenState extends State<TransportScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.access_time, color: Colors.blue[900]),
+                  Icon(Icons.access_time, color: Color(0xFF0A2647)),
                   SizedBox(width: 8),
                   Text(
                     "Estimated Time: $_journeyDuration",
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      color: Color(0xFF2B2B2B)
                     ),
                   ),
                 ],
@@ -194,19 +245,6 @@ class TransportScreenState extends State<TransportScreen> {
             ),
           ),
 
-          Positioned(
-            top: 20,
-            left: 10,
-            right: 10,
-            child: TransportOptions(
-              onModeChanged: (mode) {
-                setState(() {
-                  _selectedMode = mode;
-                });
-                _updateRoute();
-              },
-            ),
-          ),
           TravelOptionsSheet(),
         ],
       ),
