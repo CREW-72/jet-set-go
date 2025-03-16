@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
-import 'package:jet_set_go/maps_styling.dart';
+import 'package:jet_set_go/airport_navigation/maps_styling.dart';
 
 class SearchDestination extends StatefulWidget {
   final String apiKey;

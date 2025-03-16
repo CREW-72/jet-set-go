@@ -5,10 +5,10 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:http/http.dart' as http;
-import 'package:jet_set_go/maps_styling.dart';
+import 'package:jet_set_go/airport_navigation/maps_styling.dart';
 import 'dart:convert';
-import 'package:jet_set_go/widgets/search_destination.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:jet_set_go/airport_navigation/widgets/search_destination.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
