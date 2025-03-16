@@ -35,22 +35,55 @@ class TransportScreenState extends State<TransportScreen> {
   Future<void> _getCurrentLocation() async {
 
     LocationPermission permission = await Geolocator.checkPermission();
+
+    void showSnackbar(String message) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.red,
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
+    void showSettingsDialog() {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Location Access Required"),
+            content: Text("Location permissions are permanently denied. Please enable them in settings."),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text("Cancel"),
+              ),
+              TextButton(
+                onPressed: () => Geolocator.openAppSettings(), // Opens settings
+                child: Text("Open Settings"),
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        print("Location permissions are denied.");
+        debugPrint("Location permissions are denied."); // Debug-safe logging
+        showSnackbar("Location access is required to get directions.");
         return;
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      print("Location permissions are denied. Go to settings to enable.");
+      debugPrint("Location permissions are permanently denied. Ask user to enable in settings.");
+      showSettingsDialog();
       return;
     }
 
-
     Position position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
+      locationSettings: LocationSettings(accuracy: LocationAccuracy.high),
     );
 
     setState(() {

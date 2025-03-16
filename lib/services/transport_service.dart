@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter/foundation.dart';
 
 class TransportService {
   static final String _googleMapsApiKey = dotenv.env['GOOGLE_MAPS_API_KEY']!;
@@ -33,13 +34,13 @@ class TransportService {
             "duration": duration,
           };
         } else {
-          print("No routes found.");
+          debugPrint(" No routes found from API response.");
         }
       } else {
-        print("Error fetching directions: ${response.statusCode}");
+        debugPrint(" API Error: ${response.statusCode} - ${response.body}");
       }
     } catch (e) {
-      print("Exception in getDirections: $e");
+      debugPrint(" Exception in getDirections: $e");
     }
 
     return {

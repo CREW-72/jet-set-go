@@ -6,10 +6,10 @@ class TransportOptions extends StatefulWidget {
   const TransportOptions({required this.onModeChanged, super.key});
 
   @override
-  _TransportOptionsState createState() => _TransportOptionsState();
+  TransportOptionsState createState() => TransportOptionsState();
 }
 
-class _TransportOptionsState extends State<TransportOptions> {
+class TransportOptionsState extends State<TransportOptions> {
   String _selectedMode = "driving"; // Default mode is Car
 
   @override
