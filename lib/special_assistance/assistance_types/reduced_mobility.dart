@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:jet_set_go/contact_options/calling_option.dart';
 import 'package:jet_set_go/special_assistance_styling.dart';
 import 'package:jet_set_go/contact_options/visit_counter.dart';
-import '../contact_options/disability_form.dart';
-import '../information_pages/medical_clearance_info.dart';
+
+import '../../contact_options/disability_form.dart';
+import '../../information_pages/medical_clearance_info.dart';
+
 
 class ReducedMobility extends StatelessWidget {
   const ReducedMobility({super.key});

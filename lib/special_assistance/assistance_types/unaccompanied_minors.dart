@@ -3,7 +3,8 @@ import 'package:jet_set_go/special_assistance_styling.dart';
 import 'package:jet_set_go/information_pages/unaccompanied_minors_info.dart';
 import 'package:jet_set_go/contact_options/visit_counter.dart';
 
-import '../contact_options/calling_option.dart';
+import '../../contact_options/calling_option.dart';
+
 
 class UnaccompaniedMinors extends StatelessWidget {
   const UnaccompaniedMinors({super.key});
