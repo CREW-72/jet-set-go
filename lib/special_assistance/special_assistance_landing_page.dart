@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/special_assistance/assistance_types/special_assistance.dart';
-import 'package:jet_set_go/special_assistance_styling.dart';
+import 'package:jet_set_go/special_assistance/special_assistance_styling.dart';
 
 class SpecialAssistanceLandingPage extends StatelessWidget {
   const SpecialAssistanceLandingPage({super.key});

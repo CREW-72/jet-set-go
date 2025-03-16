@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/special_assistance_styling.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:jet_set_go/special_assistance/special_assistance_styling.dart';
 
-class DisabilityForm extends StatelessWidget {
-  const DisabilityForm({super.key});
+class VisitCounter extends StatelessWidget {
+  const VisitCounter({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class DisabilityForm extends StatelessWidget {
                       const SizedBox(height: 110),
                       Container(
                         width: 350,
-                        height: 450,
+                        height: 400,
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: Color.fromRGBO(255, 255, 255, 0.85),
@@ -30,7 +29,7 @@ class DisabilityForm extends StatelessWidget {
                             Align(
                               alignment: Alignment.topCenter,
                               child: Text(
-                                "Disability Assistance Request Form",
+                                "Visit Passenger Service Counter",
                                 style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.blue[800],
@@ -40,14 +39,13 @@ class DisabilityForm extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 10),
-
-                            Icon(Icons.file_open_outlined, color: Colors.blue[800], size: 120),
+                            Icon(Icons.info_outline_rounded, color: Colors.blue[800], size: 120),
                             const SizedBox(height: 10),
                             Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Text(
-                                  "This form is provided by Sri Lankan Airlines to request assistance.\nPlease note that, this is not available for flights departing in the next 72 hours.",
+                                  "For any special assistance needed, Visit the Passenger Service Unit located at the BIA premises .\nClick 'Continue' and we’ll direct you to the counter.",
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.blue[800],
@@ -59,7 +57,7 @@ class DisabilityForm extends StatelessWidget {
                             ),
                             ElevatedButton.icon(
                               onPressed: () {
-                                _launchFormURL();
+                                _inProgressMessage(context);
                               },
                               icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
                               label: Text("Continue", style: TextStyle(fontSize: 16)),
@@ -81,14 +79,38 @@ class DisabilityForm extends StatelessWidget {
       ),
     );
   }
+}
+void  _inProgressMessage(BuildContext context){
+  showDialog(context: context, builder:  (BuildContext context){
+    return AlertDialog(
+      title: Row(
+        children: [
 
-  void _launchFormURL() async {
-    const formUrl = 'https://www.srilankan.com/en_uk/flying-with-us/disability-assistance-request';
-    final uriForm = Uri.parse(formUrl);
-    if (await canLaunchUrl(uriForm)) {
-      await launchUrl(uriForm);
-    } else {
-      throw 'Could not launch url';
-    }
-  }
+          Text(
+            "⚠️ Warning",
+            style: TextStyle(fontSize: 18,color: Colors.blue[800], fontFamily: "Arial", fontWeight: FontWeight.w600
+            ),
+          ),
+        ],
+      ),
+      content: Text("We are busy making this better for you. \nWe will have it ready soon !",style: TextStyle(fontSize: 18,
+        color: Colors.blue[800],
+        fontWeight: FontWeight.w600
+      ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: Text(
+            'Close',
+            style: TextStyle(
+                color: Colors.blue[800], fontFamily: "Arial", fontSize: 16),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  },
+  );
 }

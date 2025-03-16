@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/special_assistance_styling.dart';
+import 'package:jet_set_go/special_assistance/special_assistance_styling.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:logger/logger.dart';
 
-class VisitCounter extends StatelessWidget {
-  const VisitCounter({super.key});
+final logger = Logger();
+
+class CallingOption extends StatelessWidget {
+  const CallingOption ({super.key});
 
   @override
   Widget build(BuildContext context) {
     return UI(
       body: Column(
         children: [
+          const Divider(color: Colors.white, height: 3),
           Expanded(
               child: Center(
                 child: SingleChildScrollView(
@@ -29,7 +34,7 @@ class VisitCounter extends StatelessWidget {
                             Align(
                               alignment: Alignment.topCenter,
                               child: Text(
-                                "Visit Passenger Service Counter",
+                                "Call BIA Passenger Service Unit",
                                 style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.blue[800],
@@ -37,15 +42,13 @@ class VisitCounter extends StatelessWidget {
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                            ),
-                            const SizedBox(height: 10),
-                            Icon(Icons.info_outline_rounded, color: Colors.blue[800], size: 120),
+                            ),  const SizedBox(height: 10),
+                            Icon(Icons.phone, color: Colors.blue[800], size: 120),
                             const SizedBox(height: 10),
                             Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
-                                child: Text(
-                                  "For any special assistance needed, Visit the Passenger Service Unit located at the BIA premises .\nClick 'Continue' and we’ll direct you to the counter.",
+                                child: Text("The BIA Service Center is located at the BIA premises.Call +94197332382 for guidance and to arrange required assistance.",
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.blue[800],
@@ -57,7 +60,7 @@ class VisitCounter extends StatelessWidget {
                             ),
                             ElevatedButton.icon(
                               onPressed: () {
-                                _inProgressMessage(context);
+                                _launchDialer(context, '0197332382');
                               },
                               icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
                               label: Text("Continue", style: TextStyle(fontSize: 16)),
@@ -79,38 +82,36 @@ class VisitCounter extends StatelessWidget {
       ),
     );
   }
-}
-void  _inProgressMessage(BuildContext context){
-  showDialog(context: context, builder:  (BuildContext context){
-    return AlertDialog(
-      title: Row(
-        children: [
+Future<void> _launchDialer(BuildContext context, String phoneNumber) async {
+  final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
 
-          Text(
-            "⚠️ Warning",
-            style: TextStyle(fontSize: 18,color: Colors.blue[800], fontFamily: "Arial", fontWeight: FontWeight.w600
-            ),
+  if (await canLaunchUrl(phoneUri)) {
+    await launchUrl(phoneUri);
+  } else {
+    logger.e('Could not launch $phoneUri');
+    if (context.mounted) {
+      _showErrorDialog(context, 'Could not launch dialer. No app available to handle the call.');
+    }
+  }
+}
+
+void _showErrorDialog(BuildContext context, String message) {
+  showDialog(
+    context: context,
+    builder: (BuildContext dialogContext) {
+      return AlertDialog(
+        title: Text('Error',style: TextStyle(color: Colors.red),),
+        content: Text(message),
+        actions: <Widget>[
+          TextButton(
+            child: Text('Close',style: TextStyle(color: Colors.blue),),
+            onPressed: () {
+              Navigator.of(dialogContext).pop();
+            },
           ),
         ],
-      ),
-      content: Text("We are busy making this better for you. \nWe will have it ready soon !",style: TextStyle(fontSize: 18,
-        color: Colors.blue[800],
-        fontWeight: FontWeight.w600
-      ),
-      ),
-      actions: <Widget>[
-        TextButton(
-          child: Text(
-            'Close',
-            style: TextStyle(
-                color: Colors.blue[800], fontFamily: "Arial", fontSize: 16),
-          ),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
-    );
-  },
+      );
+    },
   );
+}
 }

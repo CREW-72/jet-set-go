@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/special_assistance_styling.dart';
+import 'package:jet_set_go/special_assistance/special_assistance_styling.dart';
 
 class MedicalClearanceInfo extends StatelessWidget {
   const MedicalClearanceInfo({super.key});

@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:jet_set_go/special_assistance_styling.dart';
+import 'package:jet_set_go/special_assistance/special_assistance_styling.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:logger/logger.dart';
 
-final logger = Logger();
-
-class CallingOption extends StatelessWidget {
-  const CallingOption ({super.key});
+class DisabilityForm extends StatelessWidget {
+  const DisabilityForm({super.key});
 
   @override
   Widget build(BuildContext context) {
     return UI(
       body: Column(
         children: [
-          const Divider(color: Colors.white, height: 3),
           Expanded(
               child: Center(
                 child: SingleChildScrollView(
@@ -22,7 +18,7 @@ class CallingOption extends StatelessWidget {
                       const SizedBox(height: 110),
                       Container(
                         width: 350,
-                        height: 400,
+                        height: 450,
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: Color.fromRGBO(255, 255, 255, 0.85),
@@ -34,7 +30,7 @@ class CallingOption extends StatelessWidget {
                             Align(
                               alignment: Alignment.topCenter,
                               child: Text(
-                                "Call BIA Passenger Service Unit",
+                                "Disability Assistance Request Form",
                                 style: TextStyle(
                                   fontSize: 18,
                                   color: Colors.blue[800],
@@ -42,13 +38,16 @@ class CallingOption extends StatelessWidget {
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                            ),  const SizedBox(height: 10),
-                            Icon(Icons.phone, color: Colors.blue[800], size: 120),
+                            ),
+                            const SizedBox(height: 10),
+
+                            Icon(Icons.file_open_outlined, color: Colors.blue[800], size: 120),
                             const SizedBox(height: 10),
                             Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
-                                child: Text("The BIA Service Center is located at the BIA premises.Call +94197332382 for guidance and to arrange required assistance.",
+                                child: Text(
+                                  "This form is provided by Sri Lankan Airlines to request assistance.\nPlease note that, this is not available for flights departing in the next 72 hours.",
                                   style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.blue[800],
@@ -60,7 +59,7 @@ class CallingOption extends StatelessWidget {
                             ),
                             ElevatedButton.icon(
                               onPressed: () {
-                                _launchDialer(context, '0197332382');
+                                _launchFormURL();
                               },
                               icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
                               label: Text("Continue", style: TextStyle(fontSize: 16)),
@@ -82,36 +81,14 @@ class CallingOption extends StatelessWidget {
       ),
     );
   }
-Future<void> _launchDialer(BuildContext context, String phoneNumber) async {
-  final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
 
-  if (await canLaunchUrl(phoneUri)) {
-    await launchUrl(phoneUri);
-  } else {
-    logger.e('Could not launch $phoneUri');
-    if (context.mounted) {
-      _showErrorDialog(context, 'Could not launch dialer. No app available to handle the call.');
+  void _launchFormURL() async {
+    const formUrl = 'https://www.srilankan.com/en_uk/flying-with-us/disability-assistance-request';
+    final uriForm = Uri.parse(formUrl);
+    if (await canLaunchUrl(uriForm)) {
+      await launchUrl(uriForm);
+    } else {
+      throw 'Could not launch url';
     }
   }
-}
-
-void _showErrorDialog(BuildContext context, String message) {
-  showDialog(
-    context: context,
-    builder: (BuildContext dialogContext) {
-      return AlertDialog(
-        title: Text('Error',style: TextStyle(color: Colors.red),),
-        content: Text(message),
-        actions: <Widget>[
-          TextButton(
-            child: Text('Close',style: TextStyle(color: Colors.blue),),
-            onPressed: () {
-              Navigator.of(dialogContext).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
 }

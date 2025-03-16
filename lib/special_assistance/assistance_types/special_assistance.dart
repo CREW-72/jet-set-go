@@ -3,7 +3,7 @@ import 'package:jet_set_go/special_assistance/assistance_types/reduced_mobility.
 import 'package:jet_set_go/special_assistance/assistance_types/travelling_during_pregnancy.dart';
 import 'package:jet_set_go/special_assistance/assistance_types/travelling_with_children.dart';
 import 'package:jet_set_go/special_assistance/assistance_types/unaccompanied_minors.dart';
-import 'package:jet_set_go/special_assistance_styling.dart';
+import 'package:jet_set_go/special_assistance/special_assistance_styling.dart';
 
 
 class SpecialAssistance extends StatelessWidget {
