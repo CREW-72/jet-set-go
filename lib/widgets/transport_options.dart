@@ -18,7 +18,7 @@ class _TransportOptionsState extends State<TransportOptions> {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
       margin: const EdgeInsets.symmetric(horizontal: 70),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Color(0xFF0A2647),
         borderRadius: BorderRadius.circular(15),
         boxShadow: [
           BoxShadow(
@@ -51,7 +51,7 @@ class _TransportOptionsState extends State<TransportOptions> {
         duration: Duration(milliseconds: 200),
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         decoration: BoxDecoration(
-          color: isSelected ? Colors.blue[900] : Colors.grey[300],
+          color: isSelected ? Color(0xFF1954A6) : Color(0xFFE0E6ED),
           borderRadius: BorderRadius.circular(15),
         ),
         child: Text(
