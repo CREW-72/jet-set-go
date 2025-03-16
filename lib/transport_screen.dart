@@ -2,30 +2,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:jet_set_go/services/transport_service.dart';
 import 'package:jet_set_go/widgets/transport_options.dart';
 import 'package:jet_set_go/widgets/travel_options_sheet.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env"); // Load API key from .env
-  runApp(const TransportTestApp());
-}
-
-class TransportTestApp extends StatelessWidget {
-  const TransportTestApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: "Transport Assistance Test",
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const TransportScreen(),
-    );
-  }
-}
 
 class TransportScreen extends StatefulWidget {
   const TransportScreen({super.key});

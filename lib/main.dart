@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:jet_set_go/map_screen.dart'; // Import MapScreen
+import 'package:jet_set_go/transport_screen.dart'; // Import MapScreen
 
 void main() async{
   await dotenv.load(fileName: ".env");
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: MapScreen(), // Set MapScreen as the home screen
+      home: TransportScreen(), // Set MapScreen as the home screen
     );
   }
 }
