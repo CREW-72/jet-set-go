@@ -15,25 +15,29 @@ class TravelOptionsSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double bottomPadding = 40;
+
     return DraggableScrollableSheet(
-      initialChildSize: 0.2,
-      minChildSize: 0.2,
-      maxChildSize: 0.6,
+      initialChildSize: 0.22,
+      minChildSize: 0.22,
+      maxChildSize: 0.7,
       builder: (context, scrollController) {
         return Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("assets/images/background.png"),
+              image: AssetImage("assets/images/pageBackground.png"),
               fit: BoxFit.cover,
             ),
             borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
           ),
+          padding: EdgeInsets.only(bottom: bottomPadding),
           child: SingleChildScrollView(
             controller: scrollController,
+            padding: EdgeInsets.only(bottom: 10),
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 30),
+                  margin: EdgeInsets.only(top: 20),
                   width: 100,
                   height: 6,
                   decoration: BoxDecoration(
@@ -41,7 +45,7 @@ class TravelOptionsSheet extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 10),
                 Text(
                   'TRAVEL OPTIONS',
                   style: TextStyle(
@@ -85,8 +89,8 @@ class TravelOptionsSheet extends StatelessWidget {
                 GridView.count(
                   crossAxisCount: 3,
                   padding: EdgeInsets.all(25),
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 15,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(), // Prevent double scrolling
                   children: [
@@ -109,8 +113,13 @@ class TravelOptionsSheet extends StatelessWidget {
     return GestureDetector(
       onTap: () => _openRideApp(packageName, appStoreUrl),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(30),
-        child: Image.asset(imagePath, fit: BoxFit.cover),
+        borderRadius: BorderRadius.circular(15), // ✅ Smooth rounded corners for the logos
+        child: Image.asset(
+          imagePath,
+          height: 20, //Adjust logo size
+          width: 20,  //Adjust logo size
+          fit: BoxFit.contain, // Ensures logo scales properly without background
+        ),
       ),
     );
   }
