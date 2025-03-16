@@ -1,3 +1,4 @@
+// map_screen.dart
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -7,16 +8,16 @@ import 'package:http/http.dart' as http;
 import 'package:jet_set_go/maps_styling.dart';
 import 'dart:convert';
 import 'package:jet_set_go/widgets/search_destination.dart';
-
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
 
   @override
-  _MapScreenState createState() => _MapScreenState();
+  MapScreenState createState() => MapScreenState();
 }
 
-class _MapScreenState extends State<MapScreen> {
+class MapScreenState extends State<MapScreen> {
   final Completer<GoogleMapController> _controller = Completer();
 
   static final CameraPosition _initialPosition = CameraPosition(
@@ -28,7 +29,7 @@ class _MapScreenState extends State<MapScreen> {
   final Set<Polyline> _polylines = {};
   Position? _currentPosition;
 
-  final String _googleMapsApiKey = "GOOGLE_MAPS_API_KEY";
+  final String _googleMapsApiKey = dotenv.env['GOOGLE_MAPS_API_KEY']!;
 
   @override
   void initState() {

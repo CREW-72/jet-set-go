@@ -8,10 +8,10 @@ class SearchDestination extends StatefulWidget {
   const SearchDestination.searchDestination({super.key, required this.apiKey});
 
   @override
-  _SearchDestinationState createState() => _SearchDestinationState();
+   SearchDestinationState createState() => SearchDestinationState();
 }
 
-class _SearchDestinationState extends State<SearchDestination> {
+class SearchDestinationState extends State<SearchDestination> {
   final TextEditingController _controller = TextEditingController();
   List<Prediction> _predictions = [];
 
