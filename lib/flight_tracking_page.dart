@@ -9,10 +9,10 @@ class FlightTrackingPage extends StatefulWidget {
   const FlightTrackingPage({super.key});
 
   @override
-  _FlightTrackingPageState createState() => _FlightTrackingPageState();
+  FlightTrackingPageState createState() => FlightTrackingPageState();
 }
 
-class _FlightTrackingPageState extends State<FlightTrackingPage> {
+class FlightTrackingPageState extends State<FlightTrackingPage> {
   final TextEditingController _searchController = TextEditingController();
   bool _isLoading = false;
   bool _hasError = false;
@@ -44,11 +44,8 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
     });
 
     try {
-      print("Fetching flight details for $flightNumber");
 
       final flightData = await _apiService.getFlightDetails(flightNumber);
-
-      print("API response: $flightData");
 
       if (flightData != null) {
         setState(() {
@@ -62,9 +59,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
           _errorMessage = 'Flight not found. Please check the flight number.';
         });
       }
-    } catch (e, stackTrace) {
-      print("Error in _searchFlight: $e");
-      print("Stack trace: $stackTrace");
+    } catch (e) {
 
       setState(() {
         _isLoading = false;
@@ -92,7 +87,6 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final backgroundColor = Color(0xFF0A1F44);
     final cardColor = Color(0xFF1C3C78);
     final textColor = Colors.white;
@@ -126,7 +120,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
+                        color: Colors.black.withAlpha(13),
                         blurRadius: 10,
                         offset: const Offset(0, 4),
                       ),
@@ -167,7 +161,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.red.withOpacity(0.1),
+                      color: Colors.red.withAlpha(26),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
@@ -263,7 +257,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
       decoration: BoxDecoration(
         color: Color(0xFF1E3A5F),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: statusColor.withOpacity(0.3), width: 1),
+        border: Border.all(color: statusColor.withAlpha(77), width: 1),
       ),
       child: Row(
         children: [
@@ -304,7 +298,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: statusColor.withOpacity(0.2),
+              color: statusColor.withAlpha(51),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
@@ -342,7 +336,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withAlpha(13),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -421,7 +415,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                   Container(
                     width: 100,
                     height: 1,
-                    color: Colors.grey.withOpacity(0.3),
+                    color: Colors.grey.withAlpha(77),
                   ),
                   const SizedBox(height: 8),
                   Icon(
@@ -498,9 +492,9 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.orange.withOpacity(0.1),
+                color: Colors.orange.withAlpha(26),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.orange.withOpacity(0.3)),
+                border: Border.all(color: Colors.orange.withAlpha(77)),
               ),
               child: Row(
                 children: [
@@ -537,7 +531,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withAlpha(13),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -578,7 +572,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                       decoration: BoxDecoration(
                         color: event.completed
                             ? Theme.of(context).primaryColor
-                            : Colors.grey.withOpacity(0.3),
+                            : Colors.grey.withAlpha(77),
                         shape: BoxShape.circle,
                       ),
                       child: event.completed
@@ -595,7 +589,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
                         height: 40,
                         color: event.completed
                             ? Theme.of(context).primaryColor
-                            : Colors.grey.withOpacity(0.3),
+                            : Colors.grey.withAlpha(77),
                       ),
                   ],
                 ),
@@ -638,7 +632,7 @@ class _FlightTrackingPageState extends State<FlightTrackingPage> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withAlpha(13),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -850,7 +844,6 @@ class Aircraft {
   Aircraft({required this.registration, required this.model});
 
   factory Aircraft.fromJson(Map<String, dynamic> json) {
-    print("Parsing Aircraft JSON: $json"); // Debugging print
     return Aircraft(
       model: json['model'] ?? 'Unknown', // Ensure model is never null
       registration: (json['registration'] == null || json['registration'] == "N/A")
@@ -878,22 +871,22 @@ class FlightEvent {
     );
   }
 
-  static EventType _parseEventType(String? type) {
-    switch (type?.toLowerCase()) {
-      case 'check-in':
-        return EventType.checkIn;
-      case 'security':
-        return EventType.security;
-      case 'boarding':
-        return EventType.boarding;
-      case 'departure':
-        return EventType.departure;
-      case 'arrival':
-        return EventType.arrival;
-      default:
-        return EventType.checkIn; // Default fallback
-    }
-  }
+  // static EventType _parseEventType(String? type) {
+  //   switch (type?.toLowerCase()) {
+  //     case 'check-in':
+  //       return EventType.checkIn;
+  //     case 'security':
+  //       return EventType.security;
+  //     case 'boarding':
+  //       return EventType.boarding;
+  //     case 'departure':
+  //       return EventType.departure;
+  //     case 'arrival':
+  //       return EventType.arrival;
+  //     default:
+  //       return EventType.checkIn; // Default fallback
+  //   }
+  // }
 }
 
 class Flight {
