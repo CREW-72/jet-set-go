@@ -1,5 +1,5 @@
-JetSetGo 
-Your Comprehensive Air Travel Companion
+**JetSetGo 
+Your Comprehensive Air Travel Companion**
 
 JetSetGo is a Flutter-based mobile application designed to enhance the travel experience by providing real-time flight tracking, smart travel tips, airport navigation, and more.  
 
