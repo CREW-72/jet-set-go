@@ -70,7 +70,7 @@ class TransportScreenState extends State<TransportScreen> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        debugPrint("Location permissions are denied."); // Debug-safe logging
+        debugPrint("Location permissions are denied."); //
         showSnackbar("Location access is required to get directions.");
         return;
       }
@@ -104,7 +104,7 @@ class TransportScreenState extends State<TransportScreen> {
           markerId: MarkerId("airport"),
           position: LatLng(7.1808, 79.8841), // Airport coordinates
           infoWindow: InfoWindow(title: "Bandaranaike International Airport"),
-          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed), // Red marker for airport
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
         ),
       );
 
