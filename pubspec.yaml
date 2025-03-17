@@ -59,7 +59,6 @@ flutter:
   assets:
     - assets/images/pageBackground.png
     - assets/images/headerBackground.png
-    - assets/images/Line 1.png
     - assets/images/takeoff.png
     - .env
     - assets/images/
