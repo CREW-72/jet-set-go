@@ -1,0 +1,41 @@
+name: Dart & Flutter CI
+
+on:
+  push:
+    branches: [ "main", "development", "merge/merge-branch-1.0.0" ]
+  pull_request:
+    branches: [ "main", "development", "merge/merge-branch-1.0.0" ]
+  workflow_dispatch: # ✅ Allows manual execution from GitHub UI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # ✅ Install Flutter 3.29.1 (which includes Dart 3.6.1)
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29.1'  # ✅ Set the correct Flutter version
+
+      # ✅ Enable cache to speed up builds
+      - name: Cache Flutter Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.pub-cache
+          key: flutter-pub-cache-${{ runner.os }}-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: |
+            flutter-pub-cache-${{ runner.os }}-
+
+      # ✅ Verify Flutter & Dart version
+      - name: Check Flutter Version
+        run: flutter --version
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze project source
+        run: flutter analyze

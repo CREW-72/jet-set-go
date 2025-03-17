@@ -4,6 +4,8 @@
 *.pyc
 *.swp
 .DS_Store
+Thumbs.db
+desktop.ini
 .atom/
 .build/
 .buildlog/
@@ -13,8 +15,6 @@
 migrate_working_dir/
 
 # Windows-specific
-Thumbs.db
-*.log
 
 # IntelliJ related
 *.iml
@@ -22,14 +22,11 @@ Thumbs.db
 *.iws
 .idea/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# VS Code (comment this out if you want to track workspace settings)
+.vscode/
 
 # Flutter/Dart-specific
 .dart_tool/
-.idea/
 build/
 ios/Pods/
 pubspec.lock
@@ -37,6 +34,10 @@ pubspec.lock
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
+/build/
+/macos/
+/windows/
+/linux/
 **/doc/api/
 **/ios/Flutter/.last_build_id
 
@@ -52,5 +53,6 @@ app.*.map.json
 /android/app/release
 
 # Generated Files
-.vscode/
-*.swp
+
+# Node-related (if using npm or yarn)
+node_modules/

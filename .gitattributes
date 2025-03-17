@@ -1,0 +1,4 @@
+* text=auto         # Automatically handles line endings
+*.dart text eol=lf  # Ensure Dart files use LF (recommended for Flutter)
+*.sh text eol=lf    # Ensure shell scripts use LF (important for Mac/Linux)
+*.bat text eol=crlf # Ensure Windows batch scripts use CRLF

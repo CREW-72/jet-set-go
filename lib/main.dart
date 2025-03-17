@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:jet_set_go/transport_screen.dart'; // Import MapScreen
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';// Import MapScreen
+import 'package:jet_set_go/screens/welcome_screen.dart';
+import 'package:jet_set_go/screens/signup_page.dart';
+import 'package:jet_set_go/screens/loginpage.dart';
 
-void main() async{
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await dotenv.load(fileName: ".env");
-  runApp(const MyApp());
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -13,13 +19,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
       debugShowCheckedModeBanner: false,
-      home: TransportScreen(), // Set MapScreen as the home screen
+      title: 'Jet Set Go',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => WelcomeScreen(),
+        '/signup': (context) => SignUpPage(),
+        '/login': (context) => LoginPage(),
+      },
     );
   }
 }
