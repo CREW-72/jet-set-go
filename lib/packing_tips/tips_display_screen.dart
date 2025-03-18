@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/packing_tips/security_based_tips.dart';
 import 'package:jet_set_go/packing_tips/style.dart'; // Import the UI class
 
@@ -58,8 +59,18 @@ class TipsDisplayScreen extends StatelessWidget {
             TabBar(
               isScrollable: true,
               labelColor: Colors.white, // Selected tab text color
-              unselectedLabelColor: Colors.grey, // Unselected tab text color
-              tabs: selectedCategories.map((category) => Tab(text: category)).toList(),
+              unselectedLabelColor: Colors.grey,
+              indicatorColor: Colors.white,// Unselected tab text color
+              tabs: selectedCategories.map((category) => Tab(
+                child: Text(
+                  category,
+                  style: category == "Toddlers (0-3 years)" ||
+                         category == "Young Children (4-10 years)" ||
+                         category == "Teenagers (11+ years)"
+                         ? GoogleFonts.mulish()
+                         : null,
+                ),
+              )).toList(),
             ),
             Expanded(
               child: TabBarView(
@@ -94,10 +105,19 @@ class TipsDisplayScreen extends StatelessWidget {
                       ),
                     );
                   },
-                  icon: Icon(Icons.arrow_forward, color: Colors.blue),
-                  label: Text("Next"),
+                  icon: Icon(Icons.arrow_forward, color: Colors.white),
+                  label: Text(
+                      "Next",
+                    style: GoogleFonts.lobster(
+                      textStyle: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
                     foregroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32.0),

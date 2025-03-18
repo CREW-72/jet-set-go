@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/packing_tips/weather_based_tips.dart';
 import 'package:jet_set_go/packing_tips/style.dart'; // Import the UI class
 
@@ -58,7 +59,20 @@ class SecurityBasedTips extends StatelessWidget {
               isScrollable: true,
               labelColor: Colors.white, // Selected tab text color
               unselectedLabelColor: Colors.grey, // Unselected tab text color
-              tabs: tips.keys.map((category) => Tab(text: category)).toList(),
+              indicatorColor: Colors.white, // Color of the selected tab indicator
+              tabs: tips.keys.map((category) => Tab(
+                child: Text(
+                  category,
+                  style: category == "Security Regulations" ||
+                         category == "Baggage Policy" ||
+                         category == "Hand Luggage Restrictions" ||
+                         category == "Important Security Guidelines" ||
+                         category == "Prohibited Items" ||
+                         category == "Baggage Interlining"
+                         ? GoogleFonts.mulish()
+                         : null,
+                ),
+              )).toList(),
             ),
             Expanded(
               child: TabBarView(
@@ -93,10 +107,19 @@ class SecurityBasedTips extends StatelessWidget {
                       ),
                     );
                   },
-                  icon: Icon(Icons.arrow_forward, color: Colors.blue),
-                  label: Text("Next"),
+                  icon: Icon(Icons.arrow_forward, color: Colors.white),
+                  label: Text(
+                      "Next",
+                    style: GoogleFonts.lobster(
+                      textStyle: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                      ),
+                    ),
+                  ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
                     foregroundColor: Colors.blue,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(32.0),

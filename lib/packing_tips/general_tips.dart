@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/packing_tips/style.dart';
 import 'package:jet_set_go/packing_tips/tech_tips.dart'; // Import the UI class
 
@@ -54,10 +55,19 @@ class GeneralTips extends StatelessWidget {
                     ),
                   );
                 },
-                icon: Icon(Icons.arrow_forward, color: Colors.blue),
-                label: Text("Next"),
+                icon: Icon(Icons.arrow_forward, color: Colors.white),
+                label: Text(
+                    "Next",
+                style: GoogleFonts.lobster(
+                  textStyle: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
+                  backgroundColor: Colors.blue,
                   foregroundColor: Colors.blue,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(32.0),

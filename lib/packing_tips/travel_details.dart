@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/packing_tips/security_based_tips.dart';
 import 'package:jet_set_go/packing_tips/style.dart';
 import 'packing_selection_screen.dart';
@@ -32,12 +33,14 @@ class TravelDetails extends StatelessWidget {
               children: [
                 // Attractive Heading
                 Text(
-                  "👨‍👩‍👧‍👦 Are There Any Children Traveling With You?",
+                  " Are There Any Children Traveling With You?",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: GoogleFonts.mulish(
+                    textStyle: TextStyle(
                     fontSize: 26,
                     fontWeight: FontWeight.bold,
                     color: Colors.black87,
+                  ),
                   ),
                 ),
                 SizedBox(height: 8),
@@ -61,18 +64,20 @@ class TravelDetails extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => PackingSelectionScreen(),
+                            builder: (context) => SecurityBasedTips(),
                           ),
                         );
                       },
-                      icon: Icon(Icons.check, color: Colors.white),
+                      icon: Icon(Icons.close, color: Colors.white),
                       label: Text(
-                        "Yes",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        "NO",
+                        style: GoogleFonts.lobster(
+                          textStyle: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
                       ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent,
-                        minimumSize: Size(160, 55),
+                        minimumSize: Size(140, 55),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -85,18 +90,20 @@ class TravelDetails extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SecurityBasedTips(),
+                            builder: (context) => PackingSelectionScreen(),
                           ),
                         );
                       },
-                      icon: Icon(Icons.close, color: Colors.white),
+                      icon: Icon(Icons.check, color: Colors.white),
                       label: Text(
-                        "No",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        "YES",
+                        style: GoogleFonts.lobster(
+                          textStyle: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.purpleAccent,
-                        minimumSize: Size(160, 55),
+                        backgroundColor: Colors.blue[900],
+                        minimumSize: Size(140, 55),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),

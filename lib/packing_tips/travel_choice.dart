@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jet_set_go/packing_tips/security_based_tips.dart';
 import 'package:jet_set_go/packing_tips/style.dart';
 import 'package:jet_set_go/packing_tips/travel_details.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TravelChoice extends StatelessWidget {
   const TravelChoice({super.key});
@@ -32,15 +33,17 @@ class TravelChoice extends StatelessWidget {
               children: [
                 // Attractive Heading
                 Text(
-                  "🛫 Who’s Joining Your Journey?",
+                  " Who’s Joining Your Journey?",
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                  style: GoogleFonts.mulish(
+                    textStyle: TextStyle(
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
                   ),
                 ),
-                SizedBox(height: 8),
+                SizedBox(height: 15),
                 // Subtitle with softer tone
                 Text(
                   "Flying solo or bringing the whole crew? Let’s tailor your travel experience!",
@@ -68,7 +71,9 @@ class TravelChoice extends StatelessWidget {
                       icon: Icon(Icons.person, color: Colors.white),
                       label: Text(
                         "Solo",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: GoogleFonts.lobster(
+                          textStyle: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
                       ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent,
@@ -92,10 +97,12 @@ class TravelChoice extends StatelessWidget {
                       icon: Icon(Icons.family_restroom, color: Colors.white),
                       label: Text(
                         "Family",
-                        style: TextStyle(fontSize: 18, color: Colors.white),
+                        style: GoogleFonts.lobster(
+                          textStyle: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurpleAccent,
+                        backgroundColor: Colors.blue[900],
                         minimumSize: Size(140, 55),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),

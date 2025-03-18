@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class UI extends StatelessWidget {
   final Widget body;
@@ -63,11 +64,13 @@ class UI extends StatelessWidget {
             left: 20,
             child: Text(
               title,
-              style: TextStyle(
-                fontSize: 45,
-                fontWeight: FontWeight.w900,
-                color: Colors.white,
-                letterSpacing: 3.0, // Increase the width of the letters
+              style: GoogleFonts.ubuntu(
+                textStyle: TextStyle(
+                  fontSize: 45,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.white,
+                  letterSpacing: 3.0, // Increase the width of the letters
+                ),
               ),
             ),
           ),
@@ -76,10 +79,12 @@ class UI extends StatelessWidget {
             left: 20,
             child: Text(
               subtitle,
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-                letterSpacing: 2.0,
+              style: GoogleFonts.ubuntu(
+                textStyle: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  letterSpacing: 2.0,
+                ),
               ),
             ),
           ),

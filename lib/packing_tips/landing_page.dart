@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/packing_tips/travel_choice.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
@@ -42,17 +43,19 @@ class LandingPage extends StatelessWidget {
                       return Opacity(opacity: opacity, child: child);
                     },
                     child: Text(
-                      "Smart Packing Starts Here! 🎒✈️",
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                        letterSpacing: 1.2,
+                      "Smart Packing Starts Here!\n \n",
+                      style: GoogleFonts.caveat(
+                        textStyle: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          letterSpacing: 1.2,
+                        ),
                       ),
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  SizedBox(height: 450),
+                  SizedBox(height: 350),
 
                   // Glassmorphic Container
                   Container(
@@ -90,10 +93,16 @@ class LandingPage extends StatelessWidget {
                             icon: Icon(Icons.flight_takeoff_rounded, color: Colors.white),
                             label: Text(
                               "Get Started",
-                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              style: GoogleFonts.lobster(
+                                textStyle: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
                             ),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blueAccent.shade700,
+                              backgroundColor: Colors.blue[900],
                               foregroundColor: Colors.white,
                               minimumSize: Size(220, 55),
                               elevation: 6,
