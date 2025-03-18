@@ -69,7 +69,7 @@ class PackingSelectionScreenState extends State<PackingSelectionScreen> {
                             }
                           });
                         },
-                        child: Container(
+                        child: SizedBox(
                           width: double.infinity, // Adjust the width as needed
                           height: 90, // Adjust the height as needed
                           child: Card(
