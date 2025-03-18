@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/special_assistance/special_assistance_styling.dart';
 
 class VisitCounter extends StatelessWidget {
@@ -17,7 +18,7 @@ class VisitCounter extends StatelessWidget {
                       const SizedBox(height: 110),
                       Container(
                         width: 350,
-                        height: 400,
+                        height: 550,
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: Color.fromRGBO(255, 255, 255, 0.85),
@@ -30,16 +31,18 @@ class VisitCounter extends StatelessWidget {
                               alignment: Alignment.topCenter,
                               child: Text(
                                 "Visit Passenger Service Counter",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.blue[800],
-                                  fontWeight: FontWeight.bold,
+                                style: GoogleFonts.mulish(
+                                  textStyle: TextStyle(
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue[900],
+                                  ),
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
                             const SizedBox(height: 10),
-                            Icon(Icons.info_outline_rounded, color: Colors.blue[800], size: 120),
+                            Icon(Icons.info_outline_rounded, color: Colors.blue[900], size: 120),
                             const SizedBox(height: 10),
                             Center(
                               child: Padding(
@@ -48,7 +51,7 @@ class VisitCounter extends StatelessWidget {
                                   "For any special assistance needed, Visit the Passenger Service Unit located at the BIA premises .\nClick 'Continue' and we’ll direct you to the counter.",
                                   style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.blue[800],
+                                    color: Colors.blue[900],
                                     fontWeight: FontWeight.w600
                                   ),
                                   textAlign: TextAlign.center,
@@ -60,9 +63,13 @@ class VisitCounter extends StatelessWidget {
                                 _inProgressMessage(context);
                               },
                               icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
-                              label: Text("Continue", style: TextStyle(fontSize: 16)),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue[800],
+                              label: Text(
+                                "Continue",
+                                style: GoogleFonts.lobster(
+                                  textStyle: TextStyle(fontSize: 22, color: Colors.white),
+                                ),
+                              ),                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
                                 foregroundColor: Colors.white,
                                 minimumSize: Size(200, 50),
                               ),
@@ -88,22 +95,24 @@ void  _inProgressMessage(BuildContext context){
 
           Text(
             "⚠️ Warning",
-            style: TextStyle(fontSize: 18,color: Colors.blue[800], fontFamily: "Arial", fontWeight: FontWeight.w600
+            style: GoogleFonts.lobster(
+              textStyle: TextStyle(fontSize: 18, color: Colors.blue[900]),
             ),
           ),
         ],
       ),
-      content: Text("We are busy making this better for you. \nWe will have it ready soon !",style: TextStyle(fontSize: 18,
-        color: Colors.blue[800],
-        fontWeight: FontWeight.w600
-      ),
+      content: Text("We are busy making this better for you. \nWe will have it ready soon !",
+        style: GoogleFonts.lobster(
+          textStyle: TextStyle(fontSize: 18, color: Colors.blue[900]),
+        ),
       ),
       actions: <Widget>[
         TextButton(
           child: Text(
             'Close',
-            style: TextStyle(
-                color: Colors.blue[800], fontFamily: "Arial", fontSize: 16),
+            style: GoogleFonts.lobster(
+              textStyle: TextStyle(fontSize: 18, color: Colors.blue[900]),
+            ),
           ),
           onPressed: () {
             Navigator.of(context).pop();

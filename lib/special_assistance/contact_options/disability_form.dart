@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/special_assistance/special_assistance_styling.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -18,7 +19,7 @@ class DisabilityForm extends StatelessWidget {
                       const SizedBox(height: 110),
                       Container(
                         width: 350,
-                        height: 450,
+                        height: 550,
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: Color.fromRGBO(255, 255, 255, 0.85),
@@ -31,17 +32,19 @@ class DisabilityForm extends StatelessWidget {
                               alignment: Alignment.topCenter,
                               child: Text(
                                 "Disability Assistance Request Form",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.blue[800],
-                                  fontWeight: FontWeight.bold,
+                                style: GoogleFonts.mulish(
+                                  textStyle: TextStyle(
+                                    fontSize: 26,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue[900],
+                                  ),
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
                             const SizedBox(height: 10),
 
-                            Icon(Icons.file_open_outlined, color: Colors.blue[800], size: 120),
+                            Icon(Icons.file_open_outlined, color: Colors.blue[900], size: 120),
                             const SizedBox(height: 10),
                             Center(
                               child: Padding(
@@ -50,7 +53,7 @@ class DisabilityForm extends StatelessWidget {
                                   "This form is provided by Sri Lankan Airlines to request assistance.\nPlease note that, this is not available for flights departing in the next 72 hours.",
                                   style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.blue[800],
+                                    color: Colors.blue[900],
                                     fontWeight: FontWeight.w600
                                   ),
                                   textAlign: TextAlign.center,
@@ -62,9 +65,13 @@ class DisabilityForm extends StatelessWidget {
                                 _launchFormURL();
                               },
                               icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
-                              label: Text("Continue", style: TextStyle(fontSize: 16)),
+                              label: Text("Continue",
+                                style: GoogleFonts.lobster(
+                                  textStyle: TextStyle(fontSize: 22, color: Colors.white),
+                                ),
+                              ),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue[800],
+                                backgroundColor: Colors.blue,
                                 foregroundColor: Colors.white,
                                 minimumSize: Size(200, 50),
                               ),

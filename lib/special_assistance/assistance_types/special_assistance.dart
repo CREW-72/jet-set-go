@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/special_assistance/assistance_types/reduced_mobility.dart';
 import 'package:jet_set_go/special_assistance/assistance_types/travelling_during_pregnancy.dart';
 import 'package:jet_set_go/special_assistance/assistance_types/travelling_with_children.dart';
@@ -15,67 +16,68 @@ class SpecialAssistance extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 120),
-                      const Text(
-                        "What Type of Special Assistance\n Do You Need?",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 120),
+                    Text(
+                      "What Type of Special Assistance\n Do You Need?",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.mulish(
+                        textStyle: TextStyle(
+                          fontSize: 26,
                           fontWeight: FontWeight.bold,
-
+                          color: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      SpecialAssistanceCategory(
-                        icon: Icons.accessible,
-                        text: "Reduced Mobility Passengers",
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => ReducedMobility()),
-                          );
-                        },
-                      ),
-                      SpecialAssistanceCategory(
-                        icon: Icons.pregnant_woman_rounded,
-                        text: "Travelling During Pregnancy",
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => TravellingDuringPregnancy()),
-                          );
-                        },
-                      ),
-                      SpecialAssistanceCategory(
-                        icon: Icons.child_friendly,
-                        text: "Travelling with Children",
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => TravellingWithChildren()),
-                          );
-                        },
-                      ),
-                      SpecialAssistanceCategory(
-                        icon: Icons.person,
-                        text: "Unaccompanied Minors",
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => UnaccompaniedMinors()),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 20),
+                    SpecialAssistanceCategory(
+                      icon: Icons.accessible,
+                      text: "Reduced Mobility Passengers",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ReducedMobility()),
+                        );
+                      },
+                    ),
+                    SpecialAssistanceCategory(
+                      icon: Icons.pregnant_woman_rounded,
+                      text: "Travelling During Pregnancy",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => TravellingDuringPregnancy()),
+                        );
+                      },
+                    ),
+                    SpecialAssistanceCategory(
+                      icon: Icons.child_friendly,
+                      text: "Travelling with Children",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => TravellingWithChildren()),
+                        );
+                      },
+                    ),
+                    SpecialAssistanceCategory(
+                      icon: Icons.person,
+                      text: "Unaccompanied Minors",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => UnaccompaniedMinors()),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                  ],
                 ),
               ),
+            ),
 
           ),
         ],

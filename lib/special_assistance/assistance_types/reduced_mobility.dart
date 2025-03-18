@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/special_assistance/special_assistance_styling.dart';
 import '../contact_options/calling_option.dart';
 import '../contact_options/disability_form.dart';
@@ -20,13 +21,15 @@ class ReducedMobility extends StatelessWidget {
                   child: Column(
                     children: [
                       const SizedBox(height: 120),
-                      const Text(
+                      Text(
                         "What Type of Special Assistance\n Do You Need?",
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                        style: GoogleFonts.mulish(
+                          textStyle: TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 20),
