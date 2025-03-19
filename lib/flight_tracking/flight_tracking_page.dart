@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jet_set_go/flight_tracking/flight_api_service.dart'; // Import API Service
 
 class FlightTrackingPage extends StatefulWidget {
@@ -17,17 +17,46 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
   bool _isLoading = false;
   bool _hasError = false;
   String _errorMessage = '';
+  String? _savedFlightNumber; // Store the saved flight number
   Flight? _flight;
   Timer? _refreshTimer;
-  final FlightApiService _apiService = FlightApiService(); //Initialize API service
+  final FlightApiService _apiService = FlightApiService(); // Initialize API service
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSavedFlightNumber();
+
+    // Set up auto-refresh every 5 minutes
+    _refreshTimer = Timer.periodic(Duration(minutes: 5), (timer) {
+      _refreshFlightData();
+    });
+  }
 
   @override
   void dispose() {
+    _refreshTimer?.cancel(); // Stop auto-refresh to prevent memory leaks
     _searchController.dispose();
-    _refreshTimer?.cancel();
     super.dispose();
   }
 
+  /// ✅ **Load saved flight number from SharedPreferences and fetch flight details automatically**
+  Future<void> _loadSavedFlightNumber() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? savedFlightNumber = prefs.getString('savedFlightNumber');
+
+    if (savedFlightNumber != null && savedFlightNumber.isNotEmpty) {
+      setState(() {
+        _savedFlightNumber = savedFlightNumber;
+        _searchController.text = savedFlightNumber; // Prefill search bar
+        _isLoading = true; // Show loading indicator while fetching
+      });
+
+      await _searchFlight(savedFlightNumber); // ✅ Fetch flight details immediately
+    }
+  }
+
+  /// ✅ **Fetch flight details**
   Future<void> _searchFlight(String flightNumber) async {
     if (flightNumber.isEmpty) {
       setState(() {
@@ -44,7 +73,6 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
     });
 
     try {
-
       final flightData = await _apiService.getFlightDetails(flightNumber);
 
       if (flightData != null) {
@@ -60,7 +88,6 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
         });
       }
     } catch (e) {
-
       setState(() {
         _isLoading = false;
         _hasError = true;
@@ -69,6 +96,7 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
     }
   }
 
+  /// ✅ **Auto-refresh flight data**
   Future<void> _refreshFlightData() async {
     if (_flight == null) return;
 
@@ -101,11 +129,7 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
         foregroundColor: textColor,
       ),
       body: RefreshIndicator(
-        onRefresh: () async {
-          if (_flight != null) {
-            await _refreshFlightData();
-          }
-        },
+        onRefresh: _refreshFlightData,
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: Padding(
@@ -113,46 +137,40 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Search Bar
-                Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFF1D3557),
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withAlpha(13),
-                        blurRadius: 10,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Row(
-                      children: [
-                        Icon(Icons.search, color: subtitleColor),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: TextField(
-                            controller: _searchController,
-                            decoration: InputDecoration(
-                              hintText: 'Enter flight number (e.g., UA123)',
-                              hintStyle: TextStyle(color: subtitleColor),
-                              border: InputBorder.none,
+                // Show Search Bar **ONLY IF NO SAVED FLIGHT NUMBER**
+                if (_savedFlightNumber == null || _savedFlightNumber!.isEmpty)
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFF1D3557),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                      child: Row(
+                        children: [
+                          Icon(Icons.search, color: subtitleColor),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: TextField(
+                              controller: _searchController,
+                              decoration: InputDecoration(
+                                hintText: 'Enter flight number (e.g., UA123)',
+                                hintStyle: TextStyle(color: subtitleColor),
+                                border: InputBorder.none,
+                              ),
+                              style: TextStyle(color: textColor),
+                              onSubmitted: _searchFlight,
                             ),
-                            style: TextStyle(color: textColor),
-                            onSubmitted: _searchFlight,
                           ),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.arrow_forward),
-                          color: Color(0xFF00A6FF),
-                          onPressed: () => _searchFlight(_searchController.text),
-                        ),
-                      ],
+                          IconButton(
+                            icon: const Icon(Icons.arrow_forward),
+                            color: Color(0xFF00A6FF),
+                            onPressed: () => _searchFlight(_searchController.text),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
 
                 const SizedBox(height: 24),
 
@@ -226,7 +244,9 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
     );
   }
 
-  Widget _buildFlightHeader(Flight flight, Color textColor, Color? subtitleColor) {
+
+
+Widget _buildFlightHeader(Flight flight, Color textColor, Color? subtitleColor) {
     Color statusColor;
     switch (flight.status) {
       case FlightStatus.onTime:
