@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:jet_set_go/authentication/login_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -30,31 +31,38 @@ class SignUpPageState extends State<SignUpPage> {
     try {
       if (passwordController.text != confirmPasswordController.text) {
         _showError("Passwords do not match");
-        setState(() => isLoading = false);  // Stop loading
+        setState(() => isLoading = false);
         return;
       }
+
       UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
 
+      // ✅ **Ensure `hasSetupTrip` & `flightNumber` exist**
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'username': usernameController.text.trim(),
         'email': emailController.text.trim(),
+        'hasSetupTrip': false, // Default value ✅
+        'flightNumber': "",    // Default empty ✅
       });
 
-      if(mounted){
-        setState(() => isLoading = false);  // Stop loading after success
+      if (mounted) {
+        setState(() => isLoading = false);
       }
 
-      if(mounted){
-        Navigator.pushReplacementNamed(context, '/login');
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LoginPage()),
+        );
       }
 
     } catch (e) {
       _showError(e.toString());
       if (mounted) {
-        setState(() => isLoading = false); // Ensure loading stops if there's an error
+        setState(() => isLoading = false);
       }
     }
   }
@@ -73,16 +81,36 @@ class SignUpPageState extends State<SignUpPage> {
 
       UserCredential userCredential = await _auth.signInWithCredential(credential);
 
-      final userDoc = await _firestore.collection('users').doc(userCredential.user!.uid).get();
+      DocumentReference userRef = _firestore.collection('users').doc(userCredential.user!.uid);
+      DocumentSnapshot userDoc = await userRef.get();
+
       if (!userDoc.exists) {
-        await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        // ✅ **Ensure user data is set in Firestore for Google users**
+        await userRef.set({
           'username': googleUser.displayName,
           'email': googleUser.email,
+          'hasSetupTrip': false, // Default value ✅
+          'flightNumber': "",    // Default empty ✅
         });
+      } else {
+        // ✅ **Ensure `hasSetupTrip` & `flightNumber` exist**
+        Map<String, dynamic> updatedFields = {};
+        if (!userDoc.data().toString().contains('hasSetupTrip')) {
+          updatedFields['hasSetupTrip'] = false;
+        }
+        if (!userDoc.data().toString().contains('flightNumber')) {
+          updatedFields['flightNumber'] = "";
+        }
+        if (updatedFields.isNotEmpty) {
+          await userRef.update(updatedFields);
+        }
       }
 
-      if(mounted){
-        Navigator.pushReplacementNamed(context, '/');
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LoginPage()),
+        );
       }
     } catch (e) {
       _showError(e.toString());

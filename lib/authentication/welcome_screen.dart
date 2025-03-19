@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jet_set_go/authentication/login_page.dart';
+import 'package:jet_set_go/authentication/signup_page.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -32,13 +34,26 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 40),
-              CustomButton(text: "Login", onTap: () {
-                Navigator.pushNamed(context, '/login');
-              }),
+              CustomButton(
+                text: "Login",
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()), // Direct navigation
+                  );
+                },
+              ),
+
               SizedBox(height: 15),
-              CustomButton(text: "Sign up", onTap: () {
-                Navigator.pushNamed(context, '/signup');
-              }),
+              CustomButton(
+                text: "Sign up",
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpPage()), // Direct navigation
+                  );
+                },
+              ),
             ],
           ),
         ),

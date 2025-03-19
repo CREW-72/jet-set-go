@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:jet_set_go/homepages/homepage_unregistered.dart';
+import 'package:jet_set_go/homepages/homepage_registered_user.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,6 +14,7 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<LoginPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool _rememberMe = false;
@@ -25,15 +29,37 @@ class LoginPageState extends State<LoginPage> {
     setState(() => isLoading = true);
 
     try {
-      await _auth.signInWithEmailAndPassword(
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
 
-      if(mounted){
-      Navigator.pushReplacementNamed(context, '/');  // Navigate to Home Screen after login
-      }
+      final User? user = userCredential.user;
 
+      if (user != null) {
+        DocumentReference userRef = _firestore.collection('users').doc(user.uid);
+        DocumentSnapshot userDoc = await userRef.get();
+
+        bool hasSetupTrip = false;
+        if (userDoc.exists) {
+          hasSetupTrip = userDoc['hasSetupTrip'] ?? false;
+        } else {
+          // ✅ If document does not exist, create with default values
+          await userRef.set({
+            'hasSetupTrip': false,
+            'flightNumber': "", // Ensure field exists for future use
+          }, SetOptions(merge: true));
+        }
+
+        if (mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => hasSetupTrip ? HomePageRegistered() : HomePageUnregistered(),
+            ),
+          );
+        }
+      }
     } catch (e) {
       _showError(e.toString());
     } finally {
@@ -53,10 +79,32 @@ class LoginPageState extends State<LoginPage> {
         idToken: googleAuth.idToken,
       );
 
-      await _auth.signInWithCredential(credential);
+      UserCredential userCredential = await _auth.signInWithCredential(credential);
+      final User? user = userCredential.user;
 
-      if(mounted){
-        Navigator.pushReplacementNamed(context, '/');
+      if (user != null) {
+        DocumentReference userRef = _firestore.collection('users').doc(user.uid);
+        DocumentSnapshot userDoc = await userRef.get();
+
+        bool hasSetupTrip = false;
+        if (userDoc.exists) {
+          hasSetupTrip = userDoc['hasSetupTrip'] ?? false;
+        } else {
+          // ✅ If document does not exist, create with default values
+          await userRef.set({
+            'hasSetupTrip': false,
+            'flightNumber': "", // Ensure field exists for future use
+          }, SetOptions(merge: true));
+        }
+
+        if (mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => hasSetupTrip ? HomePageRegistered() : HomePageUnregistered(),
+            ),
+          );
+        }
       }
     } catch (e) {
       _showError(e.toString());
@@ -77,10 +125,10 @@ class LoginPageState extends State<LoginPage> {
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      resizeToAvoidBottomInset: true,  // Prevents UI overlap with keyboard
-      body: SingleChildScrollView(  // Allows scrolling when keyboard appears
+      resizeToAvoidBottomInset: true,
+      body: SingleChildScrollView(
         child: SizedBox(
-          height: size.height,  // Ensures full-screen height
+          height: size.height,
           child: Stack(
             children: [
               Positioned.fill(
@@ -194,46 +242,6 @@ class LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 2.0,
-                          width: 330.0,
-                          color: Colors.white,
-                        ),
-                        Image.asset(
-                          'assets/images/plane.png',
-                          width: 50.0,
-                          height: 50.0,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 16),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/signup');
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF87A8EE).withAlpha(153),
-                        padding: EdgeInsets.symmetric(vertical: 14, horizontal: 40),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image.asset('assets/images/newAccount.png', height: 27),
-                          SizedBox(width: 10),
-                          Text("Create New Account",
-                              style: TextStyle(color: Colors.white, fontSize: 16, fontFamily: 'Poppins')),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 15),
-                    Text("or", style: TextStyle(color: Colors.white, fontSize: 16, fontFamily: 'Poppins')),
-                    SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: _signInWithGoogle,
                       style: ElevatedButton.styleFrom(
@@ -270,7 +278,7 @@ class LoginPageState extends State<LoginPage> {
         controller: controller,
         obscureText: obscureText,
         keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
-        style: TextStyle(color: Colors.white, fontFamily: 'Poppins'),
+        style: TextStyle(color: Colors.white, fontFamily: 'Poppins'), // ✅ FIXED TEXT VISIBILITY
         decoration: InputDecoration(
           hintText: hint,
           hintStyle: TextStyle(color: Colors.white70, fontFamily: 'Poppins'),
