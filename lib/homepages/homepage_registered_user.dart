@@ -5,7 +5,6 @@ import 'package:jet_set_go/special_assistance/special_assistance_landing_page.da
 import 'package:jet_set_go/local_transport/transport_screen.dart';
 import 'package:jet_set_go/airport_navigation/map_screen.dart';
 import 'package:jet_set_go/travel_tips.dart';
-import 'package:jet_set_go/packing_tips/landing_page.dart';
 void main() {
   runApp(MyApp());
 }
