@@ -42,7 +42,7 @@ dependencies:
   flutterfire_cli: ^1.0.0
 
 
-  shared_preferences: ^2.2.0 #for storing user data locally
+  shared_preferences: ^2.5.2 #for storing user data locally
   google_sign_in: ^6.1.5
 
   google_maps_webservice: ^0.0.20-nullsafety.5

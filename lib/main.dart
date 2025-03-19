@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';// Import MapScreen
-import 'package:jet_set_go/screens/welcome_screen.dart';
-import 'package:jet_set_go/screens/signup_page.dart';
-import 'package:jet_set_go/screens/loginpage.dart';
+import 'package:jet_set_go/authentication/welcome_screen.dart';
+import 'package:jet_set_go/authentication/signup_page.dart';
+import 'package:jet_set_go/authentication/loginpage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:jet_set_go/services/transport_service.dart';
-import 'package:jet_set_go/widgets/transport_options.dart';
-import 'package:jet_set_go/widgets/travel_options_sheet.dart';
+import 'package:jet_set_go/local_transport/services/transport_service.dart';
+import 'package:jet_set_go/local_transport/widgets/transport_options.dart';
+import 'package:jet_set_go/local_transport/widgets/travel_options_sheet.dart';
 
 
 class TransportScreen extends StatefulWidget {

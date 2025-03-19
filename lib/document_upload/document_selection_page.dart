@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'document_upload_page.dart';
+import './document_upload_page.dart';
 
 class DocumentSelectionPage extends StatefulWidget {
   const DocumentSelectionPage({super.key});

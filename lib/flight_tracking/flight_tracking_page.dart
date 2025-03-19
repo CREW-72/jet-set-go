@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'package:jet_set_go/flight_api_service.dart'; // Import API Service
+import 'package:jet_set_go/flight_tracking/flight_api_service.dart'; // Import API Service
 
 class FlightTrackingPage extends StatefulWidget {
   const FlightTrackingPage({super.key});
