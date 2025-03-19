@@ -5,30 +5,16 @@ import 'package:jet_set_go/special_assistance/special_assistance_landing_page.da
 import 'package:jet_set_go/local_transport/transport_screen.dart';
 import 'package:jet_set_go/airport_navigation/map_screen.dart';
 import 'package:jet_set_go/travel_tips.dart';
-void main() {
-  runApp(MyApp());
-}
+import 'package:jet_set_go/flight_tracking/flight_tracking_page.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class HomePageRegistered extends StatefulWidget {
+  const HomePageRegistered({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
-    );
-  }
+  HomePageRegisteredState createState() => HomePageRegisteredState();
 }
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  HomePageState createState() => HomePageState();
-}
-
-class HomePageState extends State<HomePage> {
+class HomePageRegisteredState extends State<HomePageRegistered> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -137,7 +123,7 @@ class HomePageState extends State<HomePage> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => LandingPage()),
+                      MaterialPageRoute(builder: (context) => FlightTrackingPage()),
                     );
                   },
                   child: SizedBox(

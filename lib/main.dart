@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';// Import MapScreen
-import 'package:jet_set_go/authentication/welcome_screen.dart';
-import 'package:jet_set_go/authentication/signup_page.dart';
-import 'package:jet_set_go/authentication/loginpage.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:jet_set_go/landing_page/landing_page.dart'; // Set Loading Page as Home
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  await dotenv.load(fileName: ".env");
+  await Firebase.initializeApp(); // Initialize Firebase globally
+  await dotenv.load(fileName: ".env"); // Load environment variables
 
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
@@ -21,12 +19,7 @@ class MyApp extends StatelessWidget{
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Jet Set Go',
-      initialRoute: '/',
-      routes: {
-        '/': (context) => WelcomeScreen(),
-        '/signup': (context) => SignUpPage(),
-        '/login': (context) => LoginPage(),
-      },
+      home: LandingPage(), // Set Landing Page as the entry point
     );
   }
 }

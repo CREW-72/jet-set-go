@@ -1,35 +1,105 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // ✅ Imported Firebase Firestore
+import 'package:firebase_auth/firebase_auth.dart'; // ✅ Imported Firebase Auth
+import 'package:jet_set_go/homepages/homepage_registered_user.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class HomePageUnregistered extends StatefulWidget {
+  const HomePageUnregistered({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme(
-          Theme.of(context).textTheme,
-        ),
-      ),
-      home: HomePage(),
+  HomePageUnregisteredState createState() => HomePageUnregisteredState();
+}
+
+class HomePageUnregisteredState extends State<HomePageUnregistered> {
+  final TextEditingController _flightNumberController = TextEditingController();
+
+  void _showFlightNumberPopup() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          backgroundColor: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Title
+                Text(
+                  "Enter Your Flight Number",
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.indigo),
+                ),
+                SizedBox(height: 15),
+
+                Text(
+                  "Please refer to your air ticket and enter the flight number correctly to set up JetSetGo.",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16, color: Colors.black87),
+                ),
+                SizedBox(height: 15),
+
+                // Flight Number Input Field
+                TextField(
+                  controller: _flightNumberController,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    labelText: "i.e. UL123 / EK456",
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  ),
+                ),
+                SizedBox(height: 20),
+
+                // Buttons: "Setup" & "Cancel"
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (_flightNumberController.text.isNotEmpty) {
+                          final user = FirebaseAuth.instance.currentUser; // ✅ Get the logged-in user
+                          if (user != null) {
+                            await FirebaseFirestore.instance
+                                .collection('users')
+                                .doc(user.uid)
+                                .set({  // ✅ Store `hasSetupTrip` and `flightNumber` in Firestore
+                              'hasSetupTrip': true,
+                              'flightNumber': _flightNumberController.text.trim(),
+                            }, SetOptions(merge: true)); // ✅ Ensure it doesn't overwrite other fields
+                          }
+
+                          Navigator.pop(context); // Close the popup first
+
+                          // Navigate to Registered User Homepage
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePageRegistered()),
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.indigo,
+                        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      ),
+                      child: Text("Setup", style: TextStyle(color: Colors.white, fontSize: 18)),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context); // Close the popup without saving
+                      },
+                      child: Text("Cancel", style: TextStyle(color: Colors.red, fontSize: 16)),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
-}
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  HomePageState createState() => HomePageState();
-}
-
-class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,20 +128,17 @@ class HomePageState extends State<HomePage> {
                   width: double.infinity,
                 ),
                 Positioned(
-                  top: 50, // Adjusted position for better alignment
+                  top: 50,
                   right: 15,
                   child: PopupMenuButton<String>(
-                    icon: Icon(Icons.menu, color: Colors.black, size: 40), // Hamburger Icon
+                    icon: Icon(Icons.menu, color: Colors.black, size: 40),
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    offset: Offset(0, 50), // Moves the menu DOWN
+                    offset: Offset(0, 50),
                     onSelected: (value) {
                       switch (value) {
-                        case 'Home':
-                          Navigator.pushNamed(context, '/home');
-                          break;
                         case 'Settings':
                           Navigator.pushNamed(context, '/settings');
                           break;
@@ -85,7 +152,6 @@ class HomePageState extends State<HomePage> {
                     },
                     itemBuilder: (BuildContext context) {
                       return [
-                        _buildMenuItem(Icons.home, 'Home'),
                         _buildMenuItem(Icons.settings, 'Settings'),
                         _buildMenuItem(Icons.lightbulb, 'Features'),
                         _buildMenuItem(Icons.person, 'Profile'),
@@ -128,7 +194,7 @@ class HomePageState extends State<HomePage> {
                   ),
                 ),
 
-                // SET UP TRIP BUTTON
+                // SET UP TRIP BUTTON (SHOWS POPUP)
                 SizedBox(
                   width: double.infinity,
                   child: Card(
@@ -137,7 +203,7 @@ class HomePageState extends State<HomePage> {
                     ),
                     elevation: 4,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: _showFlightNumberPopup, // Show the popup when clicked
                       child: Ink(
                         decoration: BoxDecoration(
                           image: DecorationImage(
