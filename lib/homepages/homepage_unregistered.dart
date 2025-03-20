@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // ✅ Imported Firebase Firestore
-import 'package:firebase_auth/firebase_auth.dart'; // ✅ Imported Firebase Auth
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jet_set_go/homepages/homepage_registered_user.dart';
 
 class HomePageUnregistered extends StatefulWidget {
@@ -17,7 +17,7 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
   @override
   void initState() {
     super.initState();
-    _fetchUsername(); // Fetch username when the screen loads
+    _fetchUsername();
   }
 
   void _showFlightNumberPopup() {
@@ -46,7 +46,6 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
                 ),
                 SizedBox(height: 15),
 
-                // Flight Number Input Field
                 TextField(
                   controller: _flightNumberController,
                   keyboardType: TextInputType.text,
@@ -57,29 +56,28 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
                 ),
                 SizedBox(height: 20),
 
-                // Buttons: "Setup" & "Cancel"
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
                       onPressed: () async {
                         if (_flightNumberController.text.isNotEmpty) {
-                          final user = FirebaseAuth.instance.currentUser; // ✅ Get the logged-in user
+                          final BuildContext currentContext = context;
+                          final user = FirebaseAuth.instance.currentUser;
                           if (user != null) {
                             await FirebaseFirestore.instance
                                 .collection('users')
                                 .doc(user.uid)
-                                .set({  // ✅ Store `hasSetupTrip` and `flightNumber` in Firestore
+                                .set({
                               'hasSetupTrip': true,
                               'flightNumber': _flightNumberController.text.trim(),
-                            }, SetOptions(merge: true)); // ✅ Ensure it doesn't overwrite other fields
+                            }, SetOptions(merge: true));
                           }
+                          if (!currentContext.mounted) return;
 
-                          Navigator.pop(context); // Close the popup first
-
-                          // Navigate to Registered User Homepage
+                          Navigator.pop(context);
                           Navigator.pushReplacement(
-                            context,
+                            currentContext,
                             MaterialPageRoute(builder: (context) => HomePageRegistered()),
                           );
                         }
@@ -93,7 +91,7 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pop(context); // Close the popup without saving
+                        Navigator.pop(context);
                       },
                       child: Text("Cancel", style: TextStyle(color: Colors.red, fontSize: 16)),
                     ),
@@ -138,7 +136,6 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
             ),
           ),
 
-          // TOP IMAGE WITH HAMBURGER MENU
           Positioned(
             top: 0,
             left: 0,
@@ -187,7 +184,6 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
             ),
           ),
 
-          // WELCOME MESSAGE AND BUTTONS
           Positioned(
             bottom: 85,
             left: 10,
@@ -218,7 +214,6 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
                   ),
                 ),
 
-                // SET UP TRIP BUTTON (SHOWS POPUP)
                 SizedBox(
                   width: double.infinity,
                   child: Card(
@@ -227,7 +222,7 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
                     ),
                     elevation: 4,
                     child: InkWell(
-                      onTap: _showFlightNumberPopup, // Show the popup when clicked
+                      onTap: _showFlightNumberPopup,
                       child: Ink(
                         decoration: BoxDecoration(
                           image: DecorationImage(
@@ -262,7 +257,6 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
                 ),
                 SizedBox(height: 3),
 
-                // FAQ & APP GUIDE BUTTONS
                 Row(
                   children: [
                     _buildCardButton("assets/images/FAQ.png", "FAQ"),
@@ -278,7 +272,6 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
     );
   }
 
-  // Helper function for menu items
   PopupMenuItem<String> _buildMenuItem(IconData icon, String label) {
     return PopupMenuItem(
       value: label,
@@ -292,7 +285,6 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
     );
   }
 
-  // Helper function for FAQ & App Guide buttons
   Expanded _buildCardButton(String imagePath, String title) {
     return Expanded(
       child: Card(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; //
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jet_set_go/packing_tips/landing_page.dart';
 import 'package:jet_set_go/document_upload/document_selection_page.dart';
@@ -8,6 +8,7 @@ import 'package:jet_set_go/local_transport/transport_screen.dart';
 import 'package:jet_set_go/airport_navigation/map_screen.dart';
 import 'package:jet_set_go/travel_tips.dart';
 import 'package:jet_set_go/flight_tracking/flight_tracking_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class HomePageRegistered extends StatefulWidget {
@@ -402,7 +403,7 @@ class HomePageRegisteredState extends State<HomePageRegistered> {
               children: [
                 Row(
                   children: [
-                    _buildFeatureButton("assets/images/document.png", "Document",DocumentSelectionPage()),
+                    _buildFeatureButton("assets/images/document.png", "Document Upload",DocumentSelectionPage()),
                     _buildFeatureButton("assets/images/wheelchair.png", "Special Assistance",SpecialAssistanceLandingPage()),
                   ],
                 ),
@@ -469,7 +470,11 @@ class HomePageRegisteredState extends State<HomePageRegistered> {
                   SizedBox(height: 5),
                   Text(
                     title,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.indigo),
+                    style: GoogleFonts.ubuntu(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.indigo
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ],
