@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // ✅ Imported Firebase Firestore
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jet_set_go/packing_tips/landing_page.dart';
 import 'package:jet_set_go/document_upload/document_selection_page.dart';
 import 'package:jet_set_go/special_assistance/special_assistance_landing_page.dart';
@@ -15,6 +17,15 @@ class HomePageRegistered extends StatefulWidget {
 }
 
 class HomePageRegisteredState extends State<HomePageRegistered> {
+  String username = "User";
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUsername(); // Fetch username when the screen loads
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +108,7 @@ class HomePageRegisteredState extends State<HomePageRegistered> {
                 ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height));
               },
               child: Text(
-                'WELCOME BACK, USER!',
+                'WELCOME BACK, ${username.isNotEmpty ? username.toUpperCase() : "USER"}!',
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -237,5 +248,22 @@ class HomePageRegisteredState extends State<HomePageRegistered> {
       ),
     );
   }
+
+  Future<void> _fetchUsername() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+        if (userDoc.exists && userDoc.data() != null) {
+          setState(() {
+            username = userDoc['username'] ?? "User";
+          });
+        }
+      } catch (e) {
+        print("Error fetching username: $e");
+      }
+    }
+  }
+
 
 }
