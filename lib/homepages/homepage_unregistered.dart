@@ -12,6 +12,13 @@ class HomePageUnregistered extends StatefulWidget {
 
 class HomePageUnregisteredState extends State<HomePageUnregistered> {
   final TextEditingController _flightNumberController = TextEditingController();
+  String username = "User";
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUsername(); // Fetch username when the screen loads
+  }
 
   void _showFlightNumberPopup() {
     showDialog(
@@ -100,6 +107,23 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
     );
   }
 
+  Future<void> _fetchUsername() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+        if (userDoc.exists && userDoc.data() != null) {
+          setState(() {
+            username = userDoc['username'] ?? "User";
+          });
+        }
+      } catch (e) {
+        print("Error fetching username: $e");
+      }
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -183,7 +207,7 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
                         ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height));
                       },
                       child: Text(
-                        'WELCOME, USER!',
+                        'WELCOME, ${username.isNotEmpty ? username.toUpperCase() : "USER"}!',
                         style: TextStyle(
                           fontSize: 35,
                           fontWeight: FontWeight.bold,
