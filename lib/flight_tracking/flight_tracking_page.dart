@@ -56,7 +56,31 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
           });
         }
       } catch (e) {
-        print("Error fetching flight number: $e");
+        throw Exception("Error fetching flight number: $e");
+      }
+    }
+  }
+
+  Future<void> _updateFlightNumber() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null && _searchController.text.isNotEmpty) {
+      try {
+        await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          'flightNumber': _searchController.text.trim(),
+        }, SetOptions(merge: true));
+
+        setState(() {
+          _firestoreFlightNumber = _searchController.text.trim();
+          _hasError = false;
+          _errorMessage = '';
+        });
+
+        _searchFlight(_firestoreFlightNumber);
+      } catch (e) {
+        setState(() {
+          _hasError = true;
+          _errorMessage = 'Error updating flight number. Please try again.';
+        });
       }
     }
   }
@@ -90,7 +114,7 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
         setState(() {
           _isLoading = false;
           _hasError = true;
-          _errorMessage = 'Flight not found. Please check the flight number.';
+          _errorMessage = 'Flight not found or has ended. Please enter a new flight number.';
         });
       }
     } catch (e) {
@@ -102,7 +126,6 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
     }
   }
 
-  /// ✅ **Auto-refresh flight data**
   Future<void> _refreshFlightData() async {
     if (_flight == null) return;
 
@@ -182,24 +205,60 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
 
                 // Error Message
                 if (_hasError)
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.red.withAlpha(26),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.error_outline, color: Colors.red),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Text(
-                            _errorMessage,
-                            style: const TextStyle(color: Colors.red),
-                          ),
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.red.withAlpha(26),
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                      ],
-                    ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.error_outline, color: Colors.red),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Text(
+                                _errorMessage,
+                                style: const TextStyle(color: Colors.red),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+
+                      // New Flight Number Input
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF1D3557),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: TextField(
+                          controller: _searchController,
+                          decoration: InputDecoration(
+                            hintText: 'Enter new flight number (e.g., EK123)',
+                            hintStyle: TextStyle(color: Colors.white54),
+                            border: InputBorder.none,
+                          ),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      // Update Button
+                      ElevatedButton(
+                        onPressed: () => _updateFlightNumber(),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.indigo,
+                          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                        ),
+                        child: Text("Update Flight", style: TextStyle(color: Colors.white, fontSize: 18)),
+                      ),
+                    ],
                   ),
 
                 // Loading Shimmer
@@ -582,69 +641,6 @@ Widget _buildFlightHeader(Flight flight, Color textColor, Color? subtitleColor) 
               color: textColor,
             ),
           ),
-          ...flight.events.asMap().entries.map((entry) {
-            final index = entry.key;
-            final event = entry.value;
-            final isLast = index == flight.events.length - 1;
-
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  children: [
-                    Container(
-                      width: 24,
-                      height: 24,
-                      decoration: BoxDecoration(
-                        color: event.completed
-                            ? Theme.of(context).primaryColor
-                            : Colors.grey.withAlpha(77),
-                        shape: BoxShape.circle,
-                      ),
-                      child: event.completed
-                          ? const Icon(
-                        Icons.check,
-                        color: Colors.white,
-                        size: 16,
-                      )
-                          : null,
-                    ),
-                    if (!isLast)
-                      Container(
-                        width: 2,
-                        height: 40,
-                        color: event.completed
-                            ? Theme.of(context).primaryColor
-                            : Colors.grey.withAlpha(77),
-                      ),
-                  ],
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        _getEventTypeText(event.type),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: textColor,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        DateFormat('HH:mm, MMM d').format(event.time),
-                        style: TextStyle(
-                          color: subtitleColor,
-                        ),
-                      ),
-                      if (!isLast) const SizedBox(height: 24),
-                    ],
-                  ),
-                ),
-              ],
-            );
-          }),
         ],
       ),
     );
@@ -752,23 +748,6 @@ Widget _buildFlightHeader(Flight flight, Color textColor, Color? subtitleColor) 
         return 'Cancelled';
       default:
         return 'Scheduled';
-    }
-  }
-
-  String _getEventTypeText(EventType type) {
-    switch (type) {
-      case EventType.checkIn:
-        return 'Check-in';
-      case EventType.security:
-        return 'Security Check';
-      case EventType.boarding:
-        return 'Boarding';
-      case EventType.departure:
-        return 'Departure';
-      case EventType.arrival:
-        return 'Arrival';
-      default:
-        return 'unknown';
     }
   }
 
@@ -896,23 +875,6 @@ class FlightEvent {
       completed: json['completed'] ?? false,
     );
   }
-
-  // static EventType _parseEventType(String? type) {
-  //   switch (type?.toLowerCase()) {
-  //     case 'check-in':
-  //       return EventType.checkIn;
-  //     case 'security':
-  //       return EventType.security;
-  //     case 'boarding':
-  //       return EventType.boarding;
-  //     case 'departure':
-  //       return EventType.departure;
-  //     case 'arrival':
-  //       return EventType.arrival;
-  //     default:
-  //       return EventType.checkIn; // Default fallback
-  //   }
-  // }
 }
 
 class Flight {
@@ -925,8 +887,8 @@ class Flight {
   final FlightStatus status;
   final int? delayMinutes;
   final Aircraft? aircraft;
-  final List<FlightEvent> events;
-  final double progressPercent;
+  // final List<FlightEvent> events;
+  // final double progressPercent;
 
   Flight({
     required this.flightNumber,
@@ -938,25 +900,22 @@ class Flight {
     required this.status,
     this.delayMinutes,
     this.aircraft,
-    required this.events,
-    required this.progressPercent,
+    // required this.events,
+    // required this.progressPercent,
   });
 
-  /// ✅ **Convert JSON map to Flight object**
   factory Flight.fromJson(Map<String, dynamic> json) {
     return Flight(
       flightNumber: json['flightNumber'] ?? '',
 
-      // ✅ Fix airline issue (Handles both String & Map cases)
       airline: Airline.fromJson({
-        "iata": json['iata'],  // Use 'iata' instead of 'code'
-        "airlineName": json['airlineName'],  // Use 'airlineName' instead of mapping manually
+        "iata": json['iata'],
+        "airlineName": json['airlineName'],
       }),
 
       origin: Airport.fromJson(json['origin'] ?? {}),
       destination: Airport.fromJson(json['destination'] ?? {}),
 
-      // ✅ Convert timestamps to DateTime safely
       departure: FlightTime.fromJson({
         'scheduled': json['scheduledDeparture'],
         'estimated': json['estimatedDeparture'],
@@ -978,16 +937,9 @@ class Flight {
       aircraft: json['aircraft'] != null && json['aircraft'] is Map<String, dynamic>
           ? Aircraft.fromJson(json['aircraft'])
           : Aircraft(model: "Unknown", registration: "Unknown"), // Provide default aircraft if needed
-
-      // Handle events (if missing, use an empty list)
-      events: (json['events'] as List<dynamic>?)?.map((e) => FlightEvent.fromJson(e)).toList() ?? [],
-
-      // ✅ Fix progressPercent (ensure it's always a double)
-      progressPercent: (json['progressPercent'] ?? 0).toDouble(),
     );
   }
 
-  /// ✅ **Parse Flight Status from String**
   static FlightStatus _parseFlightStatus(String? status) {
     switch (status?.toLowerCase()) {
       case 'on time':
