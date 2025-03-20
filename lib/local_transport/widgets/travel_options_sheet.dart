@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TravelOptionsSheet extends StatelessWidget {
   const TravelOptionsSheet({super.key});
@@ -48,7 +49,7 @@ class TravelOptionsSheet extends StatelessWidget {
                 SizedBox(height: 10),
                 Text(
                   'TRAVEL OPTIONS',
-                  style: TextStyle(
+                  style: GoogleFonts.ubuntu(
                     fontWeight: FontWeight.bold,
                     fontSize: 25,
                     color: Colors.white,
@@ -70,9 +71,9 @@ class TravelOptionsSheet extends StatelessWidget {
                       child: Center(
                         child: Text(
                           'Transportation Tips  ->',
-                          style: TextStyle(
+                          style: GoogleFonts.ubuntu(
                             fontSize: 22,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w600,
                             color: Color(0xFF0A4C80),
                             letterSpacing: 1.0,
                           ),

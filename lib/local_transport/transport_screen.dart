@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:jet_set_go/local_transport/services/transport_service.dart';
 import 'package:jet_set_go/local_transport/widgets/transport_options.dart';
 import 'package:jet_set_go/local_transport/widgets/travel_options_sheet.dart';
+import 'package:jet_set_go/homepages/homepage_registered_user.dart';
 
 
 class TransportScreen extends StatefulWidget {
@@ -18,12 +20,12 @@ class TransportScreenState extends State<TransportScreen> {
   final Completer<GoogleMapController> _controller = Completer();
   final Set<Polyline> _polylines = {};
   final Set<Marker> _markers = {};
-  String _journeyDuration = "Calculating..."; // Add this to store duration
+  String _journeyDuration = "Calculating...";
 
 
   static const LatLng _airportLocation = LatLng(7.1808, 79.8841);
   Position? _currentPosition;
-  String _selectedMode = "driving"; // Default mode is Car
+  String _selectedMode = "driving"; // Default mode
 
   @override
   void initState() {
@@ -70,7 +72,7 @@ class TransportScreenState extends State<TransportScreen> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        debugPrint("Location permissions are denied."); //
+        debugPrint("Location permissions are denied.");
         showSnackbar("Location access is required to get directions.");
         return;
       }
@@ -110,7 +112,7 @@ class TransportScreenState extends State<TransportScreen> {
 
     });
 
-    _updateRoute(); // Fetch route after getting location
+    _updateRoute();
 
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(
@@ -121,7 +123,6 @@ class TransportScreenState extends State<TransportScreen> {
     );
   }
 
-  /// Fetches and updates the route on the map when mode changes.
   Future<void> _updateRoute() async {
     if (_currentPosition == null) return;
 
@@ -133,7 +134,7 @@ class TransportScreenState extends State<TransportScreen> {
 
     setState(() {
       _polylines.clear();
-      _journeyDuration = routeData["duration"]; // Update duration text
+      _journeyDuration = routeData["duration"];
 
       if (routeData["route"].isNotEmpty) {
         _polylines.add(
@@ -147,6 +148,20 @@ class TransportScreenState extends State<TransportScreen> {
       }
     });
   }
+
+  PopupMenuItem<String> _buildMenuItem(IconData icon, String label) {
+    return PopupMenuItem(
+      value: label,
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.black54),
+          SizedBox(width: 10),
+          Text(label, style: TextStyle(fontSize: 16)),
+        ],
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -175,7 +190,7 @@ class TransportScreenState extends State<TransportScreen> {
             left: 20,
             child: Text(
               'TRANSPORT',
-              style: TextStyle(
+              style: GoogleFonts.ubuntu(
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
@@ -189,12 +204,12 @@ class TransportScreenState extends State<TransportScreen> {
             left: 24,
             child: Text(
               'ASSISTANCE',
-              style: TextStyle(fontSize: 20, color: Colors.white, letterSpacing: 2.0),
+              style: GoogleFonts.ubuntu(fontSize: 20, color: Colors.white, letterSpacing: 2.0),
             ),
           ),
 
           Container(
-            margin: EdgeInsets.only(top: 130,left: 25),
+            margin: EdgeInsets.only(top: 135,left: 25),
             width: 275,
             height: 4,
             decoration: BoxDecoration(
@@ -208,6 +223,47 @@ class TransportScreenState extends State<TransportScreen> {
             right: 80,
             child: Image.asset("assets/images/takeoff.png", height: 40),
           ),
+
+          Positioned(
+            top: 60,
+            right: 15,
+            child: PopupMenuButton<String>(
+              icon: Icon(Icons.menu, color: Colors.white, size: 40),
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              offset: Offset(0, 50),
+              onSelected: (value) {
+                switch (value) {
+                  case 'Home':
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePageRegistered()),
+                    );
+                    break;
+                  case 'Settings':
+                    Navigator.pushNamed(context, '/settings');
+                    break;
+                  case 'Features':
+                    Navigator.pushNamed(context, '/features');
+                    break;
+                  case 'Profile':
+                    Navigator.pushNamed(context, '/profile');
+                    break;
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return [
+                  _buildMenuItem(Icons.home, 'Home'),
+                  _buildMenuItem(Icons.settings, 'Settings'),
+                  _buildMenuItem(Icons.lightbulb, 'Features'),
+                  _buildMenuItem(Icons.person, 'Profile'),
+                ];
+              },
+            ),
+          ),
+
 
           Positioned(
             top: 150,
