@@ -118,7 +118,7 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
           });
         }
       } catch (e) {
-        print("Error fetching username: $e");
+        throw Exception("Error fetching username: $e");
       }
     }
   }
