@@ -85,6 +85,7 @@ flutter:
     - assets/headerIcon.jpg
     - assets/plane.png
     - assets/special assistance backdrop.jpg
+    - assets/navigation_back.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
