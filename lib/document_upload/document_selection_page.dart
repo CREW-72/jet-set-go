@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import './document_upload_page.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:jet_set_go/homepages/homepage_registered_user.dart';
 
 class DocumentSelectionPage extends StatefulWidget {
   const DocumentSelectionPage({super.key});
@@ -9,28 +13,12 @@ class DocumentSelectionPage extends StatefulWidget {
 }
 
 class DocumentSelectionPageState extends State<DocumentSelectionPage> {
-  int _selectedIndex = 0;
+  String username = "User"; // Default username
 
-  void _onNavItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-
-      // Add navigation functionality if required
-      switch (index) {
-        case 0:
-          Navigator.pushNamed(context, '/home'); // Navigate to Home Page
-          break;
-        case 1:
-          Navigator.pushNamed(context, '/settings'); // Navigate to Settings
-          break;
-        case 2:
-          Navigator.pushNamed(context, '/features'); // Navigate to Features Page
-          break;
-        case 3:
-          Navigator.pushNamed(context, '/profile'); // Navigate to Profile Page
-          break;
-      }
-    });
+  @override
+  void initState() {
+    super.initState();
+    _fetchUsername();
   }
 
   void _navigateToUploadPage(BuildContext context, String documentType) {
@@ -41,6 +29,23 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
       ),
     );
   }
+
+  Future<void> _fetchUsername() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+        if (userDoc.exists && userDoc.data() != null) {
+          setState(() {
+            username = userDoc['username'] ?? "User"; // Fetch username or default
+          });
+        }
+      } catch (e) {
+        throw Exception("Error fetching username: $e");
+      }
+    }
+  }
+
   Widget _buildAirTicketButton(BuildContext context) {
     return GestureDetector(
       onTap: () => _navigateToUploadPage(context, "Air Ticket"),
@@ -59,32 +64,31 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
             ),
           ],
           image: DecorationImage(
-            image: AssetImage("assets/images/plane_pattern.png"), // Your plane pattern image
-            fit: BoxFit.cover, // Cover the entire button
-            opacity: 0.5, // Adjust this value to control transparency
+            image: AssetImage("assets/images/plane_pattern.png"),
+            fit: BoxFit.cover,
+            opacity: 0.5,
           ),
         ),
         child: Stack(
           children: [
-            // Move Image to the Left Corner
             Positioned(
-              left: -20, // Aligns to the left edge
-              top: -20, // Adjust this to move it up/down
+              left: -20,
+              top: -20,
               child: Image.asset(
                 "assets/images/ticket.png",
-                width: 200, // Adjust width for a bigger icon
-                height: 200, // Adjust height
+                width: 200,
+                height: 200,
                 fit: BoxFit.contain,
               ),
             ),
 
             // Air Ticket Text
             Positioned(
-              left: 150, // Moves text to the right, adjust as needed
-              top: 50, // Center text vertically
+              left: 150,
+              top: 50,
               child: Text(
                 "Air Ticket",
-                style: TextStyle(
+                style: GoogleFonts.ubuntu(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
@@ -103,7 +107,7 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
     return GestureDetector(
       onTap: () => _navigateToUploadPage(context, documentType),
       child: Container(
-        height: 130, // Uniform height for all buttons
+        height: 130,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Color(0xFFA5E5FF),
@@ -117,25 +121,39 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
             ),
           ],
           image: DecorationImage(
-            image: AssetImage("assets/images/plane_pattern.png"), // Your plane pattern image
-            fit: BoxFit.cover, // Cover the entire button
-            opacity: 0.5, // Adjust this value to control transparency
+            image: AssetImage("assets/images/plane_pattern.png"),
+            fit: BoxFit.cover,
+            opacity: 0.5,
           ),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(assetPath, width: 100, height: 100), // Icon image
+            Image.asset(assetPath, width: 100, height: 100),
             SizedBox(height: 10),
             Text(
               documentType,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: GoogleFonts.ubuntu(fontSize: 20, fontWeight: FontWeight.bold),
             ),
           ],
         ),
       ),
     );
   }
+
+  PopupMenuItem<String> _buildMenuItem(IconData icon, String label) {
+    return PopupMenuItem(
+      value: label,
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.black54),
+          SizedBox(width: 10),
+          Text(label, style: TextStyle(fontSize: 16)),
+        ],
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +169,7 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
             ),
           ),
 
-          // HEADER SECTION (Copied from Transport Page)
+
           Positioned(
             top: 0,
             left: 0,
@@ -162,12 +180,12 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
             top: 50,
             left: 20,
             child: Text(
-              'USER\'S',
-              style: TextStyle(
+              '${username.toUpperCase()}’S',
+              style: GoogleFonts.ubuntu(
                 fontSize: 45,
-                fontWeight: FontWeight.bold,
+                fontWeight: FontWeight.w700,
                 color: Colors.white,
-                letterSpacing: 3.0,
+                letterSpacing: 2.0,
               ),
             ),
           ),
@@ -176,7 +194,7 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
             left: 24,
             child: Text(
               'DOCUMENTS',
-              style: TextStyle(fontSize: 20, color: Colors.white, letterSpacing: 2.0),
+              style: GoogleFonts.ubuntu(fontSize: 20, color: Colors.white, letterSpacing: 2.0),
             ),
           ),
           Positioned(
@@ -190,36 +208,65 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
             right: 70,
             child: Image.asset("assets/images/plane_takeoff.png", height: 50),
           ),
+
           Positioned(
             top: 50,
-            right: 20,
-            child: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white, size: 28),
-              onPressed: () {
-                Navigator.pop(context);
+            right: 15,
+            child: PopupMenuButton<String>(
+              icon: Icon(Icons.menu, color: Colors.white, size: 40),
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              offset: Offset(0, 50),
+              onSelected: (value) {
+                switch (value) {
+                  case 'Home':
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePageRegistered()),
+                    );
+                    break;
+                  case 'Settings':
+                    Navigator.pushNamed(context, '/settings');
+                    break;
+                  case 'Features':
+                    Navigator.pushNamed(context, '/features');
+                    break;
+                  case 'Profile':
+                    Navigator.pushNamed(context, '/profile');
+                    break;
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return [
+                  _buildMenuItem(Icons.home, 'Home'),
+                  _buildMenuItem(Icons.settings, 'Settings'),
+                  _buildMenuItem(Icons.lightbulb, 'Features'),
+                  _buildMenuItem(Icons.person, 'Profile'),
+                ];
               },
             ),
           ),
 
-          // CONTENT SECTION BELOW HEADER
+
+
           Padding(
-            padding: const EdgeInsets.only(top: 200, left: 20, right: 20),
+            padding: const EdgeInsets.only(top: 230, left: 20, right: 20),
             child: Column(
               children: [
-                // Air Ticket Button (No changes here)
                 SizedBox(
                   width: double.infinity,
                   child: _buildAirTicketButton(context),
                 ),
 
-                // Grid Section Moved Up
                 Transform.translate(
-                  offset: Offset(0, -45),  // Moves GridView UP
+                  offset: Offset(0, -45),
                   child: SizedBox(
                     height: 500,
                     child: GridView.count(
                       crossAxisCount: 2,
-                      crossAxisSpacing: 5, // Adjust for closer button spacing
+                      crossAxisSpacing: 5,
                       mainAxisSpacing: 5,
                       childAspectRatio: 1.3,
                       children: [
@@ -236,24 +283,6 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
               ],
             ),
           ),
-        ],
-      ),
-
-      // Bottom Navigation Bar
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onNavItemTapped,
-        backgroundColor: Colors.blue[900],
-        selectedItemColor: Color(0xFFACE6FC),
-        unselectedItemColor: Color(0xFFACE6FC),
-        type: BottomNavigationBarType.fixed,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(icon: Padding(padding: EdgeInsets.only(top: 10), child: Icon(Icons.home)), label: ''),
-          BottomNavigationBarItem(icon: Padding(padding: EdgeInsets.only(top: 10), child: Icon(Icons.settings)), label: ''),
-          BottomNavigationBarItem(icon: Padding(padding: EdgeInsets.only(top: 10), child: Icon(Icons.lightbulb)), label: ''),
-          BottomNavigationBarItem(icon: Padding(padding: EdgeInsets.only(top: 10), child: Icon(Icons.person)), label: ''),
         ],
       ),
     );

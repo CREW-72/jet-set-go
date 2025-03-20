@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:open_file/open_file.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:jet_set_go/homepages/homepage_registered_user.dart';
 
 class DocumentUploadPage extends StatefulWidget {
   final String documentType;
@@ -18,32 +20,9 @@ class DocumentUploadPage extends StatefulWidget {
 class DocumentUploadPageState extends State<DocumentUploadPage> {
   List<File> _uploadedFiles = [];
   final List<File> _capturedImages = [];
-  int _selectedIndex = 0;
 
-  ///variable to track the text in the take picture button
+  //to track the text in the take picture button
   String _cameraButtonText = "Take Picture";
-
-  void _onNavItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-
-      // Add navigation functionality if required
-      switch (index) {
-        case 0:
-          Navigator.pushNamed(context, '/home'); // Navigate to Home Page
-          break;
-        case 1:
-          Navigator.pushNamed(context, '/settings'); // Navigate to Settings
-          break;
-        case 2:
-          Navigator.pushNamed(context, '/features'); // Navigate to Features Page
-          break;
-        case 3:
-          Navigator.pushNamed(context, '/profile'); // Navigate to Profile Page
-          break;
-      }
-    });
-  }
 
 
   @override
@@ -166,8 +145,7 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
     );
   }
 
-
-  /// Save file and update the list instead of replacing
+///save file
   void _saveFile(File file) {
     setState(() {
       _uploadedFiles.add(file);
@@ -195,13 +173,25 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
     }
   }
 
+  PopupMenuItem<String> _buildMenuItem(IconData icon, String label) {
+    return PopupMenuItem(
+      value: label,
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.black54),
+          SizedBox(width: 10),
+          Text(label, style: TextStyle(fontSize: 16)),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [
-          /// BACKGROUND IMAGE
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
@@ -211,7 +201,6 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
             ),
           ),
 
-          /// HEADER SECTION
           Positioned(
             top: 0,
             left: 0,
@@ -234,9 +223,9 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
               constraints: BoxConstraints(maxWidth: 250),
               child: Text(
                 'UPLOAD ${widget.documentType.toUpperCase()}',
-                style: TextStyle(
+                style: GoogleFonts.ubuntu(
                   fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w600,
                   color: Colors.white,
                   letterSpacing: 1.5,
                 ),
@@ -245,13 +234,43 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
               ),
             ),
           ),
+
           Positioned(
-            top: 65,
-            right: 20,
-            child: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white, size: 28),
-              onPressed: () {
-                Navigator.pop(context);
+            top: 60,
+            right: 15,
+            child: PopupMenuButton<String>(
+              icon: Icon(Icons.menu, color: Colors.white, size: 40),
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              offset: Offset(0, 50),
+              onSelected: (value) {
+                switch (value) {
+                  case 'Home':
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePageRegistered()),
+                    );
+                    break;
+                  case 'Settings':
+                    Navigator.pushNamed(context, '/settings');
+                    break;
+                  case 'Features':
+                    Navigator.pushNamed(context, '/features');
+                    break;
+                  case 'Profile':
+                    Navigator.pushNamed(context, '/profile');
+                    break;
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return [
+                  _buildMenuItem(Icons.home, 'Home'),
+                  _buildMenuItem(Icons.settings, 'Settings'),
+                  _buildMenuItem(Icons.lightbulb, 'Features'),
+                  _buildMenuItem(Icons.person, 'Profile'),
+                ];
               },
             ),
           ),
@@ -446,48 +465,6 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-
-      /// BOTTOM NAVIGATION BAR
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onNavItemTapped,
-        backgroundColor: Colors.blue[900],
-        selectedItemColor: Color(0xFFACE6FC),
-        unselectedItemColor: Color(0xFFACE6FC),
-        type: BottomNavigationBarType.fixed,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: [
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Icon(Icons.home),
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Icon(Icons.settings),
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Icon(Icons.lightbulb),
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Icon(Icons.person),
-            ),
-            label: '',
           ),
         ],
       ),
