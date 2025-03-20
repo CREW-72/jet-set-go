@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:jet_set_go/authentication/signup_page.dart';
 import 'package:jet_set_go/homepages/homepage_unregistered.dart';
 import 'package:jet_set_go/homepages/homepage_registered_user.dart';
 
@@ -90,7 +91,7 @@ class LoginPageState extends State<LoginPage> {
         if (userDoc.exists) {
           hasSetupTrip = userDoc['hasSetupTrip'] ?? false;
         } else {
-          // ✅ If document does not exist, create with default values
+          // create with default values
           await userRef.set({
             'hasSetupTrip': false,
             'flightNumber': "", // Ensure field exists for future use
@@ -200,7 +201,6 @@ class LoginPageState extends State<LoginPage> {
                         ),
                         TextButton(
                           onPressed: () {
-                            // TODO: Implement Forgot Password feature
                           },
                           child: Text(
                             "Forgot Password?",
@@ -229,6 +229,43 @@ class LoginPageState extends State<LoginPage> {
                         child: Text(
                           "Login",
                           style: TextStyle(fontSize: 18, color: Colors.white, fontFamily: 'Poppins'),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+
+                    Text("or",textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 20,)),
+
+                    SizedBox(height: 10),
+
+                    Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        width: 280, // Ensure fixed width
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => SignUpPage()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.deepPurpleAccent,
+                            padding: EdgeInsets.symmetric(vertical: 12),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                            minimumSize: Size(200, 50),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.person, color: Colors.white, size: 24),
+                              SizedBox(width: 10),
+                              Text(
+                                "Create an account",
+                                style: TextStyle(fontSize: 18, color: Colors.white, fontFamily: 'Poppins'),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -270,6 +307,7 @@ class LoginPageState extends State<LoginPage> {
       ),
     );
   }
+  }
 
   Widget _buildTextField(String hint, {bool obscureText = false, bool isEmail = false, TextEditingController? controller}) {
     return Padding(
@@ -290,4 +328,3 @@ class LoginPageState extends State<LoginPage> {
       ),
     );
   }
-}
