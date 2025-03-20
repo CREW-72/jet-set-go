@@ -2,8 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:jet_set_go/flight_tracking/flight_api_service.dart'; // Import API Service
+import 'package:jet_set_go/flight_tracking/flight_api_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // ✅ Imported Firebase Firestore
+import 'package:firebase_auth/firebase_auth.dart'; // Import API Service
 
 class FlightTrackingPage extends StatefulWidget {
   const FlightTrackingPage({super.key});
@@ -17,7 +18,7 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
   bool _isLoading = false;
   bool _hasError = false;
   String _errorMessage = '';
-  String? _savedFlightNumber; // Store the saved flight number
+  String? _firestoreFlightNumber; // Store flight number from Firestore
   Flight? _flight;
   Timer? _refreshTimer;
   final FlightApiService _apiService = FlightApiService(); // Initialize API service
@@ -25,7 +26,7 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
   @override
   void initState() {
     super.initState();
-    _loadSavedFlightNumber();
+    _fetchFlightNumberFromFirestore();
 
     // Set up auto-refresh every 5 minutes
     _refreshTimer = Timer.periodic(Duration(minutes: 5), (timer) {
@@ -40,28 +41,33 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
     super.dispose();
   }
 
-  /// ✅ **Load saved flight number from SharedPreferences and fetch flight details automatically**
-  Future<void> _loadSavedFlightNumber() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedFlightNumber = prefs.getString('savedFlightNumber');
-
-    if (savedFlightNumber != null && savedFlightNumber.isNotEmpty) {
-      setState(() {
-        _savedFlightNumber = savedFlightNumber;
-        _searchController.text = savedFlightNumber; // Prefill search bar
-        _isLoading = true; // Show loading indicator while fetching
-      });
-
-      await _searchFlight(savedFlightNumber); // ✅ Fetch flight details immediately
+  Future<void> _fetchFlightNumberFromFirestore() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      try {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+        if (userDoc.exists && userDoc.data() != null) {
+          setState(() {
+            _firestoreFlightNumber = userDoc['flightNumber'] ?? "";
+            if (_firestoreFlightNumber!.isNotEmpty) {
+              _searchController.text = _firestoreFlightNumber!; // Prefill search bar
+              _searchFlight(_firestoreFlightNumber!); // Fetch flight details immediately
+            }
+          });
+        }
+      } catch (e) {
+        print("Error fetching flight number: $e");
+      }
     }
   }
 
-  /// ✅ **Fetch flight details**
-  Future<void> _searchFlight(String flightNumber) async {
-    if (flightNumber.isEmpty) {
+  Future<void> _searchFlight([String? flightNumber]) async {
+    String finalFlightNumber = flightNumber ?? _firestoreFlightNumber ?? '';
+
+    if (finalFlightNumber.isEmpty) {
       setState(() {
         _hasError = true;
-        _errorMessage = 'Please enter a flight number';
+        _errorMessage = 'No flight number found. Please enter one.';
       });
       return;
     }
@@ -73,11 +79,11 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
     });
 
     try {
-      final flightData = await _apiService.getFlightDetails(flightNumber);
+      final flightData = await _apiService.getFlightDetails(finalFlightNumber);
 
       if (flightData != null) {
         setState(() {
-          _flight = Flight.fromJson(flightData); // Convert JSON map to Flight object
+          _flight = Flight.fromJson(flightData);
           _isLoading = false;
         });
       } else {
@@ -138,7 +144,7 @@ class FlightTrackingPageState extends State<FlightTrackingPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Show Search Bar **ONLY IF NO SAVED FLIGHT NUMBER**
-                if (_savedFlightNumber == null || _savedFlightNumber!.isEmpty)
+                if (_firestoreFlightNumber == null || _firestoreFlightNumber!.isEmpty)
                   Container(
                     decoration: BoxDecoration(
                       color: Color(0xFF1D3557),
