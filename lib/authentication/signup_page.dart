@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:jet_set_go/authentication/login_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -40,12 +41,11 @@ class SignUpPageState extends State<SignUpPage> {
         password: passwordController.text.trim(),
       );
 
-      // ✅ **Ensure `hasSetupTrip` & `flightNumber` exist**
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'username': usernameController.text.trim(),
         'email': emailController.text.trim(),
-        'hasSetupTrip': false, // Default value ✅
-        'flightNumber': "",    // Default empty ✅
+        'hasSetupTrip': false,
+        'flightNumber': "",
       });
 
       if (mounted) {
@@ -85,15 +85,13 @@ class SignUpPageState extends State<SignUpPage> {
       DocumentSnapshot userDoc = await userRef.get();
 
       if (!userDoc.exists) {
-        // ✅ **Ensure user data is set in Firestore for Google users**
         await userRef.set({
           'username': googleUser.displayName,
           'email': googleUser.email,
-          'hasSetupTrip': false, // Default value ✅
-          'flightNumber': "",    // Default empty ✅
+          'hasSetupTrip': false,
+          'flightNumber': "",
         });
       } else {
-        // ✅ **Ensure `hasSetupTrip` & `flightNumber` exist**
         Map<String, dynamic> updatedFields = {};
         if (!userDoc.data().toString().contains('hasSetupTrip')) {
           updatedFields['hasSetupTrip'] = false;
@@ -148,7 +146,7 @@ class SignUpPageState extends State<SignUpPage> {
                     children: [
                       Text(
                         "Your journey starts here! ✈️",
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                        style: GoogleFonts.ubuntu(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 20),
@@ -172,7 +170,7 @@ class SignUpPageState extends State<SignUpPage> {
                           padding: EdgeInsets.symmetric(vertical: 14, horizontal: 40),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                         ),
-                        child: Text("Sign up", style: TextStyle(fontSize: 18, color: Colors.white)),
+                        child: Text("Sign up", style: GoogleFonts.ubuntu(fontSize: 18, color: Colors.white)),
                       ),
                       SizedBox(height: 10),
                       Text("or", style: TextStyle(color: Colors.white, fontSize: 16)),
@@ -189,7 +187,7 @@ class SignUpPageState extends State<SignUpPage> {
                           children: [
                             Image.asset('assets/images/google.png', height: 24),
                             SizedBox(width: 10),
-                            Text("Continue with Google", style: TextStyle(color: Colors.black, fontSize: 16)),
+                            Text("Continue with Google", style: GoogleFonts.ubuntu(color: Colors.black, fontSize: 16)),
                           ],
                         ),
                       ),

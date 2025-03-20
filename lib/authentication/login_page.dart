@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:jet_set_go/authentication/signup_page.dart';
 import 'package:jet_set_go/homepages/homepage_unregistered.dart';
 import 'package:jet_set_go/homepages/homepage_registered_user.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -45,7 +46,6 @@ class LoginPageState extends State<LoginPage> {
         if (userDoc.exists) {
           hasSetupTrip = userDoc['hasSetupTrip'] ?? false;
         } else {
-          // ✅ If document does not exist, create with default values
           await userRef.set({
             'hasSetupTrip': false,
             'flightNumber': "", // Ensure field exists for future use
@@ -94,7 +94,7 @@ class LoginPageState extends State<LoginPage> {
           // create with default values
           await userRef.set({
             'hasSetupTrip': false,
-            'flightNumber': "", // Ensure field exists for future use
+            'flightNumber': "",
           }, SetOptions(merge: true));
         }
 
@@ -160,10 +160,9 @@ class LoginPageState extends State<LoginPage> {
                 right: 20,
                 child: Text(
                   "Welcome Back!",
-                  style: TextStyle(
+                  style: GoogleFonts.ubuntu(
                     fontSize: 41,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w700,
                     color: Colors.white,
                   ),
                   textAlign: TextAlign.center,
@@ -234,7 +233,7 @@ class LoginPageState extends State<LoginPage> {
                     ),
                     SizedBox(height: 10),
 
-                    Text("or",textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 20,)),
+                    Text("or",textAlign: TextAlign.center, style: GoogleFonts.ubuntu(color: Colors.white, fontSize: 20,)),
 
                     SizedBox(height: 10),
 
@@ -316,7 +315,7 @@ class LoginPageState extends State<LoginPage> {
         controller: controller,
         obscureText: obscureText,
         keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
-        style: TextStyle(color: Colors.white, fontFamily: 'Poppins'), // ✅ FIXED TEXT VISIBILITY
+        style: TextStyle(color: Colors.white, fontFamily: 'Poppins'), //
         decoration: InputDecoration(
           hintText: hint,
           hintStyle: TextStyle(color: Colors.white70, fontFamily: 'Poppins'),
