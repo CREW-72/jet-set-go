@@ -13,7 +13,6 @@ class LandingPageState extends State<LandingPage> {
   @override
   void initState() {
     super.initState();
-    // Delay for 3 seconds, then navigate to WelcomeScreen
     Timer(Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,
@@ -27,29 +26,27 @@ class LandingPageState extends State<LandingPage> {
     return Scaffold(
       body: Stack(
         children: [
-          // Background image
           Positioned.fill(
             child: Image.asset(
               'assets/images/sky.png',
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
             ),
           ),
           Center(
             child: SizedBox(
-              height: 400,  // Keeps the exact same height
-              width: 400,   // Keeps the exact same width
+              height: MediaQuery.of(context).size.height * 0.4,
+              width: MediaQuery.of(context).size.width * 0.6,
               child: Image.asset('assets/images/loading.gif', fit: BoxFit.contain),
             ),
           ),
-          // Logo at the bottom (NO CHANGES)
           Positioned(
-            bottom: 0,
+            bottom: MediaQuery.of(context).size.height * 0.05,
             left: 0,
             right: 0,
             child: Center(
               child: SizedBox(
-                height: 200, // Keeps the exact same height
-                width: 250,  // Keeps the exact same width
+                height: MediaQuery.of(context).size.height * 0.15,
+                width: MediaQuery.of(context).size.width * 0.5,
                 child: Image.asset('assets/images/logo.png', fit: BoxFit.contain),
               ),
             ),
