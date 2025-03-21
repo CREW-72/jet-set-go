@@ -3,8 +3,8 @@ import 'package:jet_set_go/packing_tips/travel_choice.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../homepages/homepage_registered_user.dart';
 
-class LandingPage extends StatelessWidget {
-  const LandingPage({super.key});
+class PackingLandingPage extends StatelessWidget {
+  const PackingLandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
