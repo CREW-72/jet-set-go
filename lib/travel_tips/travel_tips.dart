@@ -29,7 +29,7 @@ class TravelTipsScreen extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent.withOpacity(0.9),
+        backgroundColor: Colors.blueAccent.withAlpha(230),
         elevation: 0,
         title: Text('Air Travel Tips', style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold)),
         centerTitle: true,
@@ -79,7 +79,7 @@ class TravelTipsScreen extends StatelessWidget {
                   child: Card(
                     elevation: 6,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                    color: Colors.white.withOpacity(0.8),
+                    color: Colors.white.withAlpha(204),
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
@@ -115,7 +115,7 @@ class TipsDetailScreen extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent.withOpacity(0.9),
+        backgroundColor: Colors.blueAccent.withAlpha(230),
         elevation: 0,
         title: Text(title, style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold)),
         centerTitle: true,
@@ -141,7 +141,7 @@ class TipsDetailScreen extends StatelessWidget {
               itemCount: tips.length,
               itemBuilder: (context, index) {
                 return Card(
-                  color: Colors.white.withOpacity(0.85),
+                  color: Colors.white.withAlpha(212),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   elevation: 4,
                   margin: const EdgeInsets.symmetric(vertical: 6),
