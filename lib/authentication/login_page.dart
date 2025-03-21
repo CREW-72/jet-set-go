@@ -48,7 +48,7 @@ class LoginPageState extends State<LoginPage> {
         } else {
           await userRef.set({
             'hasSetupTrip': false,
-            'flightNumber': "", // Ensure field exists for future use
+            'flightNumber': "",
           }, SetOptions(merge: true));
         }
 
@@ -128,6 +128,8 @@ class LoginPageState extends State<LoginPage> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: SizedBox(
           height: size.height,
           child: Stack(
@@ -139,14 +141,14 @@ class LoginPageState extends State<LoginPage> {
                 ),
               ),
               Positioned(
-                top: 21,
-                left: 50.0,
-                right: 50.0,
+                top: MediaQuery.of(context).size.height * 0.07,
+                left: MediaQuery.of(context).size.width * 0.1,
+                right: MediaQuery.of(context).size.width * 0.1,
                 child: Opacity(
                   opacity: 0.9,
                   child: SizedBox(
-                    width: 350.0,
-                    height: 350.0,
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    height: MediaQuery.of(context).size.height * 0.30,
                     child: Image.asset(
                       'assets/images/airhostess.png',
                       fit: BoxFit.contain,
@@ -161,7 +163,7 @@ class LoginPageState extends State<LoginPage> {
                 child: Text(
                   "Welcome Back!",
                   style: GoogleFonts.ubuntu(
-                    fontSize: 41,
+                    fontSize: MediaQuery.of(context).size.width * 0.08,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
                   ),
@@ -220,7 +222,10 @@ class LoginPageState extends State<LoginPage> {
                         onPressed: _login,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.deepPurpleAccent,
-                          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 50),
+                          padding: EdgeInsets.symmetric(
+                            vertical: 5,
+                            horizontal: MediaQuery.of(context).size.width * 0.15,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
@@ -231,16 +236,16 @@ class LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 2),
 
                     Text("or",textAlign: TextAlign.center, style: GoogleFonts.ubuntu(color: Colors.white, fontSize: 20,)),
 
-                    SizedBox(height: 10),
+                    SizedBox(height: 4),
 
                     Align(
                       alignment: Alignment.center,
                       child: SizedBox(
-                        width: 280, // Ensure fixed width
+                        width: MediaQuery.of(context).size.width * 0.8,
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(
@@ -250,18 +255,24 @@ class LoginPageState extends State<LoginPage> {
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.deepPurpleAccent,
-                            padding: EdgeInsets.symmetric(vertical: 12),
+                            padding: EdgeInsets.symmetric(
+                              vertical: MediaQuery.of(context).size.height * 0.01,
+                            ),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                            minimumSize: Size(200, 50),
+                            minimumSize: Size(MediaQuery.of(context).size.width * 0.5, 50),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.person, color: Colors.white, size: 24),
-                              SizedBox(width: 10),
+                              Icon(Icons.person, color: Colors.white, size: MediaQuery.of(context).size.width * 0.06),
+                              SizedBox(width: MediaQuery.of(context).size.width * 0.02),
                               Text(
                                 "Create an account",
-                                style: TextStyle(fontSize: 18, color: Colors.white, fontFamily: 'Poppins'),
+                                style: TextStyle(
+                                  fontSize: MediaQuery.of(context).size.width * 0.045,
+                                  color: Colors.white,
+                                  fontFamily: 'Poppins',
+                                ),
                               ),
                             ],
                           ),
@@ -272,29 +283,44 @@ class LoginPageState extends State<LoginPage> {
                 ),
               ),
               Positioned(
-                left: 20,
-                right: 20,
-                bottom: 110,
+                left: MediaQuery.of(context).size.width * 0.05,
+                right: MediaQuery.of(context).size.width * 0.05,
+                bottom: MediaQuery.of(context).size.height * 0.07,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ElevatedButton(
-                      onPressed: _signInWithGoogle,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF87A8EE).withAlpha(153),
-                        padding: EdgeInsets.symmetric(vertical: 14, horizontal: 40),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      child: ElevatedButton(
+                        onPressed: _signInWithGoogle,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF87A8EE).withAlpha(153),
+                          padding: EdgeInsets.symmetric(
+                            vertical: MediaQuery.of(context).size.height * 0.01,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
                         ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image.asset('assets/images/google.png', height: 27),
-                          SizedBox(width: 10),
-                          Text("Continue with Google",
-                              style: TextStyle(color: Colors.white, fontSize: 16, fontFamily: 'Poppins')),
-                        ],
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/images/google.png',
+                              height: MediaQuery.of(context).size.height * 0.03,
+                            ),
+                            SizedBox(width: MediaQuery.of(context).size.width * 0.02),
+                            Text(
+                              "Continue with Google",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: MediaQuery.of(context).size.width * 0.045,
+                                fontFamily: 'Poppins',
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -306,8 +332,6 @@ class LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  }
-
   Widget _buildTextField(String hint, {bool obscureText = false, bool isEmail = false, TextEditingController? controller}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -315,15 +339,28 @@ class LoginPageState extends State<LoginPage> {
         controller: controller,
         obscureText: obscureText,
         keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
-        style: TextStyle(color: Colors.white, fontFamily: 'Poppins'), //
+        style: GoogleFonts.ubuntu(color: Colors.white),
         decoration: InputDecoration(
           hintText: hint,
-          hintStyle: TextStyle(color: Colors.white70, fontFamily: 'Poppins'),
+          hintStyle: GoogleFonts.ubuntu(
+            color: Colors.white70,
+            fontSize: MediaQuery.of(context).size.width * 0.04,
+          ),
           filled: true,
           fillColor: Colors.white.withAlpha(51),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide.none),
-          contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide.none,
+          ),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.02,
+            horizontal: MediaQuery.of(context).size.width * 0.05,
+          ),
         ),
+
       ),
     );
   }
+
+}
+

@@ -9,23 +9,29 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width: double.infinity, // Ensures full width
-        height: double.infinity, // Ensures full height
+        width: double.infinity,
+        height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/background.jpg"), // Background pattern
+            image: AssetImage("assets/images/background.jpg"),
             fit: BoxFit.cover,
           ),
         ),
-        child: Center( // Centers all content
+        child: Center(
           child: Column(
-            mainAxisSize: MainAxisSize.min, // Avoids unnecessary space
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Image.asset("assets/images/welcome.png", width: 400), // Main image
+              Image.asset(
+                "assets/images/welcome.png",
+                width: MediaQuery.of(context).size.width * 0.8,
+              ),
               SizedBox(height: 40),
               RichText(
                 text: TextSpan(
-                  style: TextStyle(fontSize: 60, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: MediaQuery.of(context).size.width * 0.12,
+                    fontWeight: FontWeight.bold,
+                  ),
                   children: [
                     TextSpan(text: "JET.", style: TextStyle(color: Colors.blue)),
                     TextSpan(text: "SET.", style: TextStyle(color: Colors.red)),
@@ -39,7 +45,7 @@ class WelcomeScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()), // Direct navigation
+                    MaterialPageRoute(builder: (context) => LoginPage()),
                   );
                 },
               ),
@@ -50,7 +56,7 @@ class WelcomeScreen extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SignUpPage()), // Direct navigation
+                    MaterialPageRoute(builder: (context) => SignUpPage()),
                   );
                 },
               ),
@@ -73,7 +79,7 @@ class CustomButton extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 40),
       child: SizedBox(
-        width: 200, // Button takes full width within padding
+        width: MediaQuery.of(context).size.width * 0.5,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.white,
@@ -82,7 +88,7 @@ class CustomButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
             ),
             padding: EdgeInsets.symmetric(vertical: 15),
-            minimumSize: Size(100, 50), // Ensures a minimum button width
+            minimumSize: Size(100, 50),
           ),
           onPressed: onTap,
           child: Text(text, style: TextStyle(fontSize: 18)),

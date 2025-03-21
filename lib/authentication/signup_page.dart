@@ -139,6 +139,7 @@ class SignUpPageState extends State<SignUpPage> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -146,7 +147,11 @@ class SignUpPageState extends State<SignUpPage> {
                     children: [
                       Text(
                         "Your journey starts here! ✈️",
-                        style: GoogleFonts.ubuntu(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                        style: GoogleFonts.ubuntu(
+                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 20),
@@ -167,7 +172,10 @@ class SignUpPageState extends State<SignUpPage> {
                         onPressed: _signUp,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.purple,
-                          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 40),
+                          padding: EdgeInsets.symmetric(
+                            vertical: 12,
+                            horizontal: MediaQuery.of(context).size.width * 0.15,
+                          ),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                         ),
                         child: Text("Sign up", style: GoogleFonts.ubuntu(fontSize: 18, color: Colors.white)),
@@ -185,9 +193,15 @@ class SignUpPageState extends State<SignUpPage> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Image.asset('assets/images/google.png', height: 24),
+                            Image.asset(
+                              'assets/images/google.png',
+                              height: MediaQuery.of(context).size.height * 0.03,
+                            ),
                             SizedBox(width: 10),
-                            Text("Continue with Google", style: GoogleFonts.ubuntu(color: Colors.black, fontSize: 16)),
+                            Text("Continue with Google",
+                                style: GoogleFonts.ubuntu(
+                                    color: Colors.black,
+                                    fontSize: 16)),
                           ],
                         ),
                       ),
@@ -216,7 +230,10 @@ class SignUpPageState extends State<SignUpPage> {
           filled: true,
           fillColor: Colors.white.withAlpha(51),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide.none),
-          contentPadding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.02,
+            horizontal: MediaQuery.of(context).size.width * 0.04,
+          ),
         ),
         validator: (value) {
           if (value == null || value.isEmpty) return "$hint is required";
