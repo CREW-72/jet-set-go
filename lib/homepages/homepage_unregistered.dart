@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/homepages/homepage_registered_user.dart';
 
 class HomePageUnregistered extends StatefulWidget {
@@ -28,14 +29,19 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           backgroundColor: Colors.white,
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 // Title
                 Text(
                   "Enter Your Flight Number",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.indigo),
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.ubuntu(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.indigo,
+                  ),
                 ),
                 SizedBox(height: 15),
 
@@ -52,8 +58,13 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
                   decoration: InputDecoration(
                     labelText: "i.e. UL123 / EK456",
                     border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    contentPadding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.015,
+                      horizontal: MediaQuery.of(context).size.width * 0.04,
+                    ),
                   ),
                 ),
+
                 SizedBox(height: 20),
 
                 Row(
@@ -84,7 +95,10 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.indigo,
-                        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                        padding: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).size.height * 0.015, // 1.5% of screen height
+                          horizontal: MediaQuery.of(context).size.width * 0.04, // 4% of screen width
+                        ),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
                       child: Text("Setup", style: TextStyle(color: Colors.white, fontSize: 18)),
@@ -128,6 +142,8 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
       body: Stack(
         children: [
           Container(
+            width: double.infinity,
+            height: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("assets/images/background.jpg"),
@@ -135,6 +151,7 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
               ),
             ),
           ),
+
 
           Positioned(
             top: 0,
@@ -144,13 +161,14 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
               children: [
                 Image.asset(
                   "assets/images/planeimage.png",
-                  height: 335,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  width: MediaQuery.of(context).size.width,
                   fit: BoxFit.cover,
-                  width: double.infinity,
                 ),
+
                 Positioned(
-                  top: 50,
-                  right: 15,
+                  top: MediaQuery.of(context).size.height * 0.06,
+                  right: MediaQuery.of(context).size.width * 0.04,
                   child: PopupMenuButton<String>(
                     icon: Icon(Icons.menu, color: Colors.black, size: 40),
                     color: Colors.white,
@@ -185,11 +203,11 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
           ),
 
           Positioned(
-            bottom: 85,
-            left: 10,
-            right: 10,
+            bottom: MediaQuery.of(context).size.height * 0.04,
+            left: MediaQuery.of(context).size.width * 0.03,
+            right: MediaQuery.of(context).size.width * 0.03,
             child: Column(
-              children: [
+            children: [
                 // WELCOME MESSAGE
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -205,17 +223,18 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
                       child: Text(
                         'WELCOME, ${username.isNotEmpty ? username.toUpperCase() : "USER"}!',
                         style: TextStyle(
-                          fontSize: 35,
+                          fontSize: MediaQuery.of(context).size.width * 0.08,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
+
                     ),
                   ),
                 ),
 
                 SizedBox(
-                  width: double.infinity,
+                  width: MediaQuery.of(context).size.width * 1,
                   child: Card(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -237,16 +256,18 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
                             children: [
                               Image.asset(
                                 "assets/images/setup.png",
-                                height: 200,
-                                width: 300,
+                                height: MediaQuery.of(context).size.height * 0.25,
+                                width: MediaQuery.of(context).size.width * 0.7,
                               ),
-                              SizedBox(height: 15),
+
+                              SizedBox(height: 1),
                               Text(
                                 'Set-up your Trip',
-                                style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.indigo),
+                                style: GoogleFonts.ubuntu(
+                                  fontSize: MediaQuery.of(context).size.width * 0.06,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.indigo,
+                                ),
                               ),
                             ],
                           ),
@@ -255,12 +276,12 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
                     ),
                   ),
                 ),
-                SizedBox(height: 3),
+                SizedBox(height: 2),
 
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     _buildCardButton("assets/images/FAQ.png", "FAQ"),
-                    SizedBox(width: 5),
                     _buildCardButton("assets/images/guide.png", "App Guide"),
                   ],
                 ),
@@ -287,37 +308,41 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
 
   Expanded _buildCardButton(String imagePath, String title) {
     return Expanded(
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        elevation: 4,
-        child: InkWell(
-          onTap: () {},
-          child: Ink(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/button1.png"),
-                fit: BoxFit.cover,
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          elevation: 4,
+          child: InkWell(
+            onTap: () {},
+            child: Ink(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("assets/images/button1.png"),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.circular(12),
               ),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
                     imagePath,
-                    height: 100,
-                    width: 200,
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    fit: BoxFit.contain,
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                   Text(
                     title,
-                    style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.indigo),
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.ubuntu(
+                      fontSize: MediaQuery.of(context).size.width * 0.05,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.indigo,
+                    ),
                   ),
                 ],
               ),

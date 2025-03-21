@@ -20,11 +20,14 @@ class HomePageRegistered extends StatefulWidget {
 
 class HomePageRegisteredState extends State<HomePageRegistered> {
   String username = "User";
+  Flight? _userFlight;
+
 
   @override
   void initState() {
     super.initState();
     _fetchUsername();
+    _fetchUserFlight();
   }
 
   Future<void> _fetchUsername() async {
@@ -78,106 +81,135 @@ class HomePageRegisteredState extends State<HomePageRegistered> {
     Color accentColor = Colors.blueAccent;
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+      padding: EdgeInsets.symmetric(
+        vertical: MediaQuery.of(context).size.height * 0.015,
+        horizontal: MediaQuery.of(context).size.width * 0.05,
+      ),
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.blueGrey.withAlpha(35), width: 1),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 6,
-            offset: Offset(0, 4),
-          ),
-        ],
+        boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 4))],
+        image: DecorationImage(
+          image: AssetImage("assets/images/planebg.png"),
+          fit: BoxFit.cover,
+        ),
       ),
-      child: Stack(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Positioned.fill(
-            child: Opacity(
-              opacity: 0.3,
-              child: Image.asset(
-                "assets/images/planebg.png",
-                fit: BoxFit.cover,
-              ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FittedBox(
+                  child: Text(
+                    flight.origin.code,
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.07,
+                      fontWeight: FontWeight.bold,
+                      color: textColor,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 2),
+                FittedBox(
+                  child: Text(
+                    flight.origin.city,
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: subtitleColor,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ),
+                SizedBox(height: 4),
+                FittedBox(
+                  child: Text(
+                    _formatFlightTime(flight.departure),
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color: accentColor,
+                    ),
+                  ),
+                ),
+                FittedBox(
+                  child: Text(
+                    _formatFlightDate(flight.departure),
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: subtitleColor,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
 
+          // Flight Icons and Route
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        flight.origin.code,
-                        style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: textColor),
-                      ),
-                      Text(
-                        flight.origin.city,
-                        style: TextStyle(fontSize: 16, color: subtitleColor),
-                      ),
-                      SizedBox(height: 6),
-                      Text(
-                        _formatFlightTime(flight.departure),
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: accentColor),
-                      ),
-                      Text(
-                        _formatFlightDate(flight.departure),
-                        style: TextStyle(fontSize: 16, color: subtitleColor),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Icon(
-                        Icons.flight_takeoff,
-                        size: 30,
-                        color: accentColor,
-                      ),
-                      const SizedBox(height: 8),
-                      Container(
-                        width: 100,
-                        height: 1,
-                        color: textColor,
-                      ),
-                      const SizedBox(height: 8),
-                      Icon(
-                        Icons.flight_land,
-                        size: 30,
-                        color: accentColor,
-                      ),
-                    ],
-                  ),
-
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        flight.destination.code,
-                        style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: textColor),
-                      ),
-                      Text(
-                        flight.destination.city,
-                        style: TextStyle(fontSize: 16, color: subtitleColor),
-                      ),
-                      SizedBox(height: 6),
-                      Text(
-                        _formatFlightTime(flight.arrival),
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: accentColor),
-                      ),
-                      Text(
-                        _formatFlightDate(flight.arrival),
-                        style: TextStyle(fontSize: 16, color: subtitleColor),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              Icon(Icons.flight_takeoff, size: MediaQuery.of(context).size.width * 0.07, color: accentColor),
+              SizedBox(height: 6),
+              Container(width: MediaQuery.of(context).size.width * 0.15, height: 2, color: textColor),
+              SizedBox(height: 6),
+              Icon(Icons.flight_land, size: MediaQuery.of(context).size.width * 0.07, color: accentColor),
             ],
+          ),
+
+          // Destination Airport Details
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                FittedBox(
+                  child: Text(
+                    flight.destination.code,
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.07,
+                      fontWeight: FontWeight.bold,
+                      color: textColor,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 2),
+                FittedBox(
+                  child: Text(
+                    flight.destination.city,
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: subtitleColor,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                ),
+                SizedBox(height: 4),
+                FittedBox(
+                  child: Text(
+                    _formatFlightTime(flight.arrival),
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.05,
+                      fontWeight: FontWeight.bold,
+                      color: accentColor,
+                    ),
+                  ),
+                ),
+                FittedBox(
+                  child: Text(
+                    _formatFlightDate(flight.arrival),
+                    style: TextStyle(
+                      fontSize: MediaQuery.of(context).size.width * 0.04,
+                      color: subtitleColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -185,28 +217,30 @@ class HomePageRegisteredState extends State<HomePageRegistered> {
   }
 
 
-  Future<DocumentSnapshot<Object?>> _fetchUserFlight() async {
+  Future<void> _fetchUserFlight() async {
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
 
       Map<String, dynamic>? userData = userDoc.data() as Map<String, dynamic>?;
       if (userData == null || !userData.containsKey('flightNumber')) {
-        throw Exception("No flight number found for user.");
+        setState(() => _userFlight = null); // no flight
+        return;
       }
 
       String flightNumber = userData['flightNumber'];
-
       DocumentSnapshot flightDoc = await FirebaseFirestore.instance.collection('flights').doc(flightNumber).get();
 
       if (flightDoc.exists) {
-        return flightDoc;
+        setState(() {
+          _userFlight = _mapToFlight(flightDoc);
+        });
       } else {
-        throw Exception("No active flight found.");
+        setState(() => _userFlight = null);
       }
     }
-    throw Exception("User not logged in");
   }
+
 
 
 
@@ -266,164 +300,180 @@ class HomePageRegisteredState extends State<HomePageRegistered> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/background.jpg'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-
-          // image with hamburger menu
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Stack(
-              children: [
-                Image.asset(
-                  "assets/images/planeimage1.png",
-                  height: 260,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                ),
-
-                //menu
-                Positioned(
-                  top: 50,
-                  right: 15,
-                  child: PopupMenuButton<String>(
-                    icon: Icon(Icons.menu, color: Colors.black, size: 40),
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    offset: Offset(0, 50),
-                    onSelected: (value) {
-                      switch (value) {
-                        case 'Home':
-                          Navigator.pushNamed(context, '');
-                          break;
-                        case 'Settings':
-                          Navigator.pushNamed(context, '/settings');
-                          break;
-                        case 'Features':
-                          Navigator.pushNamed(context, '/features');
-                          break;
-                        case 'Profile':
-                          Navigator.pushNamed(context, '/profile');
-                          break;
-                      }
-                    },
-                    itemBuilder: (BuildContext context) {
-                      return [
-                        _buildMenuItem(Icons.home, 'Home'),
-                        _buildMenuItem(Icons.settings, 'Settings'),
-                        _buildMenuItem(Icons.lightbulb, 'Features'),
-                        _buildMenuItem(Icons.person, 'Profile'),
-                      ];
-                    },
+    return PopScope(
+      canPop: false,
+        child: Scaffold(
+          body: Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/background.jpg'),
+                    fit: BoxFit.cover,
                   ),
                 ),
-              ],
-            ),
-          ),
-
-          Positioned(
-            top: 250,
-            left: 10,
-            child: ShaderMask(
-              shaderCallback: (bounds) {
-                return LinearGradient(
-                  colors: [Colors.blue, Colors.cyanAccent, Colors.red, Colors.orange],
-                  tileMode: TileMode.mirror,
-                ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height));
-              },
-              child: Text(
-                'WELCOME BACK, ${username.isNotEmpty ? username.toUpperCase() : "USER"}!',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
               ),
-            ),
-          ),
 
-          Positioned(
-            top: 300,
-            left: 10,
-            right: 10,
-            child: FutureBuilder<DocumentSnapshot>(
-              future: _fetchUserFlight(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
+              // image with hamburger menu
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      "assets/images/planeimage1.png",
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      width: MediaQuery.of(context).size.width,
+                      fit: BoxFit.cover,
+                    ),
 
-                if (!snapshot.hasData || !snapshot.data!.exists) {
-                  return SizedBox(
-                    height: 130,
-                    child: Card(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                      elevation: 4,
-                      child: Center(
-                        child: Text("No active flight", style: TextStyle(fontSize: 18, color: Colors.red)),
+                    //menu
+                    Positioned(
+                      top: 50,
+                      right: 15,
+                      child: PopupMenuButton<String>(
+                        icon: Icon(Icons.menu, color: Colors.black, size: 40),
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        offset: Offset(0, 50),
+                        onSelected: (value) {
+                          switch (value) {
+                            case 'Home':
+                              Navigator.pushNamed(context, '');
+                              break;
+                            case 'Settings':
+                              Navigator.pushNamed(context, '/settings');
+                              break;
+                            case 'Features':
+                              Navigator.pushNamed(context, '/features');
+                              break;
+                            case 'Profile':
+                              Navigator.pushNamed(context, '/profile');
+                              break;
+                          }
+                        },
+                        itemBuilder: (BuildContext context) {
+                          return [
+                            _buildMenuItem(Icons.home, 'Home'),
+                            _buildMenuItem(Icons.settings, 'Settings'),
+                            _buildMenuItem(Icons.lightbulb, 'Features'),
+                            _buildMenuItem(Icons.person, 'Profile'),
+                          ];
+                        },
                       ),
                     ),
-                  );
-                }
+                  ],
+                ),
+              ),
 
-                Flight flight = _mapToFlight(snapshot.data!);
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.28,
+                left: MediaQuery.of(context).size.width * 0.03,
+                child: ShaderMask(
+                  shaderCallback: (bounds) {
+                    return LinearGradient(
+                      colors: [Colors.blue, Colors.cyanAccent, Colors.red, Colors.orange],
+                      tileMode: TileMode.mirror,
+                    ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height));
+                  },
+                  child: Text(
+                    'WELCOME BACK, ${username.isNotEmpty ? username.toUpperCase() : "USER"}!',
+                    style: GoogleFonts.ubuntu(
+                      fontSize: MediaQuery.of(context).size.width * 0.06,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
 
-                return InkWell(
-                  onTap: () {
-                    Navigator.push(
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.34,
+                left: MediaQuery.of(context).size.width * 0.03,
+                right: MediaQuery.of(context).size.width * 0.03,
+                child: InkWell(
+                  onTap: () async {
+                    await Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => FlightTrackingPage()),
                     );
+                    _fetchUserFlight(); // Refresh on return
                   },
-                  child: _buildFlightHeader(flight),
-                );
-              },
-            ),
-          ),
+                  child: _userFlight == null
+                      ? Container(
+                    height: MediaQuery.of(context).size.height * 0.15,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Color(0xFF4A90E2), Color(0xFF00B4DB)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 6,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Click here to track your flight",
+                        style: GoogleFonts.ubuntu(
+                          fontSize: MediaQuery.of(context).size.width * 0.05,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  )
+                      : _buildFlightHeader(_userFlight!),
+                ),
+              ),
 
-
-          // feature buttons
-          Positioned(
-            top: 460,
-            left: 10,
-            right: 10,
-            child: Column(
-              children: [
-                Row(
+              // feature buttons
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.57,
+                left: MediaQuery.of(context).size.width * 0.02,
+                right: MediaQuery.of(context).size.width * 0.02,
+                bottom: MediaQuery.of(context).size.height * 0.02,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    _buildFeatureButton("assets/images/document.png", "Document Upload",DocumentSelectionPage()),
-                    _buildFeatureButton("assets/images/wheelchair.png", "Special Assistance",SpecialAssistanceLandingPage()),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Ensures equal spacing
+                      children: [
+                        _buildFeatureButton("assets/images/document.png", "Document Upload", DocumentSelectionPage()),
+                        _buildFeatureButton("assets/images/wheelchair.png", "Special Assistance", SpecialAssistanceLandingPage()),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildFeatureButton("assets/images/taxi.png", "Transport", TransportScreen()),
+                        _buildFeatureButton("assets/images/map.png", "Airport Navigation", MapScreen()),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _buildFeatureButton("assets/images/travel.png", "Travel Tips", TravelTipsApp()),
+                        _buildFeatureButton("assets/images/luggage.png", "Packing Tips", PackingLandingPage()),
+                      ],
+                    ),
                   ],
                 ),
-                Row(
-                  children: [
-                    _buildFeatureButton("assets/images/taxi.png", "Transport",TransportScreen()),
-                    _buildFeatureButton("assets/images/map.png", "Airport Navigation",MapScreen()),
-                  ],
-                ),
-                Row( // New row for additional feature buttons
-                  children: [
-                    _buildFeatureButton("assets/images/travel.png", "Travel Tips",TravelTipsApp()),
-                    _buildFeatureButton("assets/images/luggage.png", "Packing Tips",PackingLandingPage()),
-                  ],
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
     );
   }
 
@@ -440,8 +490,10 @@ class HomePageRegisteredState extends State<HomePageRegistered> {
     );
   }
 
-  Expanded _buildFeatureButton(String imagePath, String title, Widget page) {
-    return Expanded(
+  Widget _buildFeatureButton(String imagePath, String title, Widget page) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.48,
+      height: MediaQuery.of(context).size.height * 0.13,
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
@@ -462,29 +514,26 @@ class HomePageRegisteredState extends State<HomePageRegistered> {
               ),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0), // Keep padding small
-              child: Column(
-                children: [
-                  Image.asset(imagePath, height: 80, width: 150), // Smaller size
-                  SizedBox(height: 5),
-                  Text(
-                    title,
-                    style: GoogleFonts.ubuntu(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.indigo
-                    ),
-                    textAlign: TextAlign.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(imagePath, height: MediaQuery.of(context).size.height * 0.07),
+                SizedBox(height: 5),
+                Text(
+                  title,
+                  style: GoogleFonts.ubuntu(
+                    fontSize: MediaQuery.of(context).size.width * 0.035,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.indigo,
                   ),
-                ],
-              ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           ),
         ),
       ),
     );
   }
-
 
 }
