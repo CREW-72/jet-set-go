@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jet_set_go/airport_navigation/map_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import '../homepages/homepage_registered_user.dart';
 class NavigationLanding extends StatelessWidget {
   const NavigationLanding({super.key});
 
@@ -43,7 +43,7 @@ class NavigationLanding extends StatelessWidget {
                       return Opacity(opacity: opacity, child: child);
                     },
                     child: Text(
-                      "Navigate Airports With Ease..\n \n",
+                      "Your Easy Airport\n Guide\n \n",
                       style: GoogleFonts.caveat(
                         textStyle: TextStyle(
                           fontSize: 40,
@@ -55,7 +55,7 @@ class NavigationLanding extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  SizedBox(height: 385),
+                  SizedBox(height: 420),
 
                   // Glassmorphic Container
                   Container(
@@ -120,34 +120,60 @@ class NavigationLanding extends StatelessWidget {
               ),
             ),
           ),
+
+          // Popup Menu Button
+          Positioned(
+            top: 55,
+            right: 10,
+            child: PopupMenuButton<String>(
+              icon: Icon(Icons.menu, color: Colors.black, size: 35),
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              offset: Offset(0, 50),
+              onSelected: (value) {
+                switch (value) {
+                  case 'Home':
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePageRegistered()),
+                    );
+                    break;
+                  case 'Settings':
+                    Navigator.pushNamed(context, '/settings');
+                    break;
+                  case 'Features':
+                    Navigator.pushNamed(context, '/features');
+                    break;
+                  case 'Profile':
+                    Navigator.pushNamed(context, '/profile');
+                    break;
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return [
+                  _buildMenuItem(Icons.home, 'Home'),
+                  _buildMenuItem(Icons.settings, 'Settings'),
+                  _buildMenuItem(Icons.lightbulb, 'Features'),
+                  _buildMenuItem(Icons.person, 'Profile'),
+                ];
+              },
+            ),
+          ),
         ],
       ),
+    );
+  }
 
-      // Standard Bottom Navigation Bar
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.blue[900],
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white60,
-        type: BottomNavigationBarType.fixed,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home, size: 28),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings, size: 28),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.lightbulb, size: 28),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person, size: 28),
-            label: '',
-          ),
+  PopupMenuItem<String> _buildMenuItem(IconData icon, String text) {
+    return PopupMenuItem<String>(
+      value: text,
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.black),
+          SizedBox(width: 10),
+          Text(text),
         ],
       ),
     );

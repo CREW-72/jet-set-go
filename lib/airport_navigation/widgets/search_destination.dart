@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_webservice/places.dart';
-import 'package:jet_set_go/airport_navigation/maps_styling.dart';
+import 'package:jet_set_go/packing_tips/style.dart'; // New style import
 
 class SearchDestination extends StatefulWidget {
   final String apiKey;
@@ -44,11 +44,13 @@ class SearchDestinationState extends State<SearchDestination> {
   @override
   Widget build(BuildContext context) {
     return UI(
+      title: "Search",
+      subtitle: "Find your destination",
       body: Stack(
         children: [
           Column(
             children: [
-              SizedBox(height:225),
+              SizedBox(height:255),
               Expanded(
                 child: ListView.builder(
                   padding: EdgeInsets.symmetric(horizontal: 16),
@@ -78,7 +80,7 @@ class SearchDestinationState extends State<SearchDestination> {
             ],
           ),
           Positioned(
-            top: 150, // Adjust vertical position
+            top: 170, // Adjust vertical position
             left: 16,
             right: 16,
             child: Card(

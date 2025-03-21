@@ -1,11 +1,10 @@
-// map_screen.dart
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:http/http.dart' as http;
-import 'package:jet_set_go/airport_navigation/maps_styling.dart';
+import 'package:jet_set_go/packing_tips/style.dart'; // New style import
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:jet_set_go/airport_navigation/widgets/search_destination.dart';
@@ -164,6 +163,8 @@ class MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return UI(
+      title: "Airport",
+      subtitle: "Navigation",
       body: Stack(
         children: [
           GoogleMap(
