@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jet_set_go/packing_tips/landing_page.dart';
+import 'package:jet_set_go/homepages/homepage_registered_user.dart';
 import 'package:jet_set_go/packing_tips/style.dart'; // Import the UI class
 
 class EfficientPackingTips extends StatelessWidget {
@@ -22,7 +22,7 @@ class EfficientPackingTips extends StatelessWidget {
       subtitle: 'FOR EFFICIENCY',
       body: Column(
         children: [
-          SizedBox(height: 130),
+          SizedBox(height: 155),
           Expanded(
             child: ListView(
               padding: EdgeInsets.all(10),
@@ -39,7 +39,7 @@ class EfficientPackingTips extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 40.0),
+            padding: const EdgeInsets.all(33.0),
             child: SizedBox(
               width: 300,
               height: 45,
@@ -48,7 +48,7 @@ class EfficientPackingTips extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => LandingPage(),
+                      builder: (context) => HomePageRegistered(),
                     ),
                   );
                 },

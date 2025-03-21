@@ -20,7 +20,7 @@ class WeatherBasedTips extends StatelessWidget {
       subtitle: 'CARRY-ON TIPS',
       body: Column(
         children: [
-          SizedBox(height: 130),
+          SizedBox(height: 155),
           Expanded(
             child: ListView(
               padding: EdgeInsets.all(10),
@@ -37,7 +37,7 @@ class WeatherBasedTips extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 40.0),
+            padding: const EdgeInsets.all(33.0),
             child: SizedBox(
               width: 300,
               height: 45,

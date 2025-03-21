@@ -47,7 +47,7 @@ class PackingSelectionScreenState extends State<PackingSelectionScreen> {
                 color: Colors.black54,
               ),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 60),
 
             // Category selection with modern card design
             Expanded(
@@ -140,7 +140,7 @@ class PackingSelectionScreenState extends State<PackingSelectionScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 40),
           ],
         ),
       ),

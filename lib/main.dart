@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:jet_set_go/landing_page/landing_page.dart'; // Set Loading Page as Home
+import 'package:jet_set_go/landing_page/landing_page.dart';
+import 'package:jet_set_go/local_transport/transport_screen.dart';
+import 'package:jet_set_go/packing_tips/travel_choice.dart'; // Set Loading Page as Home
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Jet Set Go',
-      home: LandingPage(), // Set Landing Page as the entry point
+      home: TravelChoice(), // Set Landing Page as the entry point
     );
   }
 }

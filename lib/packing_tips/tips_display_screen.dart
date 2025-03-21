@@ -55,7 +55,7 @@ class TipsDisplayScreen extends StatelessWidget {
         length: selectedCategories.length,
         child: Column(
           children: [
-            SizedBox(height: 130),
+            SizedBox(height: 155),
             TabBar(
               isScrollable: true,
               labelColor: Colors.white, // Selected tab text color
@@ -92,7 +92,7 @@ class TipsDisplayScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(30.0),
+              padding: const EdgeInsets.all(33.0),
               child: SizedBox(
                 width: 300,
                 height: 45,

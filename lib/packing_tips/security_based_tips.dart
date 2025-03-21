@@ -54,7 +54,7 @@ class SecurityBasedTips extends StatelessWidget {
         length: tips.keys.length,
         child: Column(
           children: [
-            SizedBox(height: 130),
+            SizedBox(height: 155),
             TabBar(
               isScrollable: true,
               labelColor: Colors.white, // Selected tab text color
@@ -94,7 +94,7 @@ class SecurityBasedTips extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 40.0),
+              padding: const EdgeInsets.all(33.0),
               child: SizedBox(
                 width: 300,
                 height: 45,

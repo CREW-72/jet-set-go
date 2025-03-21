@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../homepages/homepage_registered_user.dart';
 
 class UI extends StatelessWidget {
   final Widget body;
-  final BottomNavigationBar? bottomNavigationBar;
   final String title;
   final String subtitle;
 
@@ -11,7 +11,6 @@ class UI extends StatelessWidget {
     required this.body,
     required this.title,
     required this.subtitle,
-    this.bottomNavigationBar,
     super.key,
   });
 
@@ -37,13 +36,13 @@ class UI extends StatelessWidget {
             right: 0,
             child: Image.asset(
               "assets/header.jpg",
-              height: 136,
+              height: 160,
               fit: BoxFit.cover,
             ),
           ),
           Positioned(
-            top: 80,
-            left: 130,
+            top: 104,
+            left: 145,
             right: 0,
             child: Image.asset(
               "assets/plane.png",
@@ -51,8 +50,8 @@ class UI extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 100,
-            left: 20,
+            top: 118,
+            left: 24,
             right: 170,
             child: Image.asset(
               "assets/line.jpg",
@@ -60,13 +59,13 @@ class UI extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 25,
-            left: 20,
+            top: 60,
+            left: 24,
             child: Text(
               title,
               style: GoogleFonts.ubuntu(
                 textStyle: TextStyle(
-                  fontSize: 45,
+                  fontSize: 40,
                   fontWeight: FontWeight.w900,
                   color: Colors.white,
                   letterSpacing: 3.0, // Increase the width of the letters
@@ -75,8 +74,8 @@ class UI extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 85,
-            left: 20,
+            top: 107,
+            left: 24,
             child: Text(
               subtitle,
               style: GoogleFonts.ubuntu(
@@ -88,47 +87,60 @@ class UI extends StatelessWidget {
               ),
             ),
           ),
+          Positioned(
+            top: 60,
+            right: 15,
+            child: PopupMenuButton<String>(
+              icon: Icon(Icons.menu, color: Colors.white, size: 40),
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              offset: Offset(0, 50),
+              onSelected: (value) {
+                switch (value) {
+                  case 'Home':
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => HomePageRegistered()),
+                    );
+                    break;
+                  case 'Settings':
+                    Navigator.pushNamed(context, '/settings');
+                    break;
+                  case 'Features':
+                    Navigator.pushNamed(context, '/features');
+                    break;
+                  case 'Profile':
+                    Navigator.pushNamed(context, '/profile');
+                    break;
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return [
+                  _buildMenuItem(Icons.home, 'Home'),
+                  _buildMenuItem(Icons.settings, 'Settings'),
+                  _buildMenuItem(Icons.lightbulb, 'Features'),
+                  _buildMenuItem(Icons.person, 'Profile'),
+                ];
+              },
+            ),
+          ),
         ],
       ),
-      bottomNavigationBar: bottomNavigationBar ??
-          BottomNavigationBar(
-            backgroundColor: Colors.blue[900],
-            selectedItemColor: const Color(0xFFACE6FC),
-            unselectedItemColor: const Color(0xFFACE6FC),
-            type: BottomNavigationBarType.fixed,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Icon(Icons.home),
-                ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Icon(Icons.settings),
-                ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Icon(Icons.lightbulb),
-                ),
-                label: '',
-              ),
-              BottomNavigationBarItem(
-                icon: Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Icon(Icons.person),
-                ),
-                label: '',
-              ),
-            ],
-          ),
+    );
+  }
+
+  PopupMenuItem<String> _buildMenuItem(IconData icon, String text) {
+    return PopupMenuItem<String>(
+      value: text,
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.black),
+          SizedBox(width: 10),
+          Text(text),
+        ],
+      ),
     );
   }
 }

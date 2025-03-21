@@ -6,7 +6,7 @@ import 'package:jet_set_go/document_upload/document_selection_page.dart';
 import 'package:jet_set_go/special_assistance/special_assistance_landing_page.dart';
 import 'package:jet_set_go/local_transport/transport_screen.dart';
 import 'package:jet_set_go/airport_navigation/map_screen.dart';
-import 'package:jet_set_go/travel_tips.dart';
+//import 'package:jet_set_go/travel_tips.dart';
 import 'package:jet_set_go/flight_tracking/flight_tracking_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -415,7 +415,7 @@ class HomePageRegisteredState extends State<HomePageRegistered> {
                 ),
                 Row( // New row for additional feature buttons
                   children: [
-                    _buildFeatureButton("assets/images/travel.png", "Travel Tips",TravelTipsApp()),
+                    _buildFeatureButton("assets/images/travel.png", "Travel Tips",LandingPage()),
                     _buildFeatureButton("assets/images/luggage.png", "Packing Tips",LandingPage()),
                   ],
                 ),
