@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jet_set_go/special_assistance/special_assistance_styling.dart';
+import 'package:jet_set_go/packing_tips/style.dart'; // New style import
 
 import '../contact_options/calling_option.dart';
 import '../contact_options/visit_counter.dart';
 import '../information_pages/unaccompanied_minors_info.dart';
 
-
-
 class UnaccompaniedMinors extends StatelessWidget {
   const UnaccompaniedMinors({super.key});
-
 
   @override
   Widget build(BuildContext context) {
     return UI(
+      title: "Special",
+      subtitle: "Independent Support",
       body: Column(
         children: [
           Expanded(
@@ -23,16 +22,16 @@ class UnaccompaniedMinors extends StatelessWidget {
                 child: Column(
                   children: [
                     const SizedBox(height: 120),
-                     Text(
+                    Text(
                       "What Type of Special Assistance\n Do You Need?",
                       textAlign: TextAlign.center,
-                       style: GoogleFonts.mulish(
-                         textStyle: TextStyle(
-                           fontSize: 26,
-                           fontWeight: FontWeight.bold,
-                           color: Colors.white,
-                         ),
-                       ),
+                      style: GoogleFonts.mulish(
+                        textStyle: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                     SizedBox(height: 20),
                     AssistanceOption(
@@ -50,8 +49,10 @@ class UnaccompaniedMinors extends StatelessWidget {
                       icon: Icons.phone,
                       text: "Call BIA Passenger Service Unit",
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder:(context) => CallingOption()),
-                        );// Call the function from calling_option.dart
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CallingOption()),
+                        );
                       },
                     ),
                     SizedBox(height: 20),
@@ -59,8 +60,10 @@ class UnaccompaniedMinors extends StatelessWidget {
                       icon: Icons.info,
                       text: "Visit Passenger Service Counter",
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder:(context) => VisitCounter()),
-                        );// Call the function from visit_counter.dart
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => VisitCounter()),
+                        );
                       },
                     ),
                     const SizedBox(height: 20),
@@ -74,6 +77,7 @@ class UnaccompaniedMinors extends StatelessWidget {
     );
   }
 }
+
 class AssistanceOption extends StatelessWidget {
   final IconData icon;
   final String text;
@@ -111,15 +115,15 @@ class AssistanceOption extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center, // Aligns icons and text properly
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Icon(icon, color: Colors.blue[900], size: 40),
-                const SizedBox(width: 20), // Equal spacing
+                const SizedBox(width: 20),
                 Expanded(
                   child: Text(
                     text,
                     style: TextStyle(
-                      color:  Colors.blue[900],
+                      color: Colors.blue[900],
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -133,9 +137,3 @@ class AssistanceOption extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-

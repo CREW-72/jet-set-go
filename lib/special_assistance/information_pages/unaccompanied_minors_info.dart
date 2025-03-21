@@ -9,8 +9,8 @@ class UnaccompaniedMinorsInfo extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Unaccompanied Minors Information",
-          style: GoogleFonts.mulish(fontWeight: FontWeight.bold),
+          "Unaccompanied Minors Info",
+          style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold),
         ),
         backgroundColor: Color(0xFF1C263F),
         foregroundColor: Colors.white,

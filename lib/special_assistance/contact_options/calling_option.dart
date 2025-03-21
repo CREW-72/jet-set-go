@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jet_set_go/special_assistance/special_assistance_styling.dart';
+import 'package:jet_set_go/packing_tips/style.dart'; // New style import
 import 'package:url_launcher/url_launcher.dart';
 import 'package:logger/logger.dart';
 
@@ -12,6 +12,8 @@ class CallingOption extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UI(
+      title: "Special",
+      subtitle: "Assistance",
       body: Column(
         children: [
           const Divider(color: Colors.white, height: 3),

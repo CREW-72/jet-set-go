@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jet_set_go/special_assistance/special_assistance_styling.dart';
+import 'package:jet_set_go/packing_tips/style.dart'; // New style import
 import 'package:url_launcher/url_launcher.dart';
 
 class DisabilityForm extends StatelessWidget {
@@ -9,81 +9,83 @@ class DisabilityForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UI(
+      title: "Special",
+      subtitle: "Assistance",
       body: Column(
         children: [
           Expanded(
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 110),
-                      Container(
-                        width: 350,
-                        height: 550,
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(255, 255, 255, 0.85),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Align(
-                              alignment: Alignment.topCenter,
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 110),
+                    Container(
+                      width: 350,
+                      height: 550,
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(255, 255, 255, 0.85),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Align(
+                            alignment: Alignment.topCenter,
+                            child: Text(
+                              "Disability Assistance Request Form",
+                              style: GoogleFonts.mulish(
+                                textStyle: TextStyle(
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.blue[900],
+                                ),
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Icon(Icons.file_open_outlined, color: Colors.blue[900], size: 120),
+                          const SizedBox(height: 10),
+                          Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
                               child: Text(
-                                "Disability Assistance Request Form",
-                                style: GoogleFonts.mulish(
-                                  textStyle: TextStyle(
-                                    fontSize: 26,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue[900],
-                                  ),
+                                "This form is provided by Sri Lankan Airlines to request assistance.\nPlease note that, this is not available for flights departing in the next 72 hours.",
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.blue[900],
+                                  fontWeight: FontWeight.w600,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            const SizedBox(height: 10),
-
-                            Icon(Icons.file_open_outlined, color: Colors.blue[900], size: 120),
-                            const SizedBox(height: 10),
-                            Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Text(
-                                  "This form is provided by Sri Lankan Airlines to request assistance.\nPlease note that, this is not available for flights departing in the next 72 hours.",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.blue[900],
-                                    fontWeight: FontWeight.w600
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
+                          ),
+                          ElevatedButton.icon(
+                            onPressed: () {
+                              _launchFormURL();
+                            },
+                            icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
+                            label: Text(
+                              "Continue",
+                              style: GoogleFonts.lobster(
+                                textStyle: TextStyle(fontSize: 22, color: Colors.white),
                               ),
                             ),
-                            ElevatedButton.icon(
-                              onPressed: () {
-                                _launchFormURL();
-                              },
-                              icon: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
-                              label: Text("Continue",
-                                style: GoogleFonts.lobster(
-                                  textStyle: TextStyle(fontSize: 22, color: Colors.white),
-                                ),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.blue,
-                                foregroundColor: Colors.white,
-                                minimumSize: Size(200, 50),
-                              ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue,
+                              foregroundColor: Colors.white,
+                              minimumSize: Size(200, 50),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
+          ),
         ],
       ),
     );

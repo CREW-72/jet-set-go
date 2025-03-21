@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:jet_set_go/special_assistance/special_assistance_styling.dart';
+import 'package:jet_set_go/packing_tips/style.dart'; // New style import
 import '../contact_options/calling_option.dart';
 import '../contact_options/disability_form.dart';
 import '../contact_options/visit_counter.dart';
 import '../information_pages/medical_clearance_info.dart';
-
 
 class ReducedMobility extends StatelessWidget {
   const ReducedMobility({super.key});
@@ -13,72 +12,74 @@ class ReducedMobility extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UI(
+      title: "Special",
+      subtitle: "Mobility Assistance",
       body: Column(
         children: [
           Expanded(
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 120),
-                      Text(
-                        "What Type of Special Assistance\n Do You Need?",
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.mulish(
-                          textStyle: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+            child: Center(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 120),
+                    Text(
+                      "What Type of Special Assistance\n Do You Need?",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.mulish(
+                        textStyle: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
-                      const SizedBox(height: 20),
-                      AssistanceOption(
-                        icon: Icons.question_mark_rounded,
-                        text: "What I Should Know About",
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => MedicalClearanceInfo()),
-                          );
-                        },
-                      ),
-                      AssistanceOption(
-                        icon: Icons.file_copy,
-                        text: "Access Disability Assistance \n Request Form",
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => DisabilityForm()),
-                          );
-                        },
-                      ),
-                      AssistanceOption(
-                        icon: Icons.phone,
-                        text: "Call BIA Passenger Service Unit",
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => CallingOption()),
-                          );
-                        },
-                      ),
-                      AssistanceOption(
-                        icon: Icons.info,
-                        text: "Visit Passenger Service Counter",
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => VisitCounter()),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: 20),
+                    AssistanceOption(
+                      icon: Icons.question_mark_rounded,
+                      text: "What I Should Know About",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MedicalClearanceInfo()),
+                        );
+                      },
+                    ),
+                    AssistanceOption(
+                      icon: Icons.file_copy,
+                      text: "Access Disability Assistance \n Request Form",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => DisabilityForm()),
+                        );
+                      },
+                    ),
+                    AssistanceOption(
+                      icon: Icons.phone,
+                      text: "Call BIA Passenger Service Unit",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CallingOption()),
+                        );
+                      },
+                    ),
+                    AssistanceOption(
+                      icon: Icons.info,
+                      text: "Visit Passenger Service Counter",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => VisitCounter()),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                  ],
                 ),
               ),
             ),
+          ),
         ],
       ),
     );
@@ -129,7 +130,7 @@ class AssistanceOption extends StatelessWidget {
                 Expanded(
                   child: Text(
                     text,
-                    style:  TextStyle(
+                    style: TextStyle(
                       color: Colors.blue[900],
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

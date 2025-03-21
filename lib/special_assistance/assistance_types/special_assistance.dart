@@ -4,8 +4,7 @@ import 'package:jet_set_go/special_assistance/assistance_types/reduced_mobility.
 import 'package:jet_set_go/special_assistance/assistance_types/travelling_during_pregnancy.dart';
 import 'package:jet_set_go/special_assistance/assistance_types/travelling_with_children.dart';
 import 'package:jet_set_go/special_assistance/assistance_types/unaccompanied_minors.dart';
-import 'package:jet_set_go/special_assistance/special_assistance_styling.dart';
-
+import 'package:jet_set_go/packing_tips/style.dart'; // New style import
 
 class SpecialAssistance extends StatelessWidget {
   const SpecialAssistance({super.key});
@@ -13,6 +12,8 @@ class SpecialAssistance extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UI(
+      title: "Special",
+      subtitle: "Assistance",
       body: Column(
         children: [
           Expanded(
@@ -78,7 +79,6 @@ class SpecialAssistance extends StatelessWidget {
                 ),
               ),
             ),
-
           ),
         ],
       ),
@@ -123,14 +123,14 @@ class SpecialAssistanceCategory extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center, // Aligns icons and text properly
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Icon(icon, color: Colors.blue[900], size: 40),
-                const SizedBox(width: 20), // Equal spacing
+                const SizedBox(width: 20),
                 Expanded(
                   child: Text(
                     text,
-                    style:  TextStyle(
+                    style: TextStyle(
                       color: Colors.blue[900],
                       fontSize: 16,
                       fontWeight: FontWeight.bold,

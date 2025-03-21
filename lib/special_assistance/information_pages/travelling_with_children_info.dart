@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TravellingWithChildrenInfoInfo extends StatelessWidget {
-  const TravellingWithChildrenInfoInfo({super.key});
+class TravellingWithChildrenInfo extends StatelessWidget {
+  const TravellingWithChildrenInfo({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -10,7 +10,7 @@ class TravellingDuringPregnancyInfo extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           "Travelling During Pregnancy",
-          style: GoogleFonts.mulish(fontWeight: FontWeight.bold),
+          style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold),
         ),
         backgroundColor: Color(0xFF1C263F),
         foregroundColor: Colors.white,
