@@ -24,25 +24,23 @@ class TravelTipsScreen extends StatelessWidget {
     {'title': 'Landing at Destination', 'tips': ['Follow deboarding rules', 'Have customs forms ready', 'Claim baggage promptly']},
   ];
 
+  PopupMenuItem<String> _buildMenuItem(IconData icon, String label) {
+    return PopupMenuItem(
+      value: label,
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.black54),
+          const SizedBox(width: 10),
+          Text(label, style: const TextStyle(fontSize: 16)),
+        ],
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.blueAccent.withAlpha(230),
-        elevation: 0,
-        title: Text('Air Travel Tips', style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold)),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const HomePageRegistered()),
-            );
-          },
-        ),
-      ),
       body: Stack(
         children: [
           Container(
@@ -53,6 +51,93 @@ class TravelTipsScreen extends StatelessWidget {
               ),
             ),
           ),
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset("assets/images/headerBackground.png", height: 160, fit: BoxFit.cover),
+          ),
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.07,
+            left: MediaQuery.of(context).size.width * 0.05,
+            child: Text(
+              'TRAVEL',
+              style: GoogleFonts.ubuntu(
+                fontSize: MediaQuery.of(context).size.width * 0.07,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                letterSpacing: 3.0,
+              ),
+            ),
+          ),
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.12,
+            left: MediaQuery.of(context).size.width * 0.06,
+            child: Text(
+              'TIPS',
+              style: GoogleFonts.ubuntu(
+                fontSize: MediaQuery.of(context).size.width * 0.045,
+                color: Colors.white,
+                letterSpacing: 2.0,
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.16, left: 25),
+            width: 275,
+            height: 4,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.11,
+            right: MediaQuery.of(context).size.width * 0.18,
+            child: Image.asset("assets/images/takeoff.png", height: 40),
+          ),
+
+          // 🍔 Hamburger Menu (Top Right)
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.06,
+            right: MediaQuery.of(context).size.width * 0.04,
+            child: PopupMenuButton<String>(
+              icon: const Icon(Icons.menu, color: Colors.white, size: 40),
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              offset: const Offset(0, 50),
+              onSelected: (value) {
+                switch (value) {
+                  case 'Home':
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePageRegistered()),
+                    );
+                    break;
+                  case 'Settings':
+                    Navigator.pushNamed(context, '/settings');
+                    break;
+                  case 'Features':
+                    Navigator.pushNamed(context, '/features');
+                    break;
+                  case 'Profile':
+                    Navigator.pushNamed(context, '/profile');
+                    break;
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return [
+                  _buildMenuItem(Icons.home, 'Home'),
+                  _buildMenuItem(Icons.settings, 'Settings'),
+                  _buildMenuItem(Icons.lightbulb, 'Features'),
+                  _buildMenuItem(Icons.person, 'Profile'),
+                ];
+              },
+            ),
+          ),
+
           Padding(
             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + kToolbarHeight + 12, left: 12, right: 12),
             child: GridView.builder(
@@ -110,22 +195,28 @@ class TipsDetailScreen extends StatelessWidget {
   final String title;
   final List<String> tips;
 
+  PopupMenuItem<String> _buildMenuItem(IconData icon, String label) {
+    return PopupMenuItem(
+      value: label,
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.black54),
+          const SizedBox(width: 10),
+          Text(label, style: const TextStyle(fontSize: 16)),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.blueAccent.withAlpha(230),
-        elevation: 0,
-        title: Text(title, style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold)),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
       body: Stack(
         children: [
+          // 🌌 Background image
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
@@ -134,8 +225,117 @@ class TipsDetailScreen extends StatelessWidget {
               ),
             ),
           ),
+
+          // 🔵 Header background image
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Image.asset(
+              "assets/images/headerBackground.png",
+              height: 160,
+              fit: BoxFit.cover,
+            ),
+          ),
+
+          Positioned(
+            top: screenHeight * 0.07,
+            right: screenWidth * 0.04,
+            child: PopupMenuButton<String>(
+              icon: const Icon(Icons.menu, color: Colors.white, size: 40),
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              offset: const Offset(0, 50),
+              onSelected: (value) {
+                switch (value) {
+                  case 'Home':
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePageRegistered()),
+                    );
+                    break;
+                  case 'Settings':
+                    Navigator.pushNamed(context, '/settings');
+                    break;
+                  case 'Features':
+                    Navigator.pushNamed(context, '/features');
+                    break;
+                  case 'Profile':
+                    Navigator.pushNamed(context, '/profile');
+                    break;
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return [
+                  _buildMenuItem(Icons.home, 'Home'),
+                  _buildMenuItem(Icons.settings, 'Settings'),
+                  _buildMenuItem(Icons.lightbulb, 'Features'),
+                  _buildMenuItem(Icons.person, 'Profile'),
+                ];
+              },
+            ),
+          ),
+
+          Positioned(
+            top: screenHeight * 0.11,
+            right: screenWidth * 0.18,
+            child: Image.asset("assets/images/takeoff.png", height: 40),
+          ),
+
+          Positioned(
+            top: screenHeight * 0.07,
+            left: screenWidth * 0.05,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                title.split(' ').first.toUpperCase(),
+                style: GoogleFonts.ubuntu(
+                  fontSize: screenWidth * 0.07,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  letterSpacing: 3.0,
+                ),
+              ),
+            ),
+          ),
+
+          Positioned(
+            top: screenHeight * 0.12,
+            left: screenWidth * 0.06,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                title.split(' ').length > 1
+                    ? title.split(' ').sublist(1).join(' ').toUpperCase()
+                    : "",
+                style: GoogleFonts.ubuntu(
+                  fontSize: screenWidth * 0.045,
+                  color: Colors.white,
+                  letterSpacing: 2.0,
+                ),
+              ),
+            ),
+          ),
+
+          // Divider Line
+          Container(
+            margin: EdgeInsets.only(
+                top: screenHeight * 0.16,
+                left: 25),
+            width: 275,
+            height: 4,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+
           Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + kToolbarHeight + 12),
+            padding: EdgeInsets.only(
+              top: screenHeight * 0.21,
+            ),
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               itemCount: tips.length,
