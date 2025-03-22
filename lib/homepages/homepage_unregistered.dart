@@ -3,6 +3,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/homepages/homepage_registered_user.dart';
+import 'package:jet_set_go/authentication/welcome_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class HomePageUnregistered extends StatefulWidget {
   const HomePageUnregistered({super.key});
@@ -135,6 +138,18 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
     }
   }
 
+  void _signOutAndRedirect(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+
+    if (!context.mounted) return;
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+          (route) => false,
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -187,6 +202,9 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
                         case 'Profile':
                           Navigator.pushNamed(context, '/profile');
                           break;
+                        case 'Sign Out':
+                          _signOutAndRedirect(context);
+                          break;
                       }
                     },
                     itemBuilder: (BuildContext context) {
@@ -194,6 +212,7 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
                         _buildMenuItem(Icons.settings, 'Settings'),
                         _buildMenuItem(Icons.lightbulb, 'Features'),
                         _buildMenuItem(Icons.person, 'Profile'),
+                        _buildMenuItem(Icons.logout, 'Sign Out'),
                       ];
                     },
                   ),

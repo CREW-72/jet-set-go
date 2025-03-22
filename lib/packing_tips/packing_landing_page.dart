@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:jet_set_go/packing_tips/travel_choice.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../homepages/homepage_registered_user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:jet_set_go/authentication/welcome_screen.dart';
 
 class PackingLandingPage extends StatelessWidget {
   const PackingLandingPage({super.key});
@@ -20,7 +22,6 @@ class PackingLandingPage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
 
-          // Gradient Overlay for Better Contrast
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -60,7 +61,6 @@ class PackingLandingPage extends StatelessWidget {
                   ),
                   SizedBox(height: screenHeight * 0.4),
 
-                  // Glassmorphic Container
                   Container(
                     decoration: BoxDecoration(
                       color: Color.fromRGBO(255, 255, 255, 0.15),
@@ -152,6 +152,9 @@ class PackingLandingPage extends StatelessWidget {
                   case 'Profile':
                     Navigator.pushNamed(context, '/profile');
                     break;
+                  case 'Sign Out':
+                    _signOutAndRedirect(context);
+                    break;
                 }
               },
               itemBuilder: (BuildContext context) {
@@ -160,6 +163,7 @@ class PackingLandingPage extends StatelessWidget {
                   _buildMenuItem(Icons.settings, 'Settings'),
                   _buildMenuItem(Icons.lightbulb, 'Features'),
                   _buildMenuItem(Icons.person, 'Profile'),
+                  _buildMenuItem(Icons.logout, 'Sign Out'),
                 ];
               },
             ),
@@ -179,6 +183,18 @@ class PackingLandingPage extends StatelessWidget {
           Text(text),
         ],
       ),
+    );
+  }
+
+  void _signOutAndRedirect(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+
+    if (!context.mounted) return;
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+          (route) => false,
     );
   }
 }

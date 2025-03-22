@@ -7,6 +7,8 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:open_file/open_file.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/homepages/homepage_registered_user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:jet_set_go/authentication/welcome_screen.dart';
 
 class DocumentUploadPage extends StatefulWidget {
   final String documentType;
@@ -186,6 +188,19 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
     );
   }
 
+  void _signOutAndRedirect(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+
+    if (!context.mounted) return;
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+          (route) => false,
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -264,6 +279,9 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
                   case 'Profile':
                     Navigator.pushNamed(context, '/profile');
                     break;
+                  case 'Sign Out':
+                    _signOutAndRedirect(context);
+                    break;
                 }
               },
               itemBuilder: (BuildContext context) {
@@ -272,6 +290,7 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
                   _buildMenuItem(Icons.settings, 'Settings'),
                   _buildMenuItem(Icons.lightbulb, 'Features'),
                   _buildMenuItem(Icons.person, 'Profile'),
+                  _buildMenuItem(Icons.logout, 'Sign Out'),
                 ];
               },
             ),

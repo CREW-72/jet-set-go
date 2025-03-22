@@ -302,6 +302,8 @@ class HomePageRegisteredState extends State<HomePageRegistered> {
   void _signOutAndRedirect(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
 
+    if (!context.mounted) return;
+
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => const WelcomeScreen()),

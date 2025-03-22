@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import './document_upload_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/homepages/homepage_registered_user.dart';
+import 'package:jet_set_go/authentication/welcome_screen.dart';
+
 
 class DocumentSelectionPage extends StatefulWidget {
   const DocumentSelectionPage({super.key});
@@ -165,6 +167,18 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
     );
   }
 
+  void _signOutAndRedirect(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+
+    if (!context.mounted) return;
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+          (route) => false,
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -185,10 +199,10 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
 
 
           Positioned(
-            top: 0,
+            // top: 0,
             left: 0,
             right: 0,
-            child: Image.asset("assets/images/header.png", height: 160, fit: BoxFit.cover),
+            child: Image.asset("assets/images/header.png", height: 180, fit: BoxFit.cover),
           ),
           Positioned(
             top: screenHeight * 0.065,
@@ -252,6 +266,9 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
                   case 'Profile':
                     Navigator.pushNamed(context, '/profile');
                     break;
+                  case 'Sign Out':
+                    _signOutAndRedirect(context);
+                    break;
                 }
               },
               itemBuilder: (BuildContext context) {
@@ -260,6 +277,7 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
                   _buildMenuItem(Icons.settings, 'Settings'),
                   _buildMenuItem(Icons.lightbulb, 'Features'),
                   _buildMenuItem(Icons.person, 'Profile'),
+                  _buildMenuItem(Icons.logout, 'Sign Out'),
                 ];
               },
             ),

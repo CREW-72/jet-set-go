@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../homepages/homepage_registered_user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:jet_set_go/authentication/welcome_screen.dart';
 
 class UI extends StatelessWidget {
   final Widget body;
@@ -51,11 +53,11 @@ class UI extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: screenHeight * 0.137,
+            top: screenHeight * 0.140,
             left: 24,
             right: 170,
             child: Image.asset(
-              "assets/line.jpg",
+              "assets/images/line.png",
               height: 50, // Adjust the size as needed
             ),
           ),
@@ -115,6 +117,9 @@ class UI extends StatelessWidget {
                   case 'Profile':
                     Navigator.pushNamed(context, '/profile');
                     break;
+                  case 'Sign Out':
+                    _signOutAndRedirect(context);
+                    break;
                 }
               },
               itemBuilder: (BuildContext context) {
@@ -123,6 +128,8 @@ class UI extends StatelessWidget {
                   _buildMenuItem(Icons.settings, 'Settings'),
                   _buildMenuItem(Icons.lightbulb, 'Features'),
                   _buildMenuItem(Icons.person, 'Profile'),
+                  _buildMenuItem(Icons.logout, 'Sign out'),
+
                 ];
               },
             ),
@@ -137,11 +144,23 @@ class UI extends StatelessWidget {
       value: text,
       child: Row(
         children: [
-          Icon(icon, color: Colors.black),
+          Icon(icon, color: Colors.black54),
           SizedBox(width: 10),
           Text(text),
         ],
       ),
+    );
+  }
+
+  void _signOutAndRedirect(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+
+    if (!context.mounted) return;
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+          (route) => false,
     );
   }
 }

@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:jet_set_go/airport_navigation/map_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../homepages/homepage_registered_user.dart';
+import 'package:jet_set_go/authentication/welcome_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 class NavigationLanding extends StatelessWidget {
   const NavigationLanding({super.key});
 
@@ -151,6 +154,9 @@ class NavigationLanding extends StatelessWidget {
                   case 'Profile':
                     Navigator.pushNamed(context, '/profile');
                     break;
+                  case 'Sign Out':
+                    _signOutAndRedirect(context);
+                    break;
                 }
               },
               itemBuilder: (BuildContext context) {
@@ -159,6 +165,7 @@ class NavigationLanding extends StatelessWidget {
                   _buildMenuItem(Icons.settings, 'Settings'),
                   _buildMenuItem(Icons.lightbulb, 'Features'),
                   _buildMenuItem(Icons.person, 'Profile'),
+                  _buildMenuItem(Icons.logout, 'Sign Out'),
                 ];
               },
             ),
@@ -178,6 +185,17 @@ class NavigationLanding extends StatelessWidget {
           Text(text),
         ],
       ),
+    );
+  }
+  void _signOutAndRedirect(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+
+    if (!context.mounted) return;
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+          (route) => false,
     );
   }
 }
