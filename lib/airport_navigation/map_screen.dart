@@ -163,8 +163,8 @@ class MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return UI(
-      title: "Airport",
-      subtitle: "Navigation",
+      title: "AIRPORT",
+      subtitle: "NAVIGATION",
       body: Stack(
         children: [
           GoogleMap(

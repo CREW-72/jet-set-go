@@ -7,6 +7,8 @@ class NavigationLanding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -43,10 +45,10 @@ class NavigationLanding extends StatelessWidget {
                       return Opacity(opacity: opacity, child: child);
                     },
                     child: Text(
-                      "Your Easy Airport\n Guide\n \n",
+                      "Your Easy Airport\n Guide\n ",
                       style: GoogleFonts.caveat(
                         textStyle: TextStyle(
-                          fontSize: 40,
+                          fontSize: screenWidth * 0.099,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                           letterSpacing: 1.2,
@@ -123,8 +125,8 @@ class NavigationLanding extends StatelessWidget {
 
           // Popup Menu Button
           Positioned(
-            top: 55,
-            right: 10,
+            top: screenHeight * 0.04,
+            right: 2,
             child: PopupMenuButton<String>(
               icon: Icon(Icons.menu, color: Colors.black, size: 35),
               color: Colors.white,

@@ -44,8 +44,8 @@ class SearchDestinationState extends State<SearchDestination> {
   @override
   Widget build(BuildContext context) {
     return UI(
-      title: "Search",
-      subtitle: "Find your destination",
+      title: "SEARCH YOUR",
+      subtitle: "DESTINATION",
       body: Stack(
         children: [
           Column(
