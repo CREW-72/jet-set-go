@@ -46,7 +46,7 @@ class PackingLandingPage extends StatelessWidget {
                       return Opacity(opacity: opacity, child: child);
                     },
                     child: Text(
-                      "\n Smart Packing Starts Here!\n ",
+                      " \n Smart Packing Starts Here!\n ",
                       style: GoogleFonts.caveat(
                         textStyle: TextStyle(
                           fontSize: screenWidth * 0.099,
@@ -58,7 +58,7 @@ class PackingLandingPage extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  SizedBox(height: 360),
+                  SizedBox(height: screenHeight * 0.4),
 
                   // Glassmorphic Container
                   Container(

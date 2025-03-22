@@ -57,7 +57,7 @@ class NavigationLanding extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  SizedBox(height: 420),
+                  SizedBox(height: screenHeight * 0.485),
 
                   // Glassmorphic Container
                   Container(
@@ -125,7 +125,7 @@ class NavigationLanding extends StatelessWidget {
 
           // Popup Menu Button
           Positioned(
-            top: screenHeight * 0.04,
+            top: screenHeight * 0.035,
             right: 2,
             child: PopupMenuButton<String>(
               icon: Icon(Icons.menu, color: Colors.black, size: 35),

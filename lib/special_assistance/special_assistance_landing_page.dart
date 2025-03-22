@@ -62,7 +62,7 @@ class SpecialAssistanceLandingPage extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: 410), // Adds space between text and button
+                  SizedBox(height: screenHeight * 0.45), // Adds space between text and button
 
                   // Glassmorphic Container
                   Container(
@@ -129,8 +129,8 @@ class SpecialAssistanceLandingPage extends StatelessWidget {
           ),
           // Popup Menu Button
           Positioned(
-            top: screenHeight * 0.065,
-            right: 15,
+            top: screenHeight * 0.055,
+            right: 11,
             child: PopupMenuButton<String>(
               icon: Icon(Icons.menu, color: Colors.black, size: 40),
               color: Colors.white,
