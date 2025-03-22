@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/homepages/homepage_registered_user.dart';
 import 'package:jet_set_go/authentication/welcome_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 
 class HomePageUnregistered extends StatefulWidget {
