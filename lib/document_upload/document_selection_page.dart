@@ -50,7 +50,7 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
     return GestureDetector(
       onTap: () => _navigateToUploadPage(context, "Air Ticket"),
       child: Container(
-        height: 140, // Button height
+        height: double.infinity,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Color(0xFFA5E5FF),
@@ -89,7 +89,7 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
               child: Text(
                 "Air Ticket",
                 style: GoogleFonts.ubuntu(
-                  fontSize: 30,
+                  fontSize: MediaQuery.of(context).size.width * 0.065,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
                 ),
@@ -104,15 +104,18 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
 
   Widget _buildDocumentButton(
       BuildContext context, String documentType, String assetPath) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return GestureDetector(
       onTap: () => _navigateToUploadPage(context, documentType),
       child: Container(
-        height: 130,
+        height: screenHeight * 0.20,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Color(0xFFA5E5FF),
+          color: const Color(0xFFA5E5FF),
           borderRadius: BorderRadius.circular(15),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               color: Colors.black26,
               blurRadius: 5,
@@ -120,7 +123,7 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
               offset: Offset(2, 2),
             ),
           ],
-          image: DecorationImage(
+          image: const DecorationImage(
             image: AssetImage("assets/images/plane_pattern.png"),
             fit: BoxFit.cover,
             opacity: 0.5,
@@ -129,17 +132,25 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(assetPath, width: 100, height: 100),
-            SizedBox(height: 10),
+            Image.asset(
+              assetPath,
+              width: screenWidth * 0.18,
+              height: screenWidth * 0.18,
+            ),
+            SizedBox(height: screenHeight * 0.005),
             Text(
               documentType,
-              style: GoogleFonts.ubuntu(fontSize: 20, fontWeight: FontWeight.bold),
+              style: GoogleFonts.ubuntu(
+                fontSize: screenWidth * 0.045,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
         ),
       ),
     );
   }
+
 
   PopupMenuItem<String> _buildMenuItem(IconData icon, String label) {
     return PopupMenuItem(
@@ -157,6 +168,9 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -177,12 +191,12 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
             child: Image.asset("assets/images/header.png", height: 160, fit: BoxFit.cover),
           ),
           Positioned(
-            top: 50,
+            top: screenHeight * 0.065,
             left: 20,
             child: Text(
               '${username.toUpperCase()}’S',
               style: GoogleFonts.ubuntu(
-                fontSize: 45,
+                fontSize: screenWidth * 0.11,
                 fontWeight: FontWeight.w700,
                 color: Colors.white,
                 letterSpacing: 2.0,
@@ -190,27 +204,29 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
             ),
           ),
           Positioned(
-            top: 113,
+            top: screenHeight * 0.14,
             left: 24,
             child: Text(
               'DOCUMENTS',
-              style: GoogleFonts.ubuntu(fontSize: 20, color: Colors.white, letterSpacing: 2.0),
+              style: GoogleFonts.ubuntu(
+                  fontSize: screenWidth * 0.05,
+                  color: Colors.white, letterSpacing: 2.0),
             ),
           ),
           Positioned(
-            top: 150,
+            top: screenHeight * 0.19,
             left: 20,
             right: 120,
             child: Image.asset("assets/images/line.png", height: 8, fit: BoxFit.cover),
           ),
           Positioned(
-            top: 100,
-            right: 70,
+            top: screenHeight * 0.125,
+            right: screenWidth * 0.18,
             child: Image.asset("assets/images/plane_takeoff.png", height: 50),
           ),
 
           Positioned(
-            top: 50,
+            top: screenHeight * 0.065,
             right: 15,
             child: PopupMenuButton<String>(
               icon: Icon(Icons.menu, color: Colors.white, size: 40),
@@ -251,37 +267,44 @@ class DocumentSelectionPageState extends State<DocumentSelectionPage> {
 
 
 
-          Padding(
-            padding: const EdgeInsets.only(top: 230, left: 20, right: 20),
-            child: Column(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: _buildAirTicketButton(context),
-                ),
-
-                Transform.translate(
-                  offset: Offset(0, -45),
-                  child: SizedBox(
-                    height: 500,
-                    child: GridView.count(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 5,
-                      childAspectRatio: 1.3,
-                      children: [
-                        _buildDocumentButton(context, "Passport", "assets/images/passport.png"),
-                        _buildDocumentButton(context, "Boarding Pass", "assets/images/boarding_pass.png"),
-                        _buildDocumentButton(context, "Visa", "assets/images/visa.png"),
-                        _buildDocumentButton(context, "NIC", "assets/images/nic.png"),
-                        _buildDocumentButton(context, "Prescriptions", "assets/images/prescriptions.png"),
-                        _buildDocumentButton(context, "Other", "assets/images/other.png"),
-                      ],
+          Positioned(
+            top: screenHeight * 0.26,
+            left: 20,
+            right: 20,
+            bottom: screenHeight * 0.02,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                      height: constraints.maxHeight * 0.25,
+                      child: _buildAirTicketButton(context),
                     ),
-                  ),
-                ),
-              ],
-            ),
+
+                    Expanded(
+                      child: GridView.count(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                        physics: NeverScrollableScrollPhysics(),
+                        padding: EdgeInsets.only(top: 8),
+                        childAspectRatio: 1.5,
+                        children: [
+                          _buildDocumentButton(context, "Passport", "assets/images/passport.png"),
+                          _buildDocumentButton(context, "Boarding Pass", "assets/images/boarding_pass.png"),
+                          _buildDocumentButton(context, "Visa", "assets/images/visa.png"),
+                          _buildDocumentButton(context, "NIC", "assets/images/nic.png"),
+                          _buildDocumentButton(context, "Prescriptions", "assets/images/prescriptions.png"),
+                          _buildDocumentButton(context, "Other", "assets/images/other.png"),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              },
+            )
           ),
         ],
       ),

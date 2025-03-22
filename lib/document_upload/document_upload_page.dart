@@ -188,6 +188,9 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -216,28 +219,27 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
             ),
           ),
           Positioned(
-            top: 70,
-            left: 20,
-            right: 70,
-            child: Container(
-              constraints: BoxConstraints(maxWidth: 250),
+            top: screenHeight * 0.09,
+            left: screenWidth * 0.05,
+            right: screenWidth * 0.2,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: Alignment.centerLeft,
               child: Text(
                 'UPLOAD ${widget.documentType.toUpperCase()}',
                 style: GoogleFonts.ubuntu(
-                  fontSize: 24,
+                  fontSize: screenWidth * 0.055,
                   fontWeight: FontWeight.w600,
                   color: Colors.white,
                   letterSpacing: 1.5,
                 ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
               ),
             ),
           ),
 
           Positioned(
-            top: 60,
-            right: 15,
+            top: screenHeight * 0.08,
+            right: screenWidth * 0.04,
             child: PopupMenuButton<String>(
               icon: Icon(Icons.menu, color: Colors.white, size: 40),
               color: Colors.white,
@@ -282,13 +284,13 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch, // Aligns everything neatly
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     /// UPLOADED FILES LIST
                     if (_uploadedFiles.isNotEmpty) ...[
                       SizedBox(height: 20),
                       Text("Uploaded Documents:",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                          style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold, fontSize: screenWidth * 0.045)),
                       ListView.builder(
                         shrinkWrap: true,
                         physics: NeverScrollableScrollPhysics(),
@@ -326,7 +328,7 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
                       icon: Icon(Icons.upload_file, color: Colors.white, size: 22),
                       label: Text(
                         "Upload PDF",
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                        style: TextStyle(fontSize: screenWidth * 0.045, fontWeight: FontWeight.w600),
                       ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF017BFE),
@@ -334,7 +336,7 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        padding: EdgeInsets.symmetric(vertical: 16),
+                        padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                         shadowColor: Colors.black26,
                         elevation: 5,
                       ),
@@ -347,7 +349,7 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
                         icon: Icon(Icons.camera_alt, color: Colors.white, size: 22),
                         label: Text(
                           _cameraButtonText,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                          style: TextStyle(fontSize: screenWidth * 0.045, fontWeight: FontWeight.w600),
                         ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFF00AEEF),
@@ -355,7 +357,7 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30),
                           ),
-                          padding: EdgeInsets.symmetric(vertical: 16),
+                          padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                           shadowColor: Colors.black26,
                           elevation: 5,
                         ),
@@ -385,8 +387,8 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
                                           borderRadius: BorderRadius.circular(12),
                                           child: Image.file(
                                             _capturedImages[index],
-                                            width: 90,
-                                            height: 90,
+                                            width: screenWidth * 0.22,
+                                            height: screenWidth * 0.22,
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -412,49 +414,65 @@ class DocumentUploadPageState extends State<DocumentUploadPage> {
                               ),
                             ),
 
-                            SizedBox(height: 20),
+                            SizedBox(height: screenHeight * 0.025),
 
                             // Buttons inside a Row
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-
-                                // ADD IMAGES BUTTON (Outlined)
-                                OutlinedButton.icon(
-                                  onPressed: _captureImage,
-                                  icon: Icon(Icons.add, color: Colors.blue, size: 22),
-                                  label: Text(
-                                    "Add Images",
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.blue),
-                                  ),
-                                  style: OutlinedButton.styleFrom(
-                                    side: BorderSide(color: Colors.blue, width: 2),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
+                                // ADD IMAGES BUTTON
+                                Flexible(
+                                  flex: 1,
+                                  child: OutlinedButton.icon(
+                                    onPressed: _captureImage,
+                                    icon: Icon(Icons.add, color: Colors.blue, size: 22),
+                                    label: FittedBox(
+                                      child: Text(
+                                        "Add Images",
+                                        style: TextStyle(
+                                          fontSize: screenWidth * 0.04,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.blue,
+                                        ),
+                                      ),
                                     ),
-                                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+                                    style: OutlinedButton.styleFrom(
+                                      side: BorderSide(color: Colors.blue, width: 2),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                                    ),
                                   ),
                                 ),
 
-                                SizedBox(width: 15),
+                                SizedBox(width: 10),
 
-                                // SAVE AS PDF BUTTON (Solid)
-                                ElevatedButton.icon(
-                                  onPressed: _convertToPDF,
-                                  icon: Icon(Icons.picture_as_pdf, color: Colors.white, size: 22),
-                                  label: Text(
-                                    "Save as PDF",
-                                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.redAccent,
-                                    foregroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(12),
+                                // SAVE AS PDF BUTTON
+                                Flexible(
+                                  flex: 1,
+                                  child: ElevatedButton.icon(
+                                    onPressed: _convertToPDF,
+                                    icon: Icon(Icons.picture_as_pdf, color: Colors.white, size: 22),
+                                    label: FittedBox(
+                                      child: Text(
+                                        "Save as PDF",
+                                        style: TextStyle(
+                                          fontSize: screenWidth * 0.04,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
                                     ),
-                                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                                    shadowColor: Colors.black26,
-                                    elevation: 4,
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.redAccent,
+                                      foregroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 8),
+                                      shadowColor: Colors.black26,
+                                      elevation: 4,
+                                    ),
                                   ),
                                 ),
                               ],
