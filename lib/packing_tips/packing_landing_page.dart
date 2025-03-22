@@ -8,6 +8,8 @@ class PackingLandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -44,10 +46,10 @@ class PackingLandingPage extends StatelessWidget {
                       return Opacity(opacity: opacity, child: child);
                     },
                     child: Text(
-                      "Smart Packing Starts Here!\n \n",
+                      "\n Smart Packing Starts Here!\n ",
                       style: GoogleFonts.caveat(
                         textStyle: TextStyle(
-                          fontSize: 40,
+                          fontSize: screenWidth * 0.099,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                           letterSpacing: 1.2,
@@ -56,7 +58,7 @@ class PackingLandingPage extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  SizedBox(height: 380),
+                  SizedBox(height: 360),
 
                   // Glassmorphic Container
                   Container(
@@ -124,7 +126,7 @@ class PackingLandingPage extends StatelessWidget {
 
           // Popup Menu Button
           Positioned(
-            top: 60,
+            top: screenHeight * 0.065,
             right: 15,
             child: PopupMenuButton<String>(
               icon: Icon(Icons.menu, color: Colors.black, size: 40),

@@ -6,6 +6,7 @@ import 'packing_selection_screen.dart';
 
 class TravelDetails extends StatelessWidget {
   const TravelDetails({super.key});
+
   @override
   Widget build(BuildContext context) {
     return UI(
@@ -33,14 +34,14 @@ class TravelDetails extends StatelessWidget {
               children: [
                 // Attractive Heading
                 Text(
-                  " Are There Any Children Traveling With You?",
+                  "Are There Any Children Traveling With You?",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.mulish(
                     textStyle: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
+                      fontSize: 26,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
                   ),
                 ),
                 SizedBox(height: 8),
@@ -59,55 +60,59 @@ class TravelDetails extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SecurityBasedTips(),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SecurityBasedTips(),
+                            ),
+                          );
+                        },
+                        icon: Icon(Icons.close, color: Colors.white),
+                        label: Text(
+                          "NO",
+                          style: GoogleFonts.lobster(
+                            textStyle: TextStyle(fontSize: 18, color: Colors.white),
                           ),
-                        );
-                      },
-                      icon: Icon(Icons.close, color: Colors.white),
-                      label: Text(
-                        "NO",
-                        style: GoogleFonts.lobster(
-                          textStyle: TextStyle(fontSize: 18, color: Colors.white),
                         ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        minimumSize: Size(140, 55),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          minimumSize: Size(140, 55),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          elevation: 5,
                         ),
-                        elevation: 5,
                       ),
                     ),
-                    SizedBox(width: 20),
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PackingSelectionScreen(),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PackingSelectionScreen(),
+                            ),
+                          );
+                        },
+                        icon: Icon(Icons.check, color: Colors.white),
+                        label: Text(
+                          "YES",
+                          style: GoogleFonts.lobster(
+                            textStyle: TextStyle(fontSize: 18, color: Colors.white),
                           ),
-                        );
-                      },
-                      icon: Icon(Icons.check, color: Colors.white),
-                      label: Text(
-                        "YES",
-                        style: GoogleFonts.lobster(
-                          textStyle: TextStyle(fontSize: 18, color: Colors.white),
                         ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue[900],
-                        minimumSize: Size(140, 55),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue[900],
+                          minimumSize: Size(140, 55),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          elevation: 5,
                         ),
-                        elevation: 5,
                       ),
                     ),
                   ],

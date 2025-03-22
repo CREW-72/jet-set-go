@@ -18,7 +18,7 @@ class TechTips extends StatelessWidget {
   Widget build(BuildContext context) {
     return UI(
       title: 'TECH TIPS',
-      subtitle: 'FOR SMART TRAVEL',
+      subtitle: 'FOR TRAVELERS',
       body: Column(
         children: [
           SizedBox(height: 155),

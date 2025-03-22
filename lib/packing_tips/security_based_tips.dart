@@ -49,7 +49,7 @@ class SecurityBasedTips extends StatelessWidget {
   Widget build(BuildContext context) {
     return UI(
       title: 'SECURITY TIPS',
-      subtitle: 'FOR SAFE TRAVEL',
+      subtitle: 'FOR TRAVELERS',
       body: DefaultTabController(
         length: tips.keys.length,
         child: Column(

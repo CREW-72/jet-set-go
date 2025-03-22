@@ -16,6 +16,8 @@ class UI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       // BACKGROUND PICTURE WITH BODY
       body: Stack(
@@ -41,16 +43,15 @@ class UI extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 104,
-            left: 145,
-            right: 0,
+            top: screenHeight * 0.119,
+            right: screenWidth * 0.3,
             child: Image.asset(
               "assets/plane.png",
               height: 50, // Adjust the size as needed
             ),
           ),
           Positioned(
-            top: 118,
+            top: screenHeight * 0.137,
             left: 24,
             right: 170,
             child: Image.asset(
@@ -59,13 +60,13 @@ class UI extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 60,
+            top: screenHeight * 0.065,
             left: 24,
             child: Text(
               title,
               style: GoogleFonts.ubuntu(
                 textStyle: TextStyle(
-                  fontSize: 40,
+                  fontSize: screenWidth * 0.08,
                   fontWeight: FontWeight.w900,
                   color: Colors.white,
                   letterSpacing: 3.0, // Increase the width of the letters
@@ -74,13 +75,13 @@ class UI extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 107,
+            top: screenHeight * 0.13,
             left: 24,
             child: Text(
               subtitle,
               style: GoogleFonts.ubuntu(
                 textStyle: TextStyle(
-                  fontSize: 20,
+                  fontSize: screenWidth * 0.05,
                   color: Colors.white,
                   letterSpacing: 2.0,
                 ),
@@ -88,7 +89,7 @@ class UI extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 60,
+            top: screenHeight * 0.065,
             right: 15,
             child: PopupMenuButton<String>(
               icon: Icon(Icons.menu, color: Colors.white, size: 40),

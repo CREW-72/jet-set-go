@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class TravelChoice extends StatelessWidget {
   const TravelChoice({super.key});
+
   @override
   Widget build(BuildContext context) {
     return UI(
@@ -33,7 +34,7 @@ class TravelChoice extends StatelessWidget {
               children: [
                 // Attractive Heading
                 Text(
-                  " Who’s Joining Your Journey?",
+                  "Who’s Joining Your Journey?",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.mulish(
                     textStyle: TextStyle(
@@ -59,55 +60,59 @@ class TravelChoice extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SecurityBasedTips(),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SecurityBasedTips(),
+                            ),
+                          );
+                        },
+                        icon: Icon(Icons.person, color: Colors.white),
+                        label: Text(
+                          "Solo",
+                          style: GoogleFonts.lobster(
+                            textStyle: TextStyle(fontSize: 18, color: Colors.white),
                           ),
-                        );
-                      },
-                      icon: Icon(Icons.person, color: Colors.white),
-                      label: Text(
-                        "Solo",
-                        style: GoogleFonts.lobster(
-                          textStyle: TextStyle(fontSize: 18, color: Colors.white),
                         ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        minimumSize: Size(140, 55),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          minimumSize: Size(140, 55),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          elevation: 5,
                         ),
-                        elevation: 5,
                       ),
                     ),
-                    SizedBox(width: 20),
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TravelDetails(),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => TravelDetails(),
+                            ),
+                          );
+                        },
+                        icon: Icon(Icons.family_restroom, color: Colors.white),
+                        label: Text(
+                          "Family",
+                          style: GoogleFonts.lobster(
+                            textStyle: TextStyle(fontSize: 18, color: Colors.white),
                           ),
-                        );
-                      },
-                      icon: Icon(Icons.family_restroom, color: Colors.white),
-                      label: Text(
-                        "Family",
-                        style: GoogleFonts.lobster(
-                          textStyle: TextStyle(fontSize: 18, color: Colors.white),
                         ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue[900],
-                        minimumSize: Size(140, 55),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue[900],
+                          minimumSize: Size(140, 55),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          elevation: 5,
                         ),
-                        elevation: 5,
                       ),
                     ),
                   ],
