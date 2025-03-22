@@ -12,8 +12,8 @@ class UnaccompaniedMinors extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UI(
-      title: "Special",
-      subtitle: "Independent Support",
+      title: "INDEPENDENT",
+      subtitle: "SUPPORT",
       body: Column(
         children: [
           Expanded(

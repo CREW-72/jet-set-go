@@ -12,8 +12,8 @@ class ReducedMobility extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UI(
-      title: "Special",
-      subtitle: "Mobility Assistance",
+      title: "MOBILITY",
+      subtitle: "ASSISTANCE",
       body: Column(
         children: [
           Expanded(

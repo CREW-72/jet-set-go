@@ -12,8 +12,8 @@ class TravellingDuringPregnancy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UI(
-      title: "Special",
-      subtitle: "Maternity Support",
+      title: "MATERNITY",
+      subtitle: "SUPPORT",
       body: Column(
         children: [
           Expanded(

@@ -8,6 +8,7 @@ class DisabilityForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return UI(
       title: "Special",
       subtitle: "Assistance",
@@ -36,7 +37,7 @@ class DisabilityForm extends StatelessWidget {
                               "Disability Assistance Request Form",
                               style: GoogleFonts.mulish(
                                 textStyle: TextStyle(
-                                  fontSize: 26,
+                                  fontSize: screenWidth * 0.069,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.blue[900],
                                 ),
@@ -53,7 +54,7 @@ class DisabilityForm extends StatelessWidget {
                               child: Text(
                                 "This form is provided by Sri Lankan Airlines to request assistance.\nPlease note that, this is not available for flights departing in the next 72 hours.",
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: screenWidth * 0.045,
                                   color: Colors.blue[900],
                                   fontWeight: FontWeight.w600,
                                 ),

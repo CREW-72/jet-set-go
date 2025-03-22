@@ -6,11 +6,12 @@ class UnaccompaniedMinorsInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Unaccompanied Minors Info",
-          style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold),
+          style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold, fontSize: screenWidth * 0.054),
         ),
         backgroundColor: Color(0xFF1C263F),
         foregroundColor: Colors.white,

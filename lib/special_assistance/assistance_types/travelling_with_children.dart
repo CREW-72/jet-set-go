@@ -12,8 +12,8 @@ class TravellingWithChildren extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UI(
-      title: 'Special',
-      subtitle: 'Family Assistance',
+      title: 'FAMILY',
+      subtitle: 'ASSISTANCE',
       body: Column(
         children: [
           Expanded(

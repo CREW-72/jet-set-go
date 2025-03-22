@@ -8,6 +8,8 @@ class SpecialAssistanceLandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -49,9 +51,9 @@ class SpecialAssistanceLandingPage extends StatelessWidget {
                       return Opacity(opacity: opacity, child: child);
                     },
                     child: Text(
-                      "Receive Guidance  \n On  \n Special Assistance ",
+                      " Receive Guidance  \n On  \n Special Assistance ",
                       style: GoogleFonts.caveat(
-                        fontSize: 35,
+                        fontSize: screenWidth * 0.099,
                         fontWeight: FontWeight.bold,
                         color: Colors.black, // Improved contrast
                         letterSpacing: 1.2,
@@ -60,7 +62,7 @@ class SpecialAssistanceLandingPage extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox(height: 450), // Adds space between text and button
+                  SizedBox(height: 410), // Adds space between text and button
 
                   // Glassmorphic Container
                   Container(
@@ -127,7 +129,7 @@ class SpecialAssistanceLandingPage extends StatelessWidget {
           ),
           // Popup Menu Button
           Positioned(
-            top: 60,
+            top: screenHeight * 0.065,
             right: 15,
             child: PopupMenuButton<String>(
               icon: Icon(Icons.menu, color: Colors.black, size: 40),

@@ -6,11 +6,12 @@ class TravellingWithChildrenInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           "Travelling With Children",
-          style: GoogleFonts.mulish(fontWeight: FontWeight.bold),
+          style: GoogleFonts.mulish(fontWeight: FontWeight.bold, fontSize: screenWidth * 0.054),
         ),
         backgroundColor: Color(0xFF1C263F),
         foregroundColor: Colors.white,

@@ -6,11 +6,12 @@ class MedicalClearanceInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Medical Clearance Information",
-          style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold),
+          "Medical Clearance Info",
+          style: GoogleFonts.ubuntu(fontWeight: FontWeight.bold, fontSize: screenWidth * 0.054),
         ),
         backgroundColor: Color(0xFF1C263F),
         foregroundColor: Colors.white,

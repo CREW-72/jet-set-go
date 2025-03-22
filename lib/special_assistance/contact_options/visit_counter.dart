@@ -7,6 +7,7 @@ class VisitCounter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return UI(
       title: "Special",
       subtitle: "Assistance",
@@ -35,7 +36,7 @@ class VisitCounter extends StatelessWidget {
                               "Visit Passenger Service Counter",
                               style: GoogleFonts.mulish(
                                 textStyle: TextStyle(
-                                  fontSize: 26,
+                                  fontSize: screenWidth * 0.069,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.blue[900],
                                 ),
@@ -52,7 +53,7 @@ class VisitCounter extends StatelessWidget {
                               child: Text(
                                 "For any special assistance needed, Visit the Passenger Service Unit located at the BIA premises.\nClick 'Continue' and we’ll direct you to the counter.",
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: screenWidth * 0.045,
                                   color: Colors.blue[900],
                                   fontWeight: FontWeight.w600,
                                 ),

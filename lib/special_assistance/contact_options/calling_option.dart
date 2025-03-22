@@ -11,6 +11,7 @@ class CallingOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return UI(
       title: "Special",
       subtitle: "Assistance",
@@ -48,7 +49,7 @@ class CallingOption extends StatelessWidget {
                               "Call BIA Passenger Service Unit",
                               style: GoogleFonts.mulish(
                                 textStyle: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: screenWidth * 0.069,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.blue[900],
                                 ),
@@ -65,7 +66,7 @@ class CallingOption extends StatelessWidget {
                               child: Text(
                                 "The BIA Service Center is located at the BIA premises. Call +94197332382 for guidance and to arrange required assistance.",
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: screenWidth * 0.045,
                                   color: Colors.blue[900],
                                   fontWeight: FontWeight.w600,
                                 ),
