@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/homepages/homepage_registered_user.dart';
 import 'package:jet_set_go/authentication/welcome_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class HomePageUnregistered extends StatefulWidget {
@@ -334,7 +335,18 @@ class HomePageUnregisteredState extends State<HomePageUnregistered> {
           ),
           elevation: 4,
           child: InkWell(
-            onTap: () {},
+            onTap: () async{
+              if (title == "FAQ") {
+                final url = Uri.parse("https://jetsetgo-kappa.vercel.app/faq");
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url, mode: LaunchMode.externalApplication);
+                } else {
+                  throw 'Could not launch $url';
+                }
+              } else if (title == "App Guide") {
+                // Handle App Guide action
+              }
+            },
             child: Ink(
               decoration: BoxDecoration(
                 image: DecorationImage(
