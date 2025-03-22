@@ -165,6 +165,9 @@ class TransportScreenState extends State<TransportScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -186,12 +189,12 @@ class TransportScreenState extends State<TransportScreen> {
             child: Image.asset("assets/images/headerBackground.png", height: 160, fit: BoxFit.cover),
           ),
           Positioned(
-            top: 60,
-            left: 20,
+            top: screenHeight * 0.07,
+            left: screenWidth * 0.05,
             child: Text(
               'TRANSPORT',
               style: GoogleFonts.ubuntu(
-                fontSize: 40,
+                fontSize: screenWidth * 0.07,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
                 letterSpacing: 3.0,
@@ -200,35 +203,45 @@ class TransportScreenState extends State<TransportScreen> {
           ),
 
           Positioned(
-            top: 105,
-            left: 24,
+            top: screenHeight * 0.125,
+            left: screenWidth * 0.06,
             child: Text(
               'ASSISTANCE',
-              style: GoogleFonts.ubuntu(fontSize: 20, color: Colors.white, letterSpacing: 2.0),
-            ),
-          ),
-
-          Container(
-            margin: EdgeInsets.only(top: 135,left: 25),
-            width: 275,
-            height: 4,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
+              style: GoogleFonts.ubuntu(
+                fontSize: screenWidth * 0.045,
+                color: Colors.white,
+                letterSpacing: 2.0,
+              ),
             ),
           ),
 
           Positioned(
-            top: 95,
-            right: 80,
-            child: Image.asset("assets/images/takeoff.png", height: 40),
+            top: screenHeight * 0.17,
+            left: screenWidth * 0.06,
+            child: Container(
+              width: screenWidth * 0.7,
+              height: screenHeight * 0.005,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
           ),
 
           Positioned(
-            top: 60,
-            right: 15,
+            top: screenHeight * 0.12,
+            right: screenWidth * 0.18,
+            child: Image.asset(
+              "assets/images/takeoff.png",
+              height: screenHeight * 0.05,
+            ),
+          ),
+
+          Positioned(
+            top: screenHeight * 0.075,
+            right: screenWidth * 0.04,
             child: PopupMenuButton<String>(
-              icon: Icon(Icons.menu, color: Colors.white, size: 40),
+              icon: Icon(Icons.menu, color: Colors.white, size: screenWidth * 0.1),
               color: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
@@ -264,11 +277,10 @@ class TransportScreenState extends State<TransportScreen> {
             ),
           ),
 
-
           Positioned(
-            top: 150,
-            left: 10,
-            right: 10,
+            top: screenHeight * 0.19,
+            left: screenWidth * 0.025,
+            right: screenWidth * 0.025,
             child: TransportOptions(
               onModeChanged: (mode) {
                 setState(() {
@@ -279,12 +291,16 @@ class TransportScreenState extends State<TransportScreen> {
             ),
           ),
 
+
           Positioned(
-            top: 215,
-            left: 20,
-            right: 20,
+            top: screenHeight * 0.275,
+            left: screenWidth * 0.05,
+            right: screenWidth * 0.05,
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              padding: EdgeInsets.symmetric(
+                vertical: screenHeight * 0.01,
+                horizontal: screenWidth * 0.04,
+              ),
               decoration: BoxDecoration(
                 color: Color(0xFFF8F9FA),
                 borderRadius: BorderRadius.circular(20),
@@ -299,20 +315,21 @@ class TransportScreenState extends State<TransportScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.access_time, color: Color(0xFF0A2647)),
-                  SizedBox(width: 8),
+                  Icon(Icons.access_time, color: Color(0xFF0A2647), size: screenWidth * 0.045),
+                  SizedBox(width: screenWidth * 0.02),
                   Text(
                     "Estimated Time: $_journeyDuration",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: screenWidth * 0.035,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF2B2B2B)
+                      color: Color(0xFF2B2B2B),
                     ),
                   ),
                 ],
               ),
             ),
           ),
+
 
           TravelOptionsSheet(),
         ],

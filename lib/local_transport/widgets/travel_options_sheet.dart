@@ -16,6 +16,9 @@ class TravelOptionsSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     double bottomPadding = 40;
 
     return DraggableScrollableSheet(
@@ -50,8 +53,8 @@ class TravelOptionsSheet extends StatelessWidget {
                 Text(
                   'TRAVEL OPTIONS',
                   style: GoogleFonts.ubuntu(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                    fontSize: screenWidth * 0.06,
                     color: Colors.white,
                     letterSpacing: 2.0,
                   ),
@@ -72,7 +75,7 @@ class TravelOptionsSheet extends StatelessWidget {
                         child: Text(
                           'Transportation Tips  ->',
                           style: GoogleFonts.ubuntu(
-                            fontSize: 22,
+                            fontSize: screenWidth * 0.05,
                             fontWeight: FontWeight.w600,
                             color: Color(0xFF0A4C80),
                             letterSpacing: 1.0,
@@ -85,8 +88,14 @@ class TravelOptionsSheet extends StatelessWidget {
                 SizedBox(height: 30),
                 Text(
                   '- Popular Travel Options -',
-                  style: TextStyle(fontSize: 25, color: Colors.white, letterSpacing: 2.0),
+                  style: GoogleFonts.ubuntu(
+                    fontWeight: FontWeight.w400,
+                    fontSize: screenWidth * 0.055,
+                    color: Colors.white,
+                    letterSpacing: 2.0,
+                  ),
                 ),
+
                 GridView.count(
                   crossAxisCount: 3,
                   padding: EdgeInsets.all(25),
@@ -111,17 +120,23 @@ class TravelOptionsSheet extends StatelessWidget {
   }
 
   Widget _buildRideButton(String imagePath, String packageName, String appStoreUrl) {
-    return GestureDetector(
-      onTap: () => _openRideApp(packageName, appStoreUrl),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(15), // ✅ Smooth rounded corners for the logos
-        child: Image.asset(
-          imagePath,
-          height: 20, //Adjust logo size
-          width: 20,  //Adjust logo size
-          fit: BoxFit.contain, // Ensures logo scales properly without background
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final logoSize = constraints.maxWidth * 0.6; // Responsive within each grid tile
+
+        return GestureDetector(
+          onTap: () => _openRideApp(packageName, appStoreUrl),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: Image.asset(
+              imagePath,
+              height: logoSize,
+              width: logoSize,
+              fit: BoxFit.contain,
+            ),
+          ),
+        );
+      },
     );
   }
 }
