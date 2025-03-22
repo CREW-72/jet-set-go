@@ -5,10 +5,11 @@ import 'package:jet_set_go/packing_tips/packing_landing_page.dart';
 import 'package:jet_set_go/document_upload/document_selection_page.dart';
 import 'package:jet_set_go/special_assistance/special_assistance_landing_page.dart';
 import 'package:jet_set_go/local_transport/transport_screen.dart';
-import 'package:jet_set_go/airport_navigation/map_screen.dart';
+import 'package:jet_set_go/airport_navigation/navigation_landing.dart';
 import 'package:jet_set_go/flight_tracking/flight_tracking_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/travel_tips/travel_tips.dart';
+import 'package:jet_set_go/authentication/welcome_screen.dart';
 
 
 class HomePageRegistered extends StatefulWidget {
@@ -298,6 +299,16 @@ class HomePageRegisteredState extends State<HomePageRegistered> {
     );
   }
 
+  void _signOutAndRedirect(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const WelcomeScreen()),
+          (route) => false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -355,6 +366,9 @@ class HomePageRegisteredState extends State<HomePageRegistered> {
                             case 'Profile':
                               Navigator.pushNamed(context, '/profile');
                               break;
+                            case 'Sign Out':
+                              _signOutAndRedirect(context);
+                              break;
                           }
                         },
                         itemBuilder: (BuildContext context) {
@@ -363,6 +377,7 @@ class HomePageRegisteredState extends State<HomePageRegistered> {
                             _buildMenuItem(Icons.settings, 'Settings'),
                             _buildMenuItem(Icons.lightbulb, 'Features'),
                             _buildMenuItem(Icons.person, 'Profile'),
+                            _buildMenuItem(Icons.logout, 'Sign Out'),
                           ];
                         },
                       ),
@@ -458,7 +473,7 @@ class HomePageRegisteredState extends State<HomePageRegistered> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _buildFeatureButton("assets/images/taxi.png", "Transport", TransportScreen()),
-                        _buildFeatureButton("assets/images/map.png", "Airport Navigation", MapScreen()),
+                        _buildFeatureButton("assets/images/map.png", "Airport Navigation", NavigationLanding()),
                       ],
                     ),
                     Row(
