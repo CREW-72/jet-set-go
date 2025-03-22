@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:jet_set_go/packing_tips/style.dart'; // New style import
 
 import '../contact_options/calling_option.dart';
+import '../contact_options/disability_form.dart';
 import '../contact_options/visit_counter.dart';
 import '../information_pages/travelling_during_pregnancy_info.dart';
 
@@ -11,6 +12,9 @@ class TravellingDuringPregnancy extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return UI(
       title: "MATERNITY",
       subtitle: "SUPPORT",
@@ -21,19 +25,19 @@ class TravellingDuringPregnancy extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    const SizedBox(height: 120),
+                    SizedBox(height: screenHeight * 0.25),
                     Text(
                       "What Type of Special Assistance\n Do You Need?",
                       textAlign: TextAlign.center,
                       style: GoogleFonts.mulish(
                         textStyle: TextStyle(
-                          fontSize: 26,
+                          fontSize: screenWidth * 0.07,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: screenHeight * 0.03),
                     AssistanceOption(
                       icon: Icons.question_mark_rounded,
                       text: "What I Should Know About",
@@ -44,7 +48,16 @@ class TravellingDuringPregnancy extends StatelessWidget {
                         );
                       },
                     ),
-                    const SizedBox(height: 20),
+                    AssistanceOption(
+                      icon: Icons.file_copy,
+                      text: "Access Disability Assistance \n Request Form",
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => DisabilityForm()),
+                        );
+                      },
+                    ),
                     AssistanceOption(
                       icon: Icons.phone,
                       text: "Call BIA Passenger Service Unit",
@@ -55,7 +68,6 @@ class TravellingDuringPregnancy extends StatelessWidget {
                         );
                       },
                     ),
-                    const SizedBox(height: 20),
                     AssistanceOption(
                       icon: Icons.info,
                       text: "Visit Passenger Service Counter",
@@ -66,7 +78,7 @@ class TravellingDuringPregnancy extends StatelessWidget {
                         );
                       },
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: screenHeight * 0.03),
                   ],
                 ),
               ),
@@ -92,6 +104,8 @@ class AssistanceOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: GestureDetector(
@@ -102,7 +116,7 @@ class AssistanceOption extends StatelessWidget {
           height: 90,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Color.fromRGBO(255, 255, 255, 0.9),
+            color: Color.fromRGBO(255, 255, 255, 0.85),
             borderRadius: BorderRadius.circular(18),
             boxShadow: [
               BoxShadow(
@@ -117,14 +131,14 @@ class AssistanceOption extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Icon(icon, color: Colors.blue[900], size: 40),
-                const SizedBox(width: 20),
+                Icon(icon, color: Colors.blue[900], size: screenWidth * 0.1),
+                SizedBox(width: screenWidth * 0.05),
                 Expanded(
                   child: Text(
                     text,
                     style: TextStyle(
                       color: Colors.blue[900],
-                      fontSize: 16,
+                      fontSize: screenWidth * 0.04,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
