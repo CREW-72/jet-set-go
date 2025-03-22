@@ -19,7 +19,6 @@ dependencies:
   pdf: ^3.10.6             # For generating PDFs from images
   open_file: ^3.3.2        # To open/view saved documents
   google_fonts: ^4.0.4
-
   flutter_dotenv: ^5.0.2
   google_maps_flutter: ^2.5.0
   geolocator: ^13.0.2 #for getting users location
@@ -28,9 +27,6 @@ dependencies:
   provider: ^6.1.1 #for state management
   flutter_polyline_points: ^1.0.0 #to create routes
   location: ^5.0.3 #more precise location
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   flutter_gif: ^0.0.4
   flutter_image: ^4.1.12
@@ -53,6 +49,12 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: true
+  ios: false
+  image_path: "assets/icon.png"
 
 flutter:
   uses-material-design: true
@@ -65,7 +67,6 @@ flutter:
     - .env
     - assets/images/
     - assets/background.png
-    - assets/app bar background.png
     - assets/plane pattern.png
     - assets/takeoff-the-plane 2.png
     - assets/Line 1.png
@@ -76,7 +77,6 @@ flutter:
     - assets/elder Passenger.jpg
     - assets/packing_bg.jpg
     - assets/luggage.jpg
-    - assets/app_bar_bg.jpg
     - assets/background.jpg
     - assets/line.jpg
     - assets/plane_bg.jpg
@@ -87,6 +87,4 @@ flutter:
     - assets/special assistance backdrop.jpg
     - assets/navigation_back.jpg
 
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/to/resolution-aware-images
 
