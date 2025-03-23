@@ -1,3 +1,26 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.2.1' // Update to version 8.2.1
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0"
+        classpath 'com.google.gms:google-services:4.4.2' // Add Google services Gradle plugin
+    }
+}
+
+buildscript {
+    repositories {
+        google()         // Required for Android dependencies
+        mavenCentral()   // Required for some plugins
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.2.1' //// Updated AGP version
+        classpath 'com.google.gms:google-services:4.3.8' // Firebase Google Services Plugin
+    }
+}
+
 allprojects {
     repositories {
         google()
@@ -14,5 +37,4 @@ subprojects {
 }
 
 tasks.register("clean", Delete) {
-    delete rootProject.buildDir
 }
