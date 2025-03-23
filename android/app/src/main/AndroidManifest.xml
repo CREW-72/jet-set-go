@@ -11,7 +11,7 @@
     <uses-feature android:name="android.hardware.location.network" android:required="true" />
 
     <application
-        android:label="jet_set_go"
+        android:label="Jet Set Go"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:enableOnBackInvokedCallback="true"
