@@ -1,4 +1,4 @@
-package com.example.jet_set_go
+package com.crew72.jet_set_go
 
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine

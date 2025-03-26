@@ -1,6 +1,6 @@
 # Flutter-specific rules
 -keep class io.flutter.** { *; }
--keep class com.example.jet_set_go.** { *; }
+-keep class com.crew72.jet_set_go.** { *; }
 
 # Firebase-specific rules (if using Firebase)
 -keep class com.google.firebase.** { *; }

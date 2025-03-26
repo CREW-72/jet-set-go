@@ -42,7 +42,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.jet_set_go"
+        applicationId "com.crew72.jet_set_go"
         minSdkVersion 23  // Updated minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
