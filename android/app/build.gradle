@@ -47,22 +47,30 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        multiDexEnabled true
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(MY_KEYSTORE_FILE)  // Link the keystore file from gradle.properties
+            storePassword MY_STORE_PASSWORD   // Keystore password
+            keyAlias MY_KEY_ALIAS             // Key alias
+            keyPassword MY_KEY_PASSWORD       // Key password
+        }
     }
 
     buildTypes {
         release {
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release  // Use the release signing config
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 }
 
 flutter {
     source flutter.source
-}
-android {
-    defaultConfig {
-        minSdkVersion 23
-    }
 }
 
 dependencies {
@@ -72,6 +80,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-base:18.2.0'  // Ensure compatibility with latest versions
     implementation 'com.google.android.gms:play-services-auth:20.3.0'  // For auth-related services
     implementation 'com.google.android.gms:play-services-location:21.0.1' // Updated version for Location Services
+    implementation "androidx.multidex:multidex:2.0.1"
 }
 
 apply plugin: 'com.google.gms.google-services'
